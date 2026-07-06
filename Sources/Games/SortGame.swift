@@ -115,7 +115,7 @@ struct SortGame: View {
         Haptics.success()
         dragOffsets[piece.id] = .zero
         withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-            placedIDs.insert(piece.id)
+            _ = placedIDs.insert(piece.id)
         }
         if let category = categories.first(where: { $0.id == piece.categoryID }) {
             audio.speak("The \(piece.art.displayName) goes in \(category.title)!")
