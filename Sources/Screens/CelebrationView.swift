@@ -2,14 +2,25 @@ import SwiftUI
 
 /// Gentle success screen: banner, sticker reveal, calm twinkling stars.
 /// No loud fanfare — encouraging, never overstimulating.
+/// When the final activity in a world is finished, it also reveals the world's
+/// bonus character and points the child to their collection.
 struct CelebrationView: View {
     let worldID: String
     let activityID: String
 
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var audio: AudioService
+    @EnvironmentObject private var progress: ProgressStore
 
     @State private var revealed = false
+    @State private var bonusRevealed = false
+
+    private var world: BibleWorld? { ContentLibrary.world(worldID) }
+
+    private var worldComplete: Bool {
+        guard let world, world.bonusReward != nil else { return false }
+        return world.activities.allSatisfy { progress.isCompleted($0.id) }
+    }
 
     var body: some View {
         ZStack {
@@ -20,39 +31,81 @@ struct CelebrationView: View {
             GentleSparkles()
 
             if let pair = ContentLibrary.lookup(worldID: worldID, activityID: activityID) {
-                VStack(spacing: 22) {
-                    BannerTitle(text: "Great Job!", color: Theme.leaf, textSize: 42)
+                VStack(spacing: 18) {
+                    BannerTitle(text: worldComplete ? "You Did It!" : "Great Job!",
+                                color: Theme.leaf, textSize: 42)
 
                     Text(pair.activity.completionLine)
-                        .font(Theme.body(26))
+                        .font(Theme.body(24))
                         .foregroundColor(Theme.textDark)
 
-                    StickerView(collectible: pair.activity.reward)
-                        .frame(width: 210, height: 210)
-                        .scaleEffect(revealed ? 1 : 0.1)
-                        .opacity(revealed ? 1 : 0)
+                    HStack(spacing: 30) {
+                        VStack(spacing: 8) {
+                            StickerView(collectible: pair.activity.reward)
+                                .frame(width: worldComplete ? 150 : 200,
+                                       height: worldComplete ? 150 : 200)
+                                .scaleEffect(revealed ? 1 : 0.1)
+                                .opacity(revealed ? 1 : 0)
+                            Text(pair.activity.reward.name)
+                                .font(Theme.body(18))
+                                .foregroundColor(Theme.textDark.opacity(0.72))
+                        }
 
-                    Text("\(pair.activity.reward.name) joined your collection!")
-                        .font(Theme.body(20))
+                        // Bonus character revealed on world completion.
+                        if worldComplete, let bonus = world?.bonusReward {
+                            VStack(spacing: 8) {
+                                StickerView(collectible: bonus)
+                                    .frame(width: 150, height: 150)
+                                    .scaleEffect(bonusRevealed ? 1 : 0.1)
+                                    .opacity(bonusRevealed ? 1 : 0)
+                                Text(bonus.name)
+                                    .font(Theme.body(18))
+                                    .foregroundColor(Theme.textDark.opacity(0.72))
+                            }
+                        }
+                    }
+
+                    Text(worldComplete
+                         ? "You finished \(world?.title ?? "the story")! You earned a new friend."
+                         : "\(pair.activity.reward.name) joined your collection!")
+                        .font(Theme.body(19))
                         .foregroundColor(Theme.textDark.opacity(0.72))
+                        .multilineTextAlignment(.center)
 
-                    HStack(spacing: 26) {
-                        ChunkyButton(title: "More Games", icon: "arrow.backward", color: Theme.sunny, size: 24) {
+                    HStack(spacing: 22) {
+                        ChunkyButton(title: "More Games", icon: "arrow.backward", color: Theme.sunny, size: 22) {
                             router.go(.storyHub(worldID: worldID))
                         }
-                        ChunkyButton(title: "Home", icon: "house.fill", color: Theme.sky, size: 24) {
+                        if worldComplete {
+                            ChunkyButton(title: "My Collection", icon: "star.fill", color: Theme.berry, size: 22) {
+                                router.go(.collection)
+                            }
+                        }
+                        ChunkyButton(title: "Home", icon: "house.fill", color: Theme.sky, size: 22) {
                             router.go(.home)
                         }
                     }
                     .padding(.top, 6)
                 }
+                .padding(.horizontal, 24)
             }
         }
-        .onAppear {
-            withAnimation(.spring(response: 0.6, dampingFraction: 0.6).delay(0.25)) {
-                revealed = true
+        .onAppear(perform: reveal)
+    }
+
+    private func reveal() {
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.6).delay(0.25)) {
+            revealed = true
+        }
+        if worldComplete {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.55).delay(0.9)) {
+                bonusRevealed = true
             }
-            if let pair = ContentLibrary.lookup(worldID: worldID, activityID: activityID) {
+        }
+        if let pair = ContentLibrary.lookup(worldID: worldID, activityID: activityID) {
+            if worldComplete {
+                audio.speak("You did it! You finished \(world?.title ?? "the story") and earned a new friend!")
+            } else {
                 audio.speak("Great job! " + pair.activity.completionLine)
             }
         }
@@ -69,7 +122,7 @@ struct StickerView: View {
                 .strokeBorder(Theme.sunny,
                               style: StrokeStyle(lineWidth: 6, lineCap: .round, dash: [1, 12]))
                 .padding(6)
-            ArtView(key: collectible.art).padding(34)
+            ArtView(key: collectible.art).padding(30)
         }
         .shadow(color: .black.opacity(0.15), radius: 10, y: 6)
     }
@@ -108,7 +161,7 @@ struct GentleSparkles: View {
                 let colors = [Theme.sunny, Theme.coral, Theme.sky, Theme.berry, Theme.leaf]
                 sparks = (0..<14).map { i in
                     // keep sparkles near the edges, away from the sticker
-                    let x: CGFloat = Bool.random() ? .random(in: 0.04...0.22) : .random(in: 0.78...0.96)
+                    let x: CGFloat = Bool.random() ? .random(in: 0.04...0.20) : .random(in: 0.80...0.96)
                     return Spark(x: x,
                                  y: .random(in: 0.08...0.9),
                                  size: .random(in: 18...34),

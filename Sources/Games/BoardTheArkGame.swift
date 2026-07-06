@@ -1,7 +1,8 @@
 import SwiftUI
 
-/// Template 2: drag and drop. Drag each animal from the meadow onto the ark;
-/// animals fly to a deck slot when they land, spring home when they miss.
+/// Template 2 (v2): drag and drop with a purpose. Animals come **two by two**
+/// (the Bible detail), each reacts as it boards, the ark fills up, and when the
+/// last pair is aboard the rain comes and a rainbow appears — a real payoff.
 struct BoardTheArkGame: View {
     let animals: [ArtKey]
     let onComplete: () -> Void
@@ -9,79 +10,175 @@ struct BoardTheArkGame: View {
     @EnvironmentObject private var audio: AudioService
     @Namespace private var boarding
 
-    @State private var boarded: [ArtKey] = []
-    @State private var dragOffsets: [ArtKey: CGSize] = [:]
-    @State private var draggingAnimal: ArtKey?
+    private struct Passenger: Identifiable, Equatable {
+        let id = UUID()
+        let art: ArtKey
+    }
+
+    private enum Phase { case boarding, payoff }
+
+    @State private var passengers: [Passenger] = []
+    @State private var boarded: [Passenger] = []
+    @State private var dragOffsets: [UUID: CGSize] = [:]
+    @State private var dragging: UUID?
+    @State private var phase: Phase = .boarding
+    @State private var showRainbow = false
+
+    private var total: Int { passengers.count }
 
     var body: some View {
         GeometryReader { geo in
             let w = geo.size.width
             let h = geo.size.height
-            let arkRect = CGRect(x: w * 0.28, y: h * 0.02, width: w * 0.44, height: h * 0.62)
-            let animalSize = min(w, h) * 0.26
+            let arkRect = CGRect(x: w * 0.30, y: h * 0.04, width: w * 0.40, height: h * 0.52)
+            let animalSize = min(w, h) * 0.20
 
             ZStack {
-                // water beneath the ark
+                // Water beneath the ark.
                 Ellipse()
                     .fill(Color(red: 0.55, green: 0.78, blue: 0.92).opacity(0.65))
-                    .frame(width: arkRect.width * 1.45, height: h * 0.15)
-                    .position(x: arkRect.midX, y: arkRect.maxY + h * 0.01)
+                    .frame(width: arkRect.width * 1.5, height: h * 0.14)
+                    .position(x: arkRect.midX, y: arkRect.maxY + h * 0.02)
+
+                // Rain during the payoff.
+                if phase == .payoff {
+                    StormCloudArt()
+                        .frame(width: w * 0.3, height: w * 0.3)
+                        .position(x: arkRect.midX, y: arkRect.minY - h * 0.02)
+                        .transition(.opacity)
+                }
 
                 ArkArt()
                     .frame(width: arkRect.width, height: arkRect.height)
                     .position(x: arkRect.midX, y: arkRect.midY)
 
-                // animals already on deck
-                ForEach(Array(boarded.enumerated()), id: \.element) { index, animal in
-                    ArtView(key: animal)
-                        .frame(width: arkRect.width * 0.17, height: arkRect.width * 0.17)
-                        .matchedGeometryEffect(id: animal, in: boarding)
-                        .position(x: arkRect.minX + arkRect.width * (0.20 + 0.20 * CGFloat(index)),
-                                  y: arkRect.minY + arkRect.height * 0.33)
+                // Rainbow payoff arcs over the ark.
+                if showRainbow {
+                    RainbowArt()
+                        .frame(width: arkRect.width * 1.6, height: arkRect.width * 1.0)
+                        .position(x: arkRect.midX, y: arkRect.minY + h * 0.02)
+                        .transition(.scale(scale: 0.4).combined(with: .opacity))
                 }
 
-                // animals waiting in the meadow
-                ForEach(animals.filter { !boarded.contains($0) }, id: \.self) { animal in
-                    let index = animals.firstIndex(of: animal) ?? 0
-                    let base = CGPoint(x: w * (0.14 + 0.24 * CGFloat(index)), y: h * 0.80)
-                    ArtView(key: animal)
-                        .frame(width: animalSize, height: animalSize)
-                        .matchedGeometryEffect(id: animal, in: boarding)
-                        .offset(dragOffsets[animal] ?? .zero)
-                        .position(base)
-                        .zIndex(draggingAnimal == animal ? 5 : 1)
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    draggingAnimal = animal
-                                    dragOffsets[animal] = value.translation
-                                }
-                                .onEnded { value in
-                                    let dropPoint = CGPoint(x: base.x + value.translation.width,
-                                                            y: base.y + value.translation.height)
-                                    if arkRect.insetBy(dx: -30, dy: -30).contains(dropPoint) {
-                                        board(animal)
-                                    } else {
-                                        withAnimation(.spring(response: 0.45, dampingFraction: 0.6)) {
-                                            dragOffsets[animal] = .zero
-                                        }
-                                    }
-                                }
+                // Animals already on deck.
+                ForEach(Array(boarded.enumerated()), id: \.element.id) { index, passenger in
+                    let perRow = 4
+                    let col = index % perRow
+                    let row = index / perRow
+                    ArtView(key: passenger.art)
+                        .frame(width: arkRect.width * 0.20, height: arkRect.width * 0.20)
+                        .matchedGeometryEffect(id: passenger.id, in: boarding)
+                        .position(
+                            x: arkRect.minX + arkRect.width * (0.18 + 0.21 * CGFloat(col)),
+                            y: arkRect.minY + arkRect.height * (0.34 + 0.20 * CGFloat(row))
                         )
                 }
+
+                // Animals waiting in the meadow (fixed home slots so they don't jump).
+                ForEach(Array(passengers.enumerated()), id: \.element.id) { index, passenger in
+                    if !boarded.contains(passenger) {
+                        let home = waitingPosition(index: index, count: total, size: geo.size)
+                        ArtView(key: passenger.art)
+                            .frame(width: animalSize, height: animalSize)
+                            .matchedGeometryEffect(id: passenger.id, in: boarding)
+                            .offset(dragOffsets[passenger.id] ?? .zero)
+                            .position(home)
+                            .zIndex(dragging == passenger.id ? 5 : 1)
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { value in
+                                        guard phase == .boarding else { return }
+                                        dragging = passenger.id
+                                        dragOffsets[passenger.id] = value.translation
+                                    }
+                                    .onEnded { value in
+                                        let drop = CGPoint(x: home.x + value.translation.width,
+                                                           y: home.y + value.translation.height)
+                                        if arkRect.insetBy(dx: -40, dy: -40).contains(drop) {
+                                            board(passenger)
+                                        } else {
+                                            withAnimation(.spring(response: 0.45, dampingFraction: 0.6)) {
+                                                dragOffsets[passenger.id] = .zero
+                                            }
+                                        }
+                                        dragging = nil
+                                    }
+                            )
+                    }
+                }
+
+                // Progress: how many aboard.
+                ProgressPips(filled: boarded.count, total: total)
+                    .position(x: w / 2, y: h * 0.95)
             }
+        }
+        .onAppear(perform: setUp)
+    }
+
+    private func setUp() {
+        guard passengers.isEmpty else { return }
+        // Two of each animal — two by two.
+        passengers = animals.flatMap { [Passenger(art: $0), Passenger(art: $0)] }.shuffled()
+    }
+
+    private func waitingPosition(index: Int, count: Int, size: CGSize) -> CGPoint {
+        let fraction = count > 1 ? CGFloat(index) / CGFloat(count - 1) : 0.5
+        let x = size.width * (0.10 + 0.80 * fraction)
+        return CGPoint(x: x, y: size.height * 0.82)
+    }
+
+    private func board(_ passenger: Passenger) {
+        Haptics.soft()
+        dragOffsets[passenger.id] = .zero
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+            boarded.append(passenger)
+        }
+
+        // Narrate when a species' pair is complete.
+        let sameSpecies = boarded.filter { $0.art == passenger.art }.count
+        if sameSpecies == 2 {
+            audio.speak("Two \(passenger.art.displayName)s are safe on the ark!")
+        } else {
+            audio.speak("A \(passenger.art.displayName) climbs aboard.")
+        }
+
+        if boarded.count == total {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: startPayoff)
         }
     }
 
-    private func board(_ animal: ArtKey) {
-        Haptics.soft()
-        dragOffsets[animal] = .zero
-        withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-            boarded.append(animal)
+    private func startPayoff() {
+        withAnimation(.easeInOut(duration: 0.5)) { phase = .payoff }
+        audio.speak("Everyone is safe inside!")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+            withAnimation(.spring(response: 0.7, dampingFraction: 0.7)) {
+                phase = .boarding // clear the rain
+                showRainbow = true
+            }
+            audio.speak("Look — a beautiful rainbow!")
         }
-        audio.speak("The \(animal.displayName) is on the ark!")
-        if boarded.count == animals.count {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3, execute: onComplete)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2, execute: onComplete)
+    }
+}
+
+/// A row of pips that fill as items are placed — reusable progress indicator.
+struct ProgressPips: View {
+    let filled: Int
+    let total: Int
+
+    var body: some View {
+        HStack(spacing: 10) {
+            ForEach(0..<total, id: \.self) { i in
+                Circle()
+                    .fill(i < filled ? Theme.leaf : Color.white.opacity(0.8))
+                    .overlay(Circle().strokeBorder(Theme.outline.opacity(0.2), lineWidth: 2))
+                    .frame(width: 22, height: 22)
+                    .scaleEffect(i < filled ? 1.0 : 0.8)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.6), value: filled)
+            }
         }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 10)
+        .background(Capsule().fill(Color.white.opacity(0.5)))
     }
 }
