@@ -73,7 +73,7 @@ enum ContentLibrary {
                 introLine: "The animals come two by two! Can you find the matching pairs?",
                 completionLine: "You matched all the animals!",
                 icon: .lion,
-                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .dove]),
+                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .dove, .sheep, .fish]),
                 reward: Collectible(id: "c-lion", name: "Lion", art: .lion, kind: .animal)
             ),
             Activity(
@@ -109,30 +109,6 @@ enum ContentLibrary {
                     SequenceStep(art: .rainbow, caption: "A rainbow appears")
                 ]),
                 reward: Collectible(id: "c-rainbow", name: "Rainbow", art: .rainbow, kind: .badge)
-            ),
-            Activity(
-                id: "noah-sort",
-                title: "Sort the Animals",
-                subtitle: "Land, sea, or sky?",
-                introLine: "The animals live in different places. Can you help each one find its home?",
-                completionLine: "You sorted every animal!",
-                icon: .giraffe,
-                spec: .sortClassify(
-                    categories: [
-                        SortCategory(id: "land", title: "Land", color: Theme.leaf),
-                        SortCategory(id: "sea", title: "Sea", color: Theme.sky),
-                        SortCategory(id: "sky", title: "Sky", color: Theme.berry)
-                    ],
-                    items: [
-                        SortItem(art: .lion, categoryID: "land"),
-                        SortItem(art: .giraffe, categoryID: "land"),
-                        SortItem(art: .fish, categoryID: "sea"),
-                        SortItem(art: .fish, categoryID: "sea"),
-                        SortItem(art: .dove, categoryID: "sky"),
-                        SortItem(art: .dove, categoryID: "sky")
-                    ]
-                ),
-                reward: Collectible(id: "c-giraffe", name: "Giraffe", art: .giraffe, kind: .animal)
             ),
             Activity(
                 id: "noah-find",

@@ -18,6 +18,7 @@ struct ActionSequenceGame: View {
     @State private var wrongTool: ArtKey?
     @State private var bump = false
     @State private var saidHint = false
+    @State private var pulse = false
 
     private var centralArt: ArtKey {
         stepIndex == 0 ? start : steps[stepIndex - 1].result
@@ -54,6 +55,7 @@ struct ActionSequenceGame: View {
                 // Tools to drag (stay available; pick the right next one).
                 ForEach(Array(tools.enumerated()), id: \.element) { index, tool in
                     let home = toolPosition(index: index, count: tools.count, size: geo.size)
+                    let isNext = stepIndex < steps.count && tool == steps[stepIndex].tool && dragging == nil
                     ArtView(key: tool)
                         .padding(toolSize * 0.16)
                         .frame(width: toolSize, height: toolSize)
@@ -62,6 +64,12 @@ struct ActionSequenceGame: View {
                                 .fill(Color.white)
                                 .shadow(color: .black.opacity(0.12), radius: 5, y: 3)
                         )
+                        .overlay(
+                            Circle()
+                                .strokeBorder(Theme.sunny, lineWidth: 4)
+                                .opacity(isNext ? (pulse ? 0.95 : 0.15) : 0)
+                        )
+                        .scaleEffect(isNext && pulse ? 1.09 : 1.0)
                         .rotationEffect(.degrees(wrongTool == tool ? 10 : 0))
                         .offset(dragOffsets[tool] ?? .zero)
                         .position(home)
@@ -95,6 +103,9 @@ struct ActionSequenceGame: View {
                 // Distinct tools, order shuffled so it isn't always left-to-right.
                 var seen = Set<ArtKey>()
                 tools = steps.map(\.tool).filter { seen.insert($0).inserted }.shuffled()
+            }
+            withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                pulse = true
             }
         }
     }

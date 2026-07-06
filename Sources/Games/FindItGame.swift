@@ -25,9 +25,23 @@ struct FindItGame: View {
             let h = geo.size.height
             let cardSize = min(w / CGFloat(max(layout.count, 1)) - 30, h * 0.5)
 
-            VStack(spacing: 30) {
+            VStack(spacing: 22) {
                 if let target {
-                    BannerTitle(text: "Find the \(target.displayName)!", color: Theme.coral, textSize: 30)
+                    // Reference the child matches against — no reading needed.
+                    VStack(spacing: 8) {
+                        BannerTitle(text: "Find this one!", color: Theme.coral, textSize: 26)
+                        ArtView(key: target)
+                            .padding(14)
+                            .frame(width: cardSize * 0.52, height: cardSize * 0.52)
+                            .background(
+                                Circle()
+                                    .fill(Color.white)
+                                    .shadow(color: .black.opacity(0.12), radius: 6, y: 4)
+                            )
+                            .overlay(
+                                Circle().strokeBorder(Theme.coral.opacity(0.5), lineWidth: 4)
+                            )
+                    }
                 }
 
                 HStack(spacing: 26) {

@@ -51,7 +51,7 @@ struct MatchPairsGame: View {
 
     private func setUp() {
         guard cards.isEmpty else { return }
-        let pairCount = settings.ageBand == .littleOnes ? min(3, pool.count) : min(4, pool.count)
+        let pairCount = settings.ageBand == .littleOnes ? min(4, pool.count) : min(6, pool.count)
         let chosen = Array(pool.shuffled().prefix(pairCount))
         cards = (chosen + chosen).map { Card(art: $0) }.shuffled()
     }
