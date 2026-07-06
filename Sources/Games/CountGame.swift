@@ -6,7 +6,7 @@ import SwiftUI
 /// The target is chosen per play from the age-appropriate range, and items lay
 /// out in a countable grid that scales up to ~12.
 struct CountGame: View {
-    let item: ArtKey
+    let items: [ArtKey]
     let range: ClosedRange<Int>
     let onComplete: () -> Void
 
@@ -15,6 +15,7 @@ struct CountGame: View {
     private enum Phase { case counting, choosing }
 
     @State private var target = 0
+    @State private var arts: [ArtKey] = []
     @State private var tappedOrder: [Int] = []
     @State private var options: [Int] = []
     @State private var wrongPick: Int?
@@ -32,7 +33,7 @@ struct CountGame: View {
                     ForEach(0..<target, id: \.self) { i in
                         let isTapped = tappedOrder.contains(i)
                         ZStack(alignment: .topTrailing) {
-                            ArtView(key: item)
+                            ArtView(key: arts.indices.contains(i) ? arts[i] : (items.first ?? .star))
                                 .frame(width: size, height: size)
                             if let order = tappedOrder.firstIndex(of: i) {
                                 NumberBadge(number: order + 1)
@@ -70,8 +71,20 @@ struct CountGame: View {
             }
         }
         .onAppear {
-            if target == 0 { target = Int.random(in: range) }
+            if target == 0 {
+                let t = Int.random(in: range)
+                arts = Self.buildArts(count: t, from: items)
+                target = t
+            }
         }
+    }
+
+    /// Fills `count` positions from the item pool (repeating + shuffled for variety).
+    private static func buildArts(count: Int, from items: [ArtKey]) -> [ArtKey] {
+        guard !items.isEmpty else { return [] }
+        var pool: [ArtKey] = []
+        while pool.count < count { pool += items }
+        return Array(pool.shuffled().prefix(count))
     }
 
     // MARK: Layout
@@ -124,7 +137,7 @@ struct CountGame: View {
     private func pickNumber(_ value: Int) {
         if value == target {
             Haptics.success()
-            audio.speak("Yes! \(target) \(item.displayName)s!")
+            audio.speak("Yes! You counted \(target)!")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.4, execute: onComplete)
         } else {
             Haptics.gentleError()

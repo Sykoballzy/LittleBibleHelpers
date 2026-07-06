@@ -88,12 +88,13 @@ enum ContentLibrary {
             ),
             Activity(
                 id: "noah-count",
-                title: "Count the Doves",
-                subtitle: "Tap each dove to count!",
-                introLine: "Noah sent out a dove. How many doves can you count?",
-                completionLine: "You counted every dove!",
-                icon: .dove,
-                spec: .count(item: .dove, littleRange: 3...8, bigRange: 6...12),
+                title: "Count the Animals",
+                subtitle: "Tap each animal to count!",
+                introLine: "So many animals are coming to the ark! How many can you count?",
+                completionLine: "You counted all the animals!",
+                icon: .giraffe,
+                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove],
+                             littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
             ),
             Activity(
@@ -104,9 +105,11 @@ enum ContentLibrary {
                 completionLine: "You told the whole story!",
                 icon: .rainbow,
                 spec: .sequence(steps: [
-                    SequenceStep(art: .ark, caption: "Noah builds the ark"),
-                    SequenceStep(art: .stormCloud, caption: "The rain comes down"),
-                    SequenceStep(art: .rainbow, caption: "A rainbow appears")
+                    SequenceStep(art: .arkFrame, caption: "Noah builds the ark"),
+                    SequenceStep(art: .elephant, caption: "The animals come two by two"),
+                    SequenceStep(art: .stormCloud, caption: "The rain falls"),
+                    SequenceStep(art: .ark, caption: "The ark floats many days"),
+                    SequenceStep(art: .rainbow, caption: "God sends a rainbow")
                 ]),
                 reward: Collectible(id: "c-rainbow", name: "Rainbow", art: .rainbow, kind: .badge)
             ),
@@ -175,7 +178,7 @@ enum ContentLibrary {
                 introLine: "God filled the night sky with stars. How many can you count?",
                 completionLine: "You counted every star!",
                 icon: .star,
-                spec: .count(item: .star, littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.star], littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-star", name: "Star", art: .star, kind: .badge)
             ),
             Activity(

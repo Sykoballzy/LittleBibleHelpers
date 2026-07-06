@@ -26,6 +26,8 @@ struct BoardTheArkGame: View {
     /// The species whose pair is mid-way — its partner must board next.
     @State private var activeSpecies: ArtKey?
     @State private var nudged: UUID?
+    @State private var bob = false
+    @State private var arkBounce = false
 
     private var total: Int { passengers.count }
 
@@ -51,8 +53,17 @@ struct BoardTheArkGame: View {
                         .transition(.opacity)
                 }
 
+                // Boarding ramp up to the ark.
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(LinearGradient(colors: [Theme.wood, Theme.woodDeep],
+                                         startPoint: .top, endPoint: .bottom))
+                    .frame(width: arkRect.width * 0.55, height: 16)
+                    .rotationEffect(.degrees(26))
+                    .position(x: arkRect.midX - arkRect.width * 0.05, y: arkRect.maxY + h * 0.05)
+
                 ArkArt()
                     .frame(width: arkRect.width, height: arkRect.height)
+                    .scaleEffect(arkBounce ? 1.05 : 1.0)
                     .position(x: arkRect.midX, y: arkRect.midY)
 
                 // Rainbow payoff arcs over the ark.
@@ -86,6 +97,7 @@ struct BoardTheArkGame: View {
                             .matchedGeometryEffect(id: passenger.id, in: boarding)
                             .rotationEffect(.degrees(nudged == passenger.id ? 8 : 0))
                             .offset(dragOffsets[passenger.id] ?? .zero)
+                            .offset(y: dragging == passenger.id ? 0 : (bob ? -5 : 0))
                             .position(home)
                             .zIndex(dragging == passenger.id ? 5 : 1)
                             .gesture(
@@ -119,7 +131,10 @@ struct BoardTheArkGame: View {
                     .position(x: w / 2, y: h * 0.95)
             }
         }
-        .onAppear(perform: setUp)
+        .onAppear {
+            setUp()
+            withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) { bob = true }
+        }
     }
 
     private func setUp() {
@@ -146,6 +161,10 @@ struct BoardTheArkGame: View {
         dragOffsets[passenger.id] = .zero
         withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
             boarded.append(passenger)
+        }
+        withAnimation(.spring(response: 0.25, dampingFraction: 0.4)) { arkBounce = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) { arkBounce = false }
         }
 
         // Track the pair: first of a species starts it, second completes it.

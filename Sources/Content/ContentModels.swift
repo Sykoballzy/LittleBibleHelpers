@@ -80,7 +80,7 @@ struct SortItem: Hashable {
 enum GameSpec: Hashable {
     case matchPairs(pool: [ArtKey])
     case boardTheArk(animals: [ArtKey])
-    case count(item: ArtKey, littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
+    case count(items: [ArtKey], littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
     case sequence(steps: [SequenceStep])
     case sortClassify(categories: [SortCategory], items: [SortItem])
     case actionSequence(start: ArtKey, steps: [ActionStep])
