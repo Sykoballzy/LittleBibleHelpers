@@ -2,7 +2,9 @@
 
 A premium, offline-first iPad app of quiet Bible-themed learning games for children ages 2–5. Landscape-only, no ads, no purchases, no accounts, no network.
 
-**Status: Iteration 7** — **both worlds complete at 8 games each.** Creation (Sort the World, Count the Stars, What Came First incl. Adam & Eve, Match, Name the Animals, Grow the Garden, Shadow Garden, Fruit from the Garden with the serpent + generic forbidden fruit) and Noah's Ark (Build the Ark, Noah Tells Everyone, All Aboard two-by-two, Count the Animals, Match, What Happened First, Find the Tool, Match the Shadows). Ten reusable templates: Match Pairs, Board (drag two-by-two), Count (two-phase, randomized), Sequence (animated beats), Sort & Classify, Action Sequence, Find It, Shadow Match, **Deliver** (hand an item to everyone — Noah preaching; future Memorial "pass the bread"), **Gather** (collect into a container with gently-refusing decoys — forbidden fruit).
+**Status: Iteration 8** — **ALL EIGHT WORLDS COMPLETE, 8 games each (64 activities).** Creation, Noah's Ark, David & the Sheep, Daniel & the Lions, Jonah & the Big Fish, Jesus & His Friends, Meetings & Conventions, and Christian Qualities (framed on the fruitage of the spirit, Gal 5:22, 23). Eleven reusable templates: Match Pairs, Board (two-by-two), Count (two-phase, randomized), Sequence (animated beats), Sort & Classify, Action Sequence, Find It, Shadow Match, Deliver, Gather (now generalized: optional scenery/decoys), and **Give the Number** (count out exactly N — Daniel's 3 prayers, the 2 little fish).
+
+**Family worship built in:** every activity carries an NWT scripture citation shown as a small book-pill in the game header — a parent reads the account (e.g., Genesis 7:8, 9), then the child plays the matching game. Non-readers never notice it.
 
 ## Building (requires a Mac)
 

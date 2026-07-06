@@ -4,21 +4,23 @@ Ideas captured but not yet built. Ordered roughly by priority.
 
 ## Game templates to build
 
-- **Give the Right Number** — present 1–3 items and ask the child to give a
-  specific count (e.g. "Give Noah 2 apples"). Select-N mechanic. Teaches
-  quantity/one-to-one giving. *(Requested by Travis, iteration 4.)*
+- ~~Give the Right Number~~ — DONE (iteration 8): `giveNumber` template, used
+  for Daniel's 3 prayers, Jonah's 3 nights, the 2 fish, chairs, sharing.
 - **Build a Pathway** — lay road tiles (straight / corner pieces) to guide a
   character along a path, collecting stars. Spatial/puzzle. Higher complexity —
   needs a tile grid and path-validation. *(Requested by Travis, iteration 4.)*
-- Remaining templates from the original brief: Find the Missing Item, Coloring
-  (Apple Pencil), Dress Up, Jigsaw Puzzle.
+- Remaining templates from the original brief: Coloring (Apple Pencil),
+  Dress Up, Jigsaw Puzzle. (Find the Missing Item is covered by Find It.)
 
 ## Content
 
-- More worlds: David & the Sheep, Daniel & the Lions, Jonah & the Big Fish,
-  Jesus & His Friends, Meetings & Conventions, Christian Qualities.
-- Apply the Action Sequence ("process") template beyond Build the Ark once the
-  feel is validated — e.g. prepare for the meeting, get David ready.
+- ~~Six remaining worlds~~ — DONE (iteration 8): all 8 worlds at 8 games each.
+- Depth pass after playtest: more animation per game, richer per-world
+  backgrounds (sea for Jonah, night palace for Daniel, hall interior for
+  Meetings) — currently all worlds share the meadow background.
+- Memorial pack and Convention packs (the Deliver template is ready for
+  "pass the bread"-style activities).
+- Seed-promise (Genesis 3:15) dedicated activity once art depth allows.
 
 ## Art & audio (deferred by decision, 2026-07-06)
 

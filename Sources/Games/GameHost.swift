@@ -34,6 +34,7 @@ private struct GameScreen: View {
                 GameTopBar(
                     title: activity.title,
                     subtitle: activity.subtitle,
+                    scripture: activity.scripture,
                     accent: world.accent,
                     onBack: { router.go(.storyHub(worldID: world.id)) },
                     onSpeak: { audio.speak(activity.introLine) }
@@ -69,9 +70,13 @@ private struct GameScreen: View {
         case .deliver(let item, let source, let targets, let deliverLine):
             DeliverGame(item: item, source: source, targets: targets,
                         deliverLine: deliverLine, onComplete: finish)
-        case .gather(let item, let count, let container, let decoyGuard, let decoyLine):
-            GatherGame(item: item, count: count, container: container,
+        case .gather(let item, let count, let container, let scenery, let decoyGuard, let decoyLine):
+            GatherGame(item: item, count: count, container: container, scenery: scenery,
                        decoyGuard: decoyGuard, decoyLine: decoyLine, onComplete: finish)
+        case .giveNumber(let item, let container, let littleRange, let bigRange):
+            GiveNumberGame(item: item, container: container,
+                           range: settings.ageBand == .littleOnes ? littleRange : bigRange,
+                           onComplete: finish)
         }
     }
 
@@ -85,6 +90,7 @@ private struct GameScreen: View {
 struct GameTopBar: View {
     let title: String
     let subtitle: String
+    var scripture: String? = nil
     let accent: Color
     let onBack: () -> Void
     let onSpeak: () -> Void
@@ -98,6 +104,19 @@ struct GameTopBar: View {
                 Text(subtitle)
                     .font(Theme.body(18))
                     .foregroundColor(Theme.textDark)
+                // For the grown-up reading along in family worship.
+                if let scripture {
+                    HStack(spacing: 5) {
+                        Image(systemName: "book.fill")
+                            .font(.system(size: 11))
+                        Text(scripture)
+                            .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    }
+                    .foregroundColor(Theme.textDark.opacity(0.55))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(Capsule().fill(Color.white.opacity(0.65)))
+                }
             }
             Spacer()
             RoundIconButton(systemName: "speaker.wave.2.fill", color: Theme.leaf, action: onSpeak)

@@ -10,6 +10,11 @@ enum ArtKey: String, CaseIterable, Hashable {
     case saw, hammer, brush, arkPlanks, arkFrame, arkHull
     case villagerA, villagerB, villagerC, scroll, adam, people
     case soil, seed, sprout, sapling, wateringCan, fruit, basket, serpent
+    case david, sling, harp, staff, bucket, penFrame, pen, penFull
+    case daniel, angel, crown, window
+    case jonah, boat, bigFish
+    case jesus, bread
+    case bag, bagWithBook, bagPacked, book, songbook, chair
 
     var displayName: String {
         switch self {
@@ -50,6 +55,29 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .fruit: return "fruit"
         case .basket: return "basket"
         case .serpent: return "serpent"
+        case .david: return "David"
+        case .sling: return "sling"
+        case .harp: return "harp"
+        case .staff: return "staff"
+        case .bucket: return "water bucket"
+        case .penFrame: return "fence"
+        case .pen: return "sheep pen"
+        case .penFull: return "sheep pen"
+        case .daniel: return "Daniel"
+        case .angel: return "angel"
+        case .crown: return "crown"
+        case .window: return "window"
+        case .jonah: return "Jonah"
+        case .boat: return "boat"
+        case .bigFish: return "big fish"
+        case .jesus: return "Jesus"
+        case .bread: return "bread"
+        case .bag: return "meeting bag"
+        case .bagWithBook: return "meeting bag"
+        case .bagPacked: return "meeting bag"
+        case .book: return "Bible"
+        case .songbook: return "songbook"
+        case .chair: return "chair"
         }
     }
 }
@@ -105,9 +133,16 @@ enum GameSpec: Hashable {
     /// Drag copies of `item` from `source` to every target (Noah preaching;
     /// later: pass the bread, hand out songbooks).
     case deliver(item: ArtKey, source: ArtKey, targets: [ArtKey], deliverLine: String)
-    /// Collect `count` items into `container`; decoy items guarded by
-    /// `decoyGuard` gently refuse (forbidden fruit; later: gather the flock).
-    case gather(item: ArtKey, count: Int, container: ArtKey, decoyGuard: ArtKey, decoyLine: String)
+    /// Collect `count` items into `container`. Optional `scenery` (e.g. trees)
+    /// frames the scene; an optional `decoyGuard` marks items that gently
+    /// refuse to be taken (forbidden fruit). Plain gathers omit both.
+    case gather(item: ArtKey, count: Int, container: ArtKey,
+                scenery: ArtKey?, decoyGuard: ArtKey?, decoyLine: String?)
+    /// "Give N": a big target number; the child counts out exactly that many
+    /// items into the container from a tray with extras (Daniel prayed 3
+    /// times; 2 little fish).
+    case giveNumber(item: ArtKey, container: ArtKey,
+                    littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
 }
 
 struct Activity: Identifiable, Hashable {
@@ -119,6 +154,9 @@ struct Activity: Identifiable, Hashable {
     let icon: ArtKey
     let spec: GameSpec
     let reward: Collectible
+    /// NWT citation for family worship — a parent reads the account, then the
+    /// child plays. Shown as a small pill; non-readers simply don't notice it.
+    var scripture: String? = nil
 }
 
 struct BibleWorld: Identifiable, Hashable {
