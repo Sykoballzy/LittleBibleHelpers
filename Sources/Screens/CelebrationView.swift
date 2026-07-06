@@ -67,7 +67,7 @@ struct StickerView: View {
             Circle().fill(Color.white)
             Circle()
                 .strokeBorder(Theme.sunny,
-                              style: StrokeStyle(lineWidth: 6, dash: [1, 12], lineCap: .round))
+                              style: StrokeStyle(lineWidth: 6, lineCap: .round, dash: [1, 12]))
                 .padding(6)
             ArtView(key: collectible.art).padding(34)
         }
