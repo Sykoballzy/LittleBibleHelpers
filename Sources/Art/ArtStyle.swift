@@ -36,6 +36,9 @@ struct ArtView: View {
         case .heart: HeartArt()
         case .hall: HallArt()
         case .star: StarArt()
+        case .moon: MoonArt()
+        case .tree: TreeArt()
+        case .earth: EarthArt()
         }
     }
 }

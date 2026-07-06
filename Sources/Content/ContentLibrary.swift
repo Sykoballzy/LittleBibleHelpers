@@ -5,8 +5,7 @@ import SwiftUI
 enum ContentLibrary {
     static let worlds: [BibleWorld] = [
         noahsArk,
-        comingSoon(id: "creation", title: "Creation",
-                   tagline: "The whole world is a gift!", icon: .sun, accent: Theme.sunny),
+        creation,
         comingSoon(id: "david", title: "David & the Sheep",
                    tagline: "Count and care for the flock.", icon: .sheep, accent: Theme.leaf),
         comingSoon(id: "daniel", title: "Daniel & the Lions",
@@ -99,5 +98,77 @@ enum ContentLibrary {
             )
         ],
         bonusReward: Collectible(id: "c-noah", name: "Noah", art: .noah, kind: .character)
+    )
+
+    // MARK: - Creation (second world)
+
+    static let creation = BibleWorld(
+        id: "creation",
+        title: "Creation",
+        tagline: "The whole world is a gift!",
+        icon: .earth,
+        accent: Theme.leaf,
+        welcomeLine: "God made a beautiful world! Let's explore it. Which game would you like to play?",
+        activities: [
+            Activity(
+                id: "creation-sort",
+                title: "Sort the World",
+                subtitle: "Land, sea, or sky?",
+                introLine: "God made animals for the land, the sea, and the sky! Can you help each one find its home?",
+                completionLine: "You sorted them all!",
+                icon: .fish,
+                spec: .sortClassify(
+                    categories: [
+                        SortCategory(id: "land", title: "Land", color: Theme.leaf),
+                        SortCategory(id: "sea", title: "Sea", color: Theme.sky),
+                        SortCategory(id: "sky", title: "Sky", color: Theme.berry)
+                    ],
+                    items: [
+                        SortItem(art: .lion, categoryID: "land"),
+                        SortItem(art: .sheep, categoryID: "land"),
+                        SortItem(art: .fish, categoryID: "sea"),
+                        SortItem(art: .fish, categoryID: "sea"),
+                        SortItem(art: .dove, categoryID: "sky"),
+                        SortItem(art: .dove, categoryID: "sky")
+                    ]
+                ),
+                reward: Collectible(id: "c-tree", name: "Tree", art: .tree, kind: .badge)
+            ),
+            Activity(
+                id: "creation-count",
+                title: "Count the Stars",
+                subtitle: "Tap each star to count!",
+                introLine: "God filled the night sky with stars. How many can you count?",
+                completionLine: "You counted every star!",
+                icon: .star,
+                spec: .count(item: .star, littleTarget: 4, bigTarget: 6),
+                reward: Collectible(id: "c-star", name: "Star", art: .star, kind: .badge)
+            ),
+            Activity(
+                id: "creation-order",
+                title: "What Came First?",
+                subtitle: "Put creation in order.",
+                introLine: "Let's remember the days of creation. What came first?",
+                completionLine: "You remembered it all!",
+                icon: .sun,
+                spec: .sequence(steps: [
+                    SequenceStep(art: .sun, caption: "God made the light"),
+                    SequenceStep(art: .tree, caption: "God made the plants"),
+                    SequenceStep(art: .lion, caption: "God made the animals")
+                ]),
+                reward: Collectible(id: "c-sun", name: "Sun", art: .sun, kind: .badge)
+            ),
+            Activity(
+                id: "creation-match",
+                title: "Match the Creations",
+                subtitle: "Find the matching pairs!",
+                introLine: "God made so many wonderful things! Can you find the matching pairs?",
+                completionLine: "You matched them all!",
+                icon: .moon,
+                spec: .matchPairs(pool: [.sun, .moon, .star, .tree]),
+                reward: Collectible(id: "c-moon", name: "Moon", art: .moon, kind: .badge)
+            )
+        ],
+        bonusReward: Collectible(id: "c-earth", name: "World", art: .earth, kind: .character)
     )
 }

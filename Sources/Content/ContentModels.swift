@@ -6,6 +6,7 @@ import SwiftUI
 enum ArtKey: String, CaseIterable, Hashable {
     case elephant, giraffe, lion, sheep, dove, fish
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
+    case moon, tree, earth
 
     var displayName: String {
         switch self {
@@ -23,6 +24,9 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .heart: return "heart"
         case .hall: return "meeting place"
         case .star: return "star"
+        case .moon: return "moon"
+        case .tree: return "tree"
+        case .earth: return "world"
         }
     }
 }
@@ -43,6 +47,19 @@ struct SequenceStep: Hashable {
     let caption: String
 }
 
+/// A bin in the Sort & Classify game (e.g. Land / Sea / Sky).
+struct SortCategory: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let color: Color
+}
+
+/// An item to be sorted, tagged with the category it belongs to.
+struct SortItem: Hashable {
+    let art: ArtKey
+    let categoryID: String
+}
+
 /// The reusable game templates. New content packs reuse these cases with
 /// different parameters; new templates get added here.
 enum GameSpec: Hashable {
@@ -50,6 +67,7 @@ enum GameSpec: Hashable {
     case boardTheArk(animals: [ArtKey])
     case count(item: ArtKey, littleTarget: Int, bigTarget: Int)
     case sequence(steps: [SequenceStep])
+    case sortClassify(categories: [SortCategory], items: [SortItem])
 }
 
 struct Activity: Identifiable, Hashable {

@@ -58,6 +58,8 @@ private struct GameScreen: View {
                       onComplete: finish)
         case .sequence(let steps):
             SequenceGame(steps: steps, onComplete: finish)
+        case .sortClassify(let categories, let items):
+            SortGame(categories: categories, items: items, onComplete: finish)
         }
     }
 
