@@ -1,0 +1,30 @@
+name: LittleBibleHelpers
+options:
+  bundleIdPrefix: com.travisolson
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "2"
+targets:
+  LittleBibleHelpers:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: Little Bible Helpers
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIRequiresFullScreen: true
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.travisolson.littlebiblehelpers
+        INFOPLIST_KEY_CFBundleDisplayName: Little Bible Helpers
