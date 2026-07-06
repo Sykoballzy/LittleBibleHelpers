@@ -67,6 +67,18 @@ enum ContentLibrary {
                 reward: Collectible(id: "c-ark", name: "Ark", art: .ark, kind: .badge)
             ),
             Activity(
+                id: "noah-preach",
+                title: "Noah Tells Everyone",
+                subtitle: "Share the message with each person.",
+                introLine: "Noah told everyone that a flood was coming. Can you help him share the message?",
+                completionLine: "Noah told everyone! He was a faithful preacher.",
+                icon: .scroll,
+                spec: .deliver(item: .scroll, source: .noah,
+                               targets: [.villagerA, .villagerB, .villagerC],
+                               deliverLine: "Noah shared the warning!"),
+                reward: Collectible(id: "c-scroll", name: "Message", art: .scroll, kind: .badge)
+            ),
+            Activity(
                 id: "noah-match",
                 title: "Match the Animals",
                 subtitle: "Find the matching pairs!",
@@ -189,9 +201,10 @@ enum ContentLibrary {
                 completionLine: "You remembered it all!",
                 icon: .sun,
                 spec: .sequence(steps: [
-                    SequenceStep(art: .sun, caption: "God made the light"),
-                    SequenceStep(art: .tree, caption: "God made the plants"),
-                    SequenceStep(art: .lion, caption: "God made the animals")
+                    SequenceStep(art: .sun, caption: "Jehovah made the light"),
+                    SequenceStep(art: .tree, caption: "Jehovah made the plants"),
+                    SequenceStep(art: .lion, caption: "Jehovah made the animals"),
+                    SequenceStep(art: .people, caption: "Jehovah made people")
                 ]),
                 reward: Collectible(id: "c-sun", name: "Sun", art: .sun, kind: .badge)
             ),
@@ -202,8 +215,54 @@ enum ContentLibrary {
                 introLine: "God made so many wonderful things! Can you find the matching pairs?",
                 completionLine: "You matched them all!",
                 icon: .moon,
-                spec: .matchPairs(pool: [.sun, .moon, .star, .tree]),
+                spec: .matchPairs(pool: [.sun, .moon, .star, .tree, .fruit, .dove]),
                 reward: Collectible(id: "c-moon", name: "Moon", art: .moon, kind: .badge)
+            ),
+            Activity(
+                id: "creation-name",
+                title: "Name the Animals",
+                subtitle: "Help Adam find each animal.",
+                introLine: "Adam gave every animal its name! Can you find each one?",
+                completionLine: "You found every animal, just like Adam!",
+                icon: .adam,
+                spec: .findIt(items: [.lion, .elephant, .sheep, .dove]),
+                reward: Collectible(id: "c-adam", name: "Adam", art: .adam, kind: .character)
+            ),
+            Activity(
+                id: "creation-grow",
+                title: "Grow the Garden",
+                subtitle: "Help the little tree grow!",
+                introLine: "Jehovah makes everything grow! Can you help this tree? Use each tool!",
+                completionLine: "You grew a beautiful tree!",
+                icon: .sprout,
+                spec: .actionSequence(start: .soil, steps: [
+                    ActionStep(tool: .seed, prompt: "Plant the seed!", result: .sprout),
+                    ActionStep(tool: .wateringCan, prompt: "Water the sprout!", result: .sapling),
+                    ActionStep(tool: .sun, prompt: "Let the sun shine!", result: .tree)
+                ]),
+                reward: Collectible(id: "c-wateringcan", name: "Watering Can", art: .wateringCan, kind: .badge)
+            ),
+            Activity(
+                id: "creation-shadow",
+                title: "Shadow Garden",
+                subtitle: "Match each creation to its shadow.",
+                introLine: "Everything Jehovah made has a shape! Can you match the shadows?",
+                completionLine: "You matched every shadow!",
+                icon: .moon,
+                spec: .shadowMatch(items: [.sun, .tree, .fish]),
+                reward: Collectible(id: "c-fish", name: "Fish", art: .fish, kind: .animal)
+            ),
+            Activity(
+                id: "creation-gather",
+                title: "Fruit from the Garden",
+                subtitle: "Pick good fruit — but not from that tree!",
+                introLine: "The garden is full of good fruit! Pick some for Adam and Eve. But remember — Jehovah said not to take from that one tree.",
+                completionLine: "You picked such good fruit — and you listened to Jehovah!",
+                icon: .fruit,
+                spec: .gather(item: .fruit, count: 4, container: .basket,
+                              decoyGuard: .serpent,
+                              decoyLine: "No — Jehovah said not from that tree."),
+                reward: Collectible(id: "c-fruit", name: "Fruit", art: .fruit, kind: .badge)
             )
         ],
         bonusReward: Collectible(id: "c-earth", name: "World", art: .earth, kind: .character)

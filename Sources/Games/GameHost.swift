@@ -66,6 +66,12 @@ private struct GameScreen: View {
             FindItGame(items: items, onComplete: finish)
         case .shadowMatch(let items):
             ShadowMatchGame(items: items, onComplete: finish)
+        case .deliver(let item, let source, let targets, let deliverLine):
+            DeliverGame(item: item, source: source, targets: targets,
+                        deliverLine: deliverLine, onComplete: finish)
+        case .gather(let item, let count, let container, let decoyGuard, let decoyLine):
+            GatherGame(item: item, count: count, container: container,
+                       decoyGuard: decoyGuard, decoyLine: decoyLine, onComplete: finish)
         }
     }
 

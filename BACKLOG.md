@@ -34,3 +34,9 @@ Ideas captured but not yet built. Ordered roughly by priority.
 - Sort & Classify: sea/sky use duplicate art (only one fish / one bird asset
   today). Add more sea/sky creatures when art expands.
 - Consider a 2-bin variant of Sort for the youngest (2–3) age band.
+- Gather template: tree/garden scenery is currently baked into the template.
+  Generalize the backdrop when a second gather-style activity is built.
+- Deliver template: recipients react by wandering off; consider varied
+  reactions (wave, shake head) once the animation budget grows.
+- Story Hub uses 3 columns at 7+ activities; revisit card layout if any world
+  exceeds 9.

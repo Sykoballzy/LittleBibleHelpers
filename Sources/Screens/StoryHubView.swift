@@ -33,10 +33,11 @@ struct StoryHubView: View {
                     .padding(.top, 12)
 
                     GeometryReader { geo in
-                        let rows = max(1, Int(ceil(Double(world.activities.count) / 2.0)))
-                        let rowHeight = (geo.size.height - 20 * CGFloat(rows - 1)) / CGFloat(rows)
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 2),
-                                  spacing: 20) {
+                        let cols = world.activities.count > 6 ? 3 : 2
+                        let rows = max(1, Int(ceil(Double(world.activities.count) / Double(cols))))
+                        let rowHeight = (geo.size.height - 16 * CGFloat(rows - 1)) / CGFloat(rows)
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: cols),
+                                  spacing: 16) {
                             ForEach(world.activities) { activity in
                                 ActivityCard(activity: activity,
                                              accent: world.accent,
@@ -64,28 +65,31 @@ struct ActivityCard: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 18) {
+            HStack(spacing: 14) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(accent.opacity(0.15))
-                    ArtView(key: activity.icon).padding(12)
+                    ArtView(key: activity.icon).padding(10)
                 }
-                .frame(width: 116, height: 116)
+                .frame(width: 92, height: 92)
 
-                VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text(activity.title)
-                        .font(Theme.body(24))
+                        .font(Theme.body(21))
                         .foregroundColor(Theme.textDark)
                         .multilineTextAlignment(.leading)
-                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.7)
+                        .lineLimit(2)
                     Text(activity.subtitle)
-                        .font(Theme.body(17))
+                        .font(Theme.body(15))
                         .foregroundColor(Theme.textDark.opacity(0.65))
                         .multilineTextAlignment(.leading)
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(2)
                 }
                 Spacer(minLength: 0)
             }
-            .padding(18)
+            .padding(14)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: 26, style: .continuous)

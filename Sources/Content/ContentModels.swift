@@ -8,6 +8,8 @@ enum ArtKey: String, CaseIterable, Hashable {
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
     case moon, tree, earth
     case saw, hammer, brush, arkPlanks, arkFrame, arkHull
+    case villagerA, villagerB, villagerC, scroll, adam, people
+    case soil, seed, sprout, sapling, wateringCan, fruit, basket, serpent
 
     var displayName: String {
         switch self {
@@ -34,6 +36,20 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .arkPlanks: return "wood"
         case .arkFrame: return "ark frame"
         case .arkHull: return "ark"
+        case .villagerA: return "neighbor"
+        case .villagerB: return "friend"
+        case .villagerC: return "neighbor"
+        case .scroll: return "message"
+        case .adam: return "Adam"
+        case .people: return "Adam and Eve"
+        case .soil: return "soil"
+        case .seed: return "seed"
+        case .sprout: return "sprout"
+        case .sapling: return "little tree"
+        case .wateringCan: return "watering can"
+        case .fruit: return "fruit"
+        case .basket: return "basket"
+        case .serpent: return "serpent"
         }
     }
 }
@@ -86,6 +102,12 @@ enum GameSpec: Hashable {
     case actionSequence(start: ArtKey, steps: [ActionStep])
     case findIt(items: [ArtKey])
     case shadowMatch(items: [ArtKey])
+    /// Drag copies of `item` from `source` to every target (Noah preaching;
+    /// later: pass the bread, hand out songbooks).
+    case deliver(item: ArtKey, source: ArtKey, targets: [ArtKey], deliverLine: String)
+    /// Collect `count` items into `container`; decoy items guarded by
+    /// `decoyGuard` gently refuse (forbidden fruit; later: gather the flock).
+    case gather(item: ArtKey, count: Int, container: ArtKey, decoyGuard: ArtKey, decoyLine: String)
 }
 
 struct Activity: Identifiable, Hashable {
