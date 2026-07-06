@@ -62,6 +62,10 @@ private struct GameScreen: View {
             SortGame(categories: categories, items: items, onComplete: finish)
         case .actionSequence(let start, let steps):
             ActionSequenceGame(start: start, steps: steps, onComplete: finish)
+        case .findIt(let items):
+            FindItGame(items: items, onComplete: finish)
+        case .shadowMatch(let items):
+            ShadowMatchGame(items: items, onComplete: finish)
         }
     }
 

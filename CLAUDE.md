@@ -3,7 +3,18 @@
 Read README.md for architecture. Quick orientation for every session:
 
 ## What this is
-Offline iPad app (iOS 16+, landscape only, SwiftUI) of quiet Bible-learning games for ages 2–5 in Jehovah's Witness families. Premium Montessori-app polish. Development happens on Windows; building/testing requires a Mac with XcodeGen (`xcodegen generate`).
+Offline iPad app (iOS 16+, landscape only, SwiftUI) of quiet Bible-learning games for ages 2–5. Premium Montessori-app polish. Development happens on Windows; building/testing requires a Mac with XcodeGen (`xcodegen generate`).
+
+Audience is broader than JW families: **all preschool children of spiritually-minded parents who want teaching and imagery that align with Jehovah's Witness doctrine.** Not officially JW-affiliated. (Future: translation into major languages.)
+
+## Doctrinal & content alignment (load-bearing — check every content decision)
+- Jesus was executed on a single upright **stake (torture stake)**, NOT a cross. Never depict or imply a cross.
+- **No crosses, halos, idols, or images** used in traditional/pagan worship anywhere in the app.
+- **No pagan holidays or traditions** (Christmas, Easter, birthdays, Halloween, etc.) in any content.
+- The forbidden fruit in Eden is **NOT an apple** — depict a generic fruit, unspecified.
+- Satan is represented by the **serpent/snake** (Eden).
+- Honor the **seed prophecy (Genesis 3:15)** and JW themes (paradise earth, God's name Jehovah) where relevant, kept simple and age-appropriate.
+- When a Bible detail is doctrinally sensitive and you're unsure, flag it rather than guess.
 
 ## Non-negotiable product rules
 - All artwork, text, audio: completely original. Never use or imitate JW.org logos, artwork, branding, music, or character designs. Never imply endorsement or affiliation.

@@ -84,6 +84,8 @@ enum GameSpec: Hashable {
     case sequence(steps: [SequenceStep])
     case sortClassify(categories: [SortCategory], items: [SortItem])
     case actionSequence(start: ArtKey, steps: [ActionStep])
+    case findIt(items: [ArtKey])
+    case shadowMatch(items: [ArtKey])
 }
 
 struct Activity: Identifiable, Hashable {

@@ -4,8 +4,8 @@ import SwiftUI
 /// existing worlds) here; nothing else in the app needs to change.
 enum ContentLibrary {
     static let worlds: [BibleWorld] = [
-        noahsArk,
         creation,
+        noahsArk,
         comingSoon(id: "david", title: "David & the Sheep",
                    tagline: "Count and care for the flock.", icon: .sheep, accent: Theme.leaf),
         comingSoon(id: "daniel", title: "Daniel & the Lions",
@@ -109,6 +109,50 @@ enum ContentLibrary {
                     SequenceStep(art: .rainbow, caption: "A rainbow appears")
                 ]),
                 reward: Collectible(id: "c-rainbow", name: "Rainbow", art: .rainbow, kind: .badge)
+            ),
+            Activity(
+                id: "noah-sort",
+                title: "Sort the Animals",
+                subtitle: "Land, sea, or sky?",
+                introLine: "The animals live in different places. Can you help each one find its home?",
+                completionLine: "You sorted every animal!",
+                icon: .giraffe,
+                spec: .sortClassify(
+                    categories: [
+                        SortCategory(id: "land", title: "Land", color: Theme.leaf),
+                        SortCategory(id: "sea", title: "Sea", color: Theme.sky),
+                        SortCategory(id: "sky", title: "Sky", color: Theme.berry)
+                    ],
+                    items: [
+                        SortItem(art: .lion, categoryID: "land"),
+                        SortItem(art: .giraffe, categoryID: "land"),
+                        SortItem(art: .fish, categoryID: "sea"),
+                        SortItem(art: .fish, categoryID: "sea"),
+                        SortItem(art: .dove, categoryID: "sky"),
+                        SortItem(art: .dove, categoryID: "sky")
+                    ]
+                ),
+                reward: Collectible(id: "c-giraffe", name: "Giraffe", art: .giraffe, kind: .animal)
+            ),
+            Activity(
+                id: "noah-find",
+                title: "Find the Tool",
+                subtitle: "Help Noah find it!",
+                introLine: "Noah needs his tools! Can you find the right one?",
+                completionLine: "You found all the tools!",
+                icon: .hammer,
+                spec: .findIt(items: [.saw, .hammer, .brush]),
+                reward: Collectible(id: "c-hammer", name: "Hammer", art: .hammer, kind: .badge)
+            ),
+            Activity(
+                id: "noah-shadow",
+                title: "Match the Shadows",
+                subtitle: "Find each animal's shadow.",
+                introLine: "Every animal has a shadow. Can you match them?",
+                completionLine: "You matched every shadow!",
+                icon: .elephant,
+                spec: .shadowMatch(items: [.lion, .giraffe, .elephant]),
+                reward: Collectible(id: "c-sheep", name: "Sheep", art: .sheep, kind: .animal)
             )
         ],
         bonusReward: Collectible(id: "c-noah", name: "Noah", art: .noah, kind: .character)

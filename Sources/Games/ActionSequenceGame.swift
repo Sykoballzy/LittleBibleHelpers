@@ -36,7 +36,7 @@ struct ActionSequenceGame: View {
             let centralRect = CGRect(x: centerPoint.x - centralSize / 2,
                                      y: centerPoint.y - centralSize / 2,
                                      width: centralSize, height: centralSize)
-            let toolSize = min(w, h) * 0.18
+            let toolSize = min(w, h) * 0.22
 
             ZStack {
                 // Prompt.
@@ -55,7 +55,13 @@ struct ActionSequenceGame: View {
                 ForEach(Array(tools.enumerated()), id: \.element) { index, tool in
                     let home = toolPosition(index: index, count: tools.count, size: geo.size)
                     ArtView(key: tool)
+                        .padding(toolSize * 0.16)
                         .frame(width: toolSize, height: toolSize)
+                        .background(
+                            Circle()
+                                .fill(Color.white)
+                                .shadow(color: .black.opacity(0.12), radius: 5, y: 3)
+                        )
                         .rotationEffect(.degrees(wrongTool == tool ? 10 : 0))
                         .offset(dragOffsets[tool] ?? .zero)
                         .position(home)

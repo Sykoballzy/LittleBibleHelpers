@@ -2,7 +2,7 @@
 
 A premium, offline-first iPad app of quiet Bible-themed learning games for children ages 2–5. Landscape-only, no ads, no purchases, no accounts, no network.
 
-**Status: Iteration 3** — two playable worlds (Noah's Ark, Creation) on five reusable game templates: Match Pairs, Drag & Drop (two-by-two boarding), Count (two-phase: count then pick the numeral), Sequence, and Sort & Classify (Land/Sea/Sky bins).
+**Status: Iteration 5** — Noah's Ark is a full 8-game world; Creation has 4 (next to reach 8). Eight reusable game templates: Match Pairs, Drag & Drop (two-by-two boarding), Count (two-phase), Sequence, Sort & Classify, Action Sequence (drag tools onto a transforming object), Find It, and Shadow Match. Worlds ordered Creation → Noah's Ark.
 
 ## Building (requires a Mac)
 
