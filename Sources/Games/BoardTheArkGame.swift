@@ -23,6 +23,9 @@ struct BoardTheArkGame: View {
     @State private var dragging: UUID?
     @State private var phase: Phase = .boarding
     @State private var showRainbow = false
+    /// The species whose pair is mid-way — its partner must board next.
+    @State private var activeSpecies: ArtKey?
+    @State private var nudged: UUID?
 
     private var total: Int { passengers.count }
 
@@ -81,6 +84,7 @@ struct BoardTheArkGame: View {
                         ArtView(key: passenger.art)
                             .frame(width: animalSize, height: animalSize)
                             .matchedGeometryEffect(id: passenger.id, in: boarding)
+                            .rotationEffect(.degrees(nudged == passenger.id ? 8 : 0))
                             .offset(dragOffsets[passenger.id] ?? .zero)
                             .position(home)
                             .zIndex(dragging == passenger.id ? 5 : 1)
@@ -94,8 +98,11 @@ struct BoardTheArkGame: View {
                                     .onEnded { value in
                                         let drop = CGPoint(x: home.x + value.translation.width,
                                                            y: home.y + value.translation.height)
-                                        if arkRect.insetBy(dx: -40, dy: -40).contains(drop) {
+                                        let onArk = arkRect.insetBy(dx: -40, dy: -40).contains(drop)
+                                        if onArk && canBoard(passenger) {
                                             board(passenger)
+                                        } else if onArk {
+                                            rejectWrongPair(passenger)
                                         } else {
                                             withAnimation(.spring(response: 0.45, dampingFraction: 0.6)) {
                                                 dragOffsets[passenger.id] = .zero
@@ -127,6 +134,13 @@ struct BoardTheArkGame: View {
         return CGPoint(x: x, y: size.height * 0.82)
     }
 
+    /// You may board any species when no pair is in progress, otherwise only the
+    /// partner of the species you already started.
+    private func canBoard(_ passenger: Passenger) -> Bool {
+        guard let active = activeSpecies else { return true }
+        return passenger.art == active
+    }
+
     private func board(_ passenger: Passenger) {
         Haptics.soft()
         dragOffsets[passenger.id] = .zero
@@ -134,16 +148,30 @@ struct BoardTheArkGame: View {
             boarded.append(passenger)
         }
 
-        // Narrate when a species' pair is complete.
+        // Track the pair: first of a species starts it, second completes it.
         let sameSpecies = boarded.filter { $0.art == passenger.art }.count
         if sameSpecies == 2 {
+            activeSpecies = nil
             audio.speak("Two \(passenger.art.displayName)s are safe on the ark!")
         } else {
-            audio.speak("A \(passenger.art.displayName) climbs aboard.")
+            activeSpecies = passenger.art
+            audio.speak("Now bring the other \(passenger.art.displayName)!")
         }
 
         if boarded.count == total {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: startPayoff)
+        }
+    }
+
+    private func rejectWrongPair(_ passenger: Passenger) {
+        Haptics.gentleError()
+        withAnimation(.spring(response: 0.15, dampingFraction: 0.3)) { nudged = passenger.id }
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) { dragOffsets[passenger.id] = .zero }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            withAnimation { nudged = nil }
+        }
+        if let active = activeSpecies {
+            audio.speak("Let's find the other \(active.displayName) first!")
         }
     }
 

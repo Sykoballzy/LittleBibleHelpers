@@ -33,7 +33,8 @@ struct StoryHubView: View {
                     .padding(.top, 12)
 
                     GeometryReader { geo in
-                        let rowHeight = (geo.size.height - 20) / 2
+                        let rows = max(1, Int(ceil(Double(world.activities.count) / 2.0)))
+                        let rowHeight = (geo.size.height - 20 * CGFloat(rows - 1)) / CGFloat(rows)
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 2),
                                   spacing: 20) {
                             ForEach(world.activities) { activity in

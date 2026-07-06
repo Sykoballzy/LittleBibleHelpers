@@ -52,14 +52,16 @@ private struct GameScreen: View {
             MatchPairsGame(pool: pool, onComplete: finish)
         case .boardTheArk(let animals):
             BoardTheArkGame(animals: animals, onComplete: finish)
-        case .count(let item, let littleTarget, let bigTarget):
+        case .count(let item, let littleRange, let bigRange):
             CountGame(item: item,
-                      target: settings.ageBand == .littleOnes ? littleTarget : bigTarget,
+                      range: settings.ageBand == .littleOnes ? littleRange : bigRange,
                       onComplete: finish)
         case .sequence(let steps):
             SequenceGame(steps: steps, onComplete: finish)
         case .sortClassify(let categories, let items):
             SortGame(categories: categories, items: items, onComplete: finish)
+        case .actionSequence(let start, let steps):
+            ActionSequenceGame(start: start, steps: steps, onComplete: finish)
         }
     }
 

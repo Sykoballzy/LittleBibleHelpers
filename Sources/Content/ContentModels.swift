@@ -7,6 +7,7 @@ enum ArtKey: String, CaseIterable, Hashable {
     case elephant, giraffe, lion, sheep, dove, fish
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
     case moon, tree, earth
+    case saw, hammer, brush, arkPlanks, arkFrame, arkHull
 
     var displayName: String {
         switch self {
@@ -27,6 +28,12 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .moon: return "moon"
         case .tree: return "tree"
         case .earth: return "world"
+        case .saw: return "saw"
+        case .hammer: return "hammer"
+        case .brush: return "paintbrush"
+        case .arkPlanks: return "wood"
+        case .arkFrame: return "ark frame"
+        case .arkHull: return "ark"
         }
     }
 }
@@ -47,6 +54,14 @@ struct SequenceStep: Hashable {
     let caption: String
 }
 
+/// One step of the Action Sequence ("process") template: drag `tool` onto the
+/// central object, which then becomes `result`.
+struct ActionStep: Hashable {
+    let tool: ArtKey
+    let prompt: String
+    let result: ArtKey
+}
+
 /// A bin in the Sort & Classify game (e.g. Land / Sea / Sky).
 struct SortCategory: Identifiable, Hashable {
     let id: String
@@ -65,9 +80,10 @@ struct SortItem: Hashable {
 enum GameSpec: Hashable {
     case matchPairs(pool: [ArtKey])
     case boardTheArk(animals: [ArtKey])
-    case count(item: ArtKey, littleTarget: Int, bigTarget: Int)
+    case count(item: ArtKey, littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
     case sequence(steps: [SequenceStep])
     case sortClassify(categories: [SortCategory], items: [SortItem])
+    case actionSequence(start: ArtKey, steps: [ActionStep])
 }
 
 struct Activity: Identifiable, Hashable {

@@ -53,6 +53,20 @@ enum ContentLibrary {
         welcomeLine: "Welcome to Noah's Ark! Which game would you like to play?",
         activities: [
             Activity(
+                id: "noah-build",
+                title: "Build the Ark",
+                subtitle: "Use each tool to build!",
+                introLine: "Noah needs to build a big ark. Can you help? Use each tool!",
+                completionLine: "You built the ark!",
+                icon: .arkFrame,
+                spec: .actionSequence(start: .arkPlanks, steps: [
+                    ActionStep(tool: .saw, prompt: "Saw the wood!", result: .arkFrame),
+                    ActionStep(tool: .hammer, prompt: "Hammer the planks!", result: .arkHull),
+                    ActionStep(tool: .brush, prompt: "Paint the ark!", result: .ark)
+                ]),
+                reward: Collectible(id: "c-ark", name: "Ark", art: .ark, kind: .badge)
+            ),
+            Activity(
                 id: "noah-match",
                 title: "Match the Animals",
                 subtitle: "Find the matching pairs!",
@@ -79,7 +93,7 @@ enum ContentLibrary {
                 introLine: "Noah sent out a dove. How many doves can you count?",
                 completionLine: "You counted every dove!",
                 icon: .dove,
-                spec: .count(item: .dove, littleTarget: 4, bigTarget: 6),
+                spec: .count(item: .dove, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
             ),
             Activity(
@@ -141,7 +155,7 @@ enum ContentLibrary {
                 introLine: "God filled the night sky with stars. How many can you count?",
                 completionLine: "You counted every star!",
                 icon: .star,
-                spec: .count(item: .star, littleTarget: 4, bigTarget: 6),
+                spec: .count(item: .star, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-star", name: "Star", art: .star, kind: .badge)
             ),
             Activity(

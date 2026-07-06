@@ -39,6 +39,12 @@ struct ArtView: View {
         case .moon: MoonArt()
         case .tree: TreeArt()
         case .earth: EarthArt()
+        case .saw: SawArt()
+        case .hammer: HammerArt()
+        case .brush: BrushArt()
+        case .arkPlanks: ArkPlanksArt()
+        case .arkFrame: ArkFrameArt()
+        case .arkHull: ArkHullArt()
         }
     }
 }
