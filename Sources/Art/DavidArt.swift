@@ -148,6 +148,24 @@ struct BucketArt: View {
     }
 }
 
+/// One smooth stone from the stream (1 Samuel 17:40).
+struct StoneArt: View {
+    private let rock = Color(red: 0.70, green: 0.72, blue: 0.77)
+    private let rockDeep = Color(red: 0.58, green: 0.60, blue: 0.66)
+
+    var body: some View {
+        ArtCanvas {
+            Ellipse()
+                .fill(LinearGradient(colors: [rock, rockDeep], startPoint: .top, endPoint: .bottom))
+                .overlay(Ellipse().stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 64, height: 50)
+                .rotationEffect(.degrees(-8))
+            Ellipse().fill(Color.white.opacity(0.45)).frame(width: 18, height: 12)
+                .rotationEffect(.degrees(-16)).offset(x: -12, y: -10)
+        }
+    }
+}
+
 // MARK: - Sheep pen build stages
 
 struct PenFrameArt: View {

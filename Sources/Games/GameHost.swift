@@ -77,6 +77,14 @@ private struct GameScreen: View {
             GiveNumberGame(item: item, container: container,
                            range: settings.ageBand == .littleOnes ? littleRange : bigRange,
                            onComplete: finish)
+        case .tapColor(let regions):
+            TapColorGame(regions: regions, onComplete: finish)
+        case .pathway(let walker, let goal, let blocker, let prize):
+            PathwayGame(walker: walker, goal: goal, blocker: blocker, prize: prize,
+                        onComplete: finish)
+        case .cleanUp(let tool, let surface, let messCount):
+            CleanUpGame(tool: tool, surface: surface, messCount: messCount,
+                        onComplete: finish)
         }
     }
 

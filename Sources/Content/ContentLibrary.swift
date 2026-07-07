@@ -34,8 +34,8 @@ enum ContentLibrary {
 
     static let noahsArk = BibleWorld(
         id: "noah",
-        title: "Noah's Ark",
-        tagline: "Help Noah and the animals!",
+        title: "Noah",
+        tagline: "He built, he preached, he trusted Jehovah!",
         icon: .ark,
         accent: Theme.sky,
         welcomeLine: "Welcome to Noah's Ark! Which game would you like to play?",
@@ -128,14 +128,22 @@ enum ContentLibrary {
                 reward: Collectible(id: "c-hammer", name: "Hammer", art: .hammer, kind: .badge)
             ),
             Activity(
-                id: "noah-shadow",
-                title: "Match the Shadows",
-                subtitle: "Find each animal's shadow.",
-                introLine: "Every animal has a shadow. Can you match them?",
-                completionLine: "You matched every shadow!",
-                icon: .elephant,
-                spec: .shadowMatch(items: [.lion, .giraffe, .elephant]),
-                reward: Collectible(id: "c-sheep", name: "Sheep", art: .sheep, kind: .animal)
+                id: "noah-color",
+                title: "Color the Rainbow",
+                subtitle: "Tap a color, then tap the picture!",
+                introLine: "After the flood, Jehovah put a beautiful rainbow in the sky! Let's color it.",
+                completionLine: "What a beautiful rainbow!",
+                icon: .rainbow,
+                spec: .tapColor(regions: [
+                    ColorRegion(shape: .arcBand(outer: 130, thickness: 16), x: 100, y: 96, target: .red),
+                    ColorRegion(shape: .arcBand(outer: 96, thickness: 16), x: 100, y: 96, target: .yellow),
+                    ColorRegion(shape: .arcBand(outer: 62, thickness: 16), x: 100, y: 96, target: .blue),
+                    ColorRegion(shape: .circle(diameter: 30), x: 168, y: 28, target: .yellow),
+                    ColorRegion(shape: .ellipse(width: 44, height: 26), x: 32, y: 34, target: .gray),
+                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
+                ]),
+                reward: Collectible(id: "c-rainbow-colors", name: "Rainbow Colors", art: .rainbow, kind: .badge),
+                scripture: "Genesis 9:13"
             )
         ],
         bonusReward: Collectible(id: "c-noah", name: "Noah", art: .noah, kind: .character)
@@ -202,14 +210,23 @@ enum ContentLibrary {
                 scripture: "Genesis 1"
             ),
             Activity(
-                id: "creation-match",
-                title: "Match the Creations",
-                subtitle: "Find the matching pairs!",
-                introLine: "God made so many wonderful things! Can you find the matching pairs?",
-                completionLine: "You matched them all!",
-                icon: .moon,
-                spec: .matchPairs(pool: [.sun, .moon, .star, .tree, .fruit, .dove]),
-                reward: Collectible(id: "c-moon", name: "Moon", art: .moon, kind: .badge)
+                id: "creation-color",
+                title: "Color the Garden",
+                subtitle: "Tap a color, then tap the picture!",
+                introLine: "Jehovah made a beautiful garden! Let's color it together.",
+                completionLine: "The garden looks beautiful!",
+                icon: .tree,
+                spec: .tapColor(regions: [
+                    ColorRegion(shape: .circle(diameter: 56), x: 58, y: 52, target: .green),
+                    ColorRegion(shape: .ellipse(width: 20, height: 44), x: 58, y: 96, target: .brown),
+                    ColorRegion(shape: .circle(diameter: 16), x: 46, y: 44, target: .orange),
+                    ColorRegion(shape: .circle(diameter: 16), x: 72, y: 60, target: .orange),
+                    ColorRegion(shape: .circle(diameter: 32), x: 168, y: 28, target: .yellow),
+                    ColorRegion(shape: .circle(diameter: 16), x: 148, y: 104, target: .purple),
+                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
+                ]),
+                reward: Collectible(id: "c-garden-tree", name: "Garden Tree", art: .tree, kind: .badge),
+                scripture: "Genesis 2:9"
             ),
             Activity(
                 id: "creation-name",
@@ -267,9 +284,9 @@ enum ContentLibrary {
 
     static let davidSheep = BibleWorld(
         id: "david",
-        title: "David & the Sheep",
-        tagline: "Care for the flock like David!",
-        icon: .sheep,
+        title: "David",
+        tagline: "Shepherd, singer, brave friend of Jehovah!",
+        icon: .david,
         accent: Theme.sunny,
         welcomeLine: "David took good care of his sheep, and Jehovah took good care of David!",
         activities: [
@@ -340,50 +357,39 @@ enum ContentLibrary {
                 scripture: "1 Samuel 16:23"
             ),
             Activity(
-                id: "david-find",
-                title: "Find It for David",
-                subtitle: "Find the one that matches!",
-                introLine: "David needs his shepherd things! Can you find each one?",
-                completionLine: "You found everything David needs!",
-                icon: .staff,
-                spec: .findIt(items: [.sheep, .harp, .sling, .staff]),
-                reward: Collectible(id: "c-staff", name: "Staff", art: .staff, kind: .badge),
-                scripture: "1 Samuel 17:40"
-            ),
-            Activity(
-                id: "david-night",
-                title: "Day and Night",
-                subtitle: "Sort what David sees.",
-                introLine: "David watched the sheep all day and looked at the stars at night. What belongs to the day, and what belongs to the night?",
-                completionLine: "You sorted the day and the night!",
-                icon: .star,
-                spec: .sortClassify(
-                    categories: [
-                        SortCategory(id: "day", title: "Day", color: Theme.sunny),
-                        SortCategory(id: "night", title: "Night", color: Theme.berry)
-                    ],
-                    items: [
-                        SortItem(art: .sun, categoryID: "day"),
-                        SortItem(art: .sheep, categoryID: "day"),
-                        SortItem(art: .dove, categoryID: "day"),
-                        SortItem(art: .moon, categoryID: "night"),
-                        SortItem(art: .star, categoryID: "night"),
-                        SortItem(art: .star, categoryID: "night")
-                    ]
-                ),
-                reward: Collectible(id: "c-shepherd-star", name: "Night Sky", art: .star, kind: .badge),
-                scripture: "Psalm 8:3"
-            ),
-            Activity(
-                id: "david-shadow",
-                title: "Shepherd Shadows",
-                subtitle: "Match each one to its shadow.",
-                introLine: "The sun makes shadows in the field! Can you match them?",
-                completionLine: "You matched every shadow!",
-                icon: .sling,
-                spec: .shadowMatch(items: [.sheep, .harp, .staff]),
+                id: "david-stones",
+                title: "Five Smooth Stones",
+                subtitle: "Put five stones in David's bag.",
+                introLine: "David chose five smooth stones from the stream. Jehovah would help him be brave! Can you count out five?",
+                completionLine: "Five smooth stones — and Jehovah made David brave!",
+                icon: .stone,
+                spec: .giveNumber(item: .stone, container: .bag,
+                                  littleRange: 5...5, bigRange: 5...5),
                 reward: Collectible(id: "c-sling", name: "Sling", art: .sling, kind: .badge),
                 scripture: "1 Samuel 17:40"
+            ),
+            Activity(
+                id: "david-lead",
+                title: "Lead the Sheep Home",
+                subtitle: "Step by step to the pen!",
+                introLine: "A good shepherd leads his sheep home. Walk the little sheep past the trees, one step at a time!",
+                completionLine: "The sheep followed the shepherd all the way home!",
+                icon: .staff,
+                spec: .pathway(walker: .sheep, goal: .pen, blocker: .tree, prize: .star),
+                reward: Collectible(id: "c-staff", name: "Staff", art: .staff, kind: .badge),
+                scripture: "Psalm 23:2, 3"
+            ),
+            Activity(
+                id: "david-flock",
+                title: "Gather the Flock",
+                subtitle: "Bring every sheep to the pen.",
+                introLine: "Night is coming! Help David gather every sheep safely into the pen.",
+                completionLine: "The whole flock is safe — not one is missing!",
+                icon: .sheep,
+                spec: .gather(item: .sheep, count: 4, container: .pen,
+                              scenery: nil, decoyGuard: nil, decoyLine: nil),
+                reward: Collectible(id: "c-flock", name: "Flock", art: .sheep, kind: .animal),
+                scripture: "Psalm 23:1"
             )
         ],
         bonusReward: Collectible(id: "c-david", name: "David", art: .david, kind: .character)
@@ -393,9 +399,9 @@ enum ContentLibrary {
 
     static let danielLions = BibleWorld(
         id: "daniel",
-        title: "Daniel & the Lions",
-        tagline: "Be faithful like Daniel!",
-        icon: .lion,
+        title: "Daniel",
+        tagline: "Faithful every single day!",
+        icon: .daniel,
         accent: Theme.berry,
         welcomeLine: "Daniel loved Jehovah and prayed every single day — no matter what!",
         activities: [
@@ -463,21 +469,21 @@ enum ContentLibrary {
                 scripture: "Daniel 6:25-27"
             ),
             Activity(
-                id: "daniel-find",
-                title: "Find It in the Palace",
-                subtitle: "Find the one that matches!",
-                introLine: "Look around the palace! Can you find each one?",
-                completionLine: "You found them all!",
-                icon: .crown,
-                spec: .findIt(items: [.lion, .crown, .angel, .window]),
+                id: "daniel-steps",
+                title: "Faithful Steps",
+                subtitle: "Walk calmly to the window.",
+                introLine: "Some men watched Daniel, hoping he would stop praying. But Daniel walked calmly home to his window — just like always! Walk with him, one step at a time.",
+                completionLine: "Daniel was never afraid to pray!",
+                icon: .window,
+                spec: .pathway(walker: .daniel, goal: .window, blocker: .villagerA, prize: .star),
                 reward: Collectible(id: "c-daniel-moon", name: "Night Moon", art: .moon, kind: .badge),
-                scripture: "Daniel 6"
+                scripture: "Daniel 6:10, 11"
             ),
             Activity(
                 id: "daniel-sort",
                 title: "Morning and Night",
-                subtitle: "When do we see it?",
-                introLine: "Daniel prayed in the morning and at night. What do we see in the morning? What do we see at night?",
+                subtitle: "Daniel prayed at both!",
+                introLine: "Daniel prayed when the sun came up, at midday, and when the moon rose — every day! What belongs to the morning, and what belongs to the night?",
                 completionLine: "You sorted the morning and the night!",
                 icon: .moon,
                 spec: .sortClassify(
@@ -498,15 +504,20 @@ enum ContentLibrary {
                 scripture: "Daniel 6:10"
             ),
             Activity(
-                id: "daniel-shadow",
-                title: "Palace Shadows",
-                subtitle: "Match each one to its shadow.",
-                introLine: "The palace lamps make shadows! Can you match them?",
-                completionLine: "You matched every shadow!",
-                icon: .star,
-                spec: .shadowMatch(items: [.lion, .crown, .angel]),
+                id: "daniel-color",
+                title: "Color the Morning",
+                subtitle: "Tap a color, then tap the picture!",
+                introLine: "At the first light of dawn, the king ran to the den — and Daniel was safe! Let's color the happy morning.",
+                completionLine: "The night is over — what a beautiful morning!",
+                icon: .sun,
+                spec: .tapColor(regions: [
+                    ColorRegion(shape: .arcBand(outer: 132, thickness: 14), x: 100, y: 94, target: .orange),
+                    ColorRegion(shape: .circle(diameter: 54), x: 100, y: 88, target: .yellow),
+                    ColorRegion(shape: .ellipse(width: 42, height: 22), x: 36, y: 32, target: .gray),
+                    ColorRegion(shape: .ellipse(width: 190, height: 28), x: 100, y: 128, target: .brown)
+                ]),
                 reward: Collectible(id: "c-daniel-star", name: "Bright Star", art: .star, kind: .badge),
-                scripture: "Daniel 6"
+                scripture: "Daniel 6:19"
             )
         ],
         bonusReward: Collectible(id: "c-daniel", name: "Daniel", art: .daniel, kind: .character)
@@ -516,7 +527,7 @@ enum ContentLibrary {
 
     static let jonahBigFish = BibleWorld(
         id: "jonah",
-        title: "Jonah & the Big Fish",
+        title: "Jonah",
         tagline: "A big fish and a big lesson!",
         icon: .bigFish,
         accent: Color(red: 0.30, green: 0.62, blue: 0.62),
@@ -576,15 +587,18 @@ enum ContentLibrary {
                 scripture: "Jonah 1:17"
             ),
             Activity(
-                id: "jonah-match",
-                title: "Match the Sea",
-                subtitle: "Find the matching pairs!",
-                introLine: "So many things by the sea! Can you find the pairs?",
-                completionLine: "You matched them all!",
-                icon: .boat,
-                spec: .matchPairs(pool: [.fish, .bigFish, .boat, .stormCloud, .sun, .moon]),
-                reward: Collectible(id: "c-boat", name: "Boat", art: .boat, kind: .badge),
-                scripture: "Jonah 1:3"
+                id: "jonah-plant",
+                title: "The Shade Plant",
+                subtitle: "Help the plant grow tall!",
+                introLine: "Jehovah made a leafy plant grow up over Jonah to give him shade. Help it grow!",
+                completionLine: "What wonderful shade — Jehovah is kind!",
+                icon: .sprout,
+                spec: .actionSequence(start: .soil, steps: [
+                    ActionStep(tool: .seed, prompt: "Jehovah planted it!", result: .sprout),
+                    ActionStep(tool: .moon, prompt: "It grew overnight!", result: .tree)
+                ]),
+                reward: Collectible(id: "c-shade-plant", name: "Shade Plant", art: .sprout, kind: .badge),
+                scripture: "Jonah 4:6"
             ),
             Activity(
                 id: "jonah-find",
@@ -640,7 +654,7 @@ enum ContentLibrary {
 
     static let jesusFriends = BibleWorld(
         id: "jesus",
-        title: "Jesus & His Friends",
+        title: "Jesus",
         tagline: "Learn to be kind like Jesus!",
         icon: .jesus,
         accent: Theme.coral,
@@ -722,14 +736,14 @@ enum ContentLibrary {
                 scripture: "Matthew 14:17"
             ),
             Activity(
-                id: "jesus-match",
-                title: "Match by the Sea",
-                subtitle: "Find the matching pairs!",
-                introLine: "Jesus taught his friends by the sea. Can you find the pairs?",
-                completionLine: "You matched them all!",
-                icon: .heart,
-                spec: .matchPairs(pool: [.bread, .fish, .boat, .sheep, .heart, .star]),
-                reward: Collectible(id: "c-jesus-heart", name: "Loving Heart", art: .heart, kind: .badge),
+                id: "jesus-come",
+                title: "Come to Jesus",
+                subtitle: "Walk all the way to Jesus!",
+                introLine: "Some friends said the children should stay away. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time.",
+                completionLine: "Jesus was so happy to see you!",
+                icon: .child,
+                spec: .pathway(walker: .child, goal: .jesus, blocker: .villagerA, prize: .heart),
+                reward: Collectible(id: "c-jesus-heart", name: "Welcomed", art: .heart, kind: .badge),
                 scripture: "Mark 10:13-16"
             ),
             Activity(
@@ -751,8 +765,8 @@ enum ContentLibrary {
 
     static let meetings = BibleWorld(
         id: "meetings",
-        title: "Meetings & Conventions",
-        tagline: "Get ready for the meeting!",
+        title: "Meetings",
+        tagline: "Get ready — it's meeting day!",
         icon: .hall,
         accent: Theme.wood,
         welcomeLine: "We love going to the meeting to learn about Jehovah with our friends!",
@@ -849,26 +863,26 @@ enum ContentLibrary {
                 scripture: "Psalm 133:1"
             ),
             Activity(
-                id: "meet-find",
-                title: "Find Your Things",
-                subtitle: "Find the one that matches!",
-                introLine: "Time to get ready! Can you find each thing we need?",
-                completionLine: "You found everything!",
-                icon: .book,
-                spec: .findIt(items: [.bag, .book, .songbook, .chair]),
-                reward: Collectible(id: "c-bible", name: "My Bible", art: .book, kind: .badge),
-                scripture: "Psalm 119:105"
+                id: "meet-clean",
+                title: "Clean the Hall",
+                subtitle: "Wipe every spot until it shines!",
+                introLine: "Our meeting place should be clean and beautiful! Take the cloth and wipe every spot.",
+                completionLine: "The hall is shiny clean and ready!",
+                icon: .cloth,
+                spec: .cleanUp(tool: .cloth, surface: .hall, messCount: 4),
+                reward: Collectible(id: "c-hall", name: "Meeting Place", art: .hall, kind: .badge),
+                scripture: "1 Corinthians 14:40"
             ),
             Activity(
-                id: "meet-match",
-                title: "Match at the Hall",
-                subtitle: "Find the matching pairs!",
-                introLine: "So many things at the meeting! Can you find the pairs?",
-                completionLine: "You matched them all!",
-                icon: .songbook,
-                spec: .matchPairs(pool: [.book, .songbook, .bag, .hall, .heart, .chair]),
-                reward: Collectible(id: "c-hall", name: "Meeting Place", art: .hall, kind: .badge),
-                scripture: "Hebrews 10:24, 25"
+                id: "meet-speaker",
+                title: "Meet the Speaker",
+                subtitle: "Walk nicely down the aisle.",
+                introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting.",
+                completionLine: "You said such a nice hello — and you walked the whole way!",
+                icon: .child,
+                spec: .pathway(walker: .child, goal: .villagerC, blocker: .villagerA, prize: .star),
+                reward: Collectible(id: "c-bible", name: "My Bible", art: .book, kind: .badge),
+                scripture: "Romans 12:10"
             )
         ],
         bonusReward: Collectible(id: "c-family", name: "My Family", art: .people, kind: .character)
@@ -879,106 +893,127 @@ enum ContentLibrary {
     static let qualities = BibleWorld(
         id: "qualities",
         title: "Christian Qualities",
-        tagline: "Grow good fruit every day!",
-        icon: .heart,
+        tagline: "Grow the fruitage of the spirit!",
+        icon: .fruit,
         accent: Theme.grassDeep,
-        welcomeLine: "Jehovah's spirit helps us grow love, joy, peace, and kindness!",
+        welcomeLine: "Jehovah's spirit helps us grow nine good fruits — love, joy, peace, and more!",
         activities: [
             Activity(
-                id: "qual-gather",
-                title: "Fruit of the Spirit",
-                subtitle: "Fill the basket with good fruit.",
-                introLine: "Jehovah's spirit helps us grow good fruit — love, joy, and peace! Pick the good fruit.",
-                completionLine: "Your basket is full of good fruit!",
-                icon: .fruit,
-                spec: .gather(item: .fruit, count: 4, container: .basket,
-                              scenery: .tree, decoyGuard: nil, decoyLine: nil),
-                reward: Collectible(id: "c-good-fruit", name: "Good Fruit", art: .fruit, kind: .badge),
-                scripture: "Galatians 5:22, 23"
-            ),
-            Activity(
-                id: "qual-share",
-                title: "Share with Friends",
-                subtitle: "Give some fruit away.",
-                introLine: "Sharing makes everyone happy! Give some of your fruit to your friends.",
-                completionLine: "There is more happiness in giving!",
-                icon: .heart,
-                spec: .giveNumber(item: .fruit, container: .people,
-                                  littleRange: 2...4, bigRange: 3...6),
-                reward: Collectible(id: "c-sharing", name: "Sharing", art: .heart, kind: .badge),
-                scripture: "Acts 20:35"
-            ),
-            Activity(
                 id: "qual-love",
-                title: "Share the Love",
+                title: "Love",
                 subtitle: "Give a heart to each friend.",
-                introLine: "Jesus said to love one another! Share a heart with everyone.",
+                introLine: "The first fruit is love! Jesus said to love one another. Share a heart with everyone.",
                 completionLine: "Love makes every day brighter!",
                 icon: .heart,
                 spec: .deliver(item: .heart, source: .people,
                                targets: [.villagerA, .villagerB, .villagerC],
-                               deliverLine: "That was so kind!"),
-                reward: Collectible(id: "c-kind-dove", name: "Kind Dove", art: .dove, kind: .badge),
+                               deliverLine: "That was so loving!"),
+                reward: Collectible(id: "c-love", name: "Love", art: .heart, kind: .badge),
                 scripture: "John 13:34"
             ),
             Activity(
-                id: "qual-order",
-                title: "How to Be Kind",
-                subtitle: "Put kindness in order.",
-                introLine: "When a friend feels sad, we can help! What do we do first?",
-                completionLine: "Kindness made your friend smile!",
-                icon: .heart,
-                spec: .sequence(steps: [
-                    SequenceStep(art: .villagerB, caption: "Your friend feels sad"),
-                    SequenceStep(art: .fruit, caption: "Bring a kind gift"),
-                    SequenceStep(art: .heart, caption: "Now they feel loved!"),
-                    SequenceStep(art: .sun, caption: "Kindness shines bright!")
+                id: "qual-joy",
+                title: "Joy",
+                subtitle: "Tap a color, then tap the picture!",
+                introLine: "Joy makes us want to sing! Color the happy picture.",
+                completionLine: "What a joyful picture!",
+                icon: .sun,
+                spec: .tapColor(regions: [
+                    ColorRegion(shape: .circle(diameter: 26), x: 42, y: 46, target: .red),
+                    ColorRegion(shape: .circle(diameter: 26), x: 158, y: 44, target: .blue),
+                    ColorRegion(shape: .circle(diameter: 22), x: 64, y: 26, target: .purple),
+                    ColorRegion(shape: .circle(diameter: 40), x: 104, y: 40, target: .yellow),
+                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
                 ]),
-                reward: Collectible(id: "c-kindness", name: "Kindness", art: .heart, kind: .badge),
+                reward: Collectible(id: "c-joy", name: "Joy", art: .sun, kind: .badge),
+                scripture: "Psalm 100:2"
+            ),
+            Activity(
+                id: "qual-peace",
+                title: "Peace",
+                subtitle: "Put peacemaking in order.",
+                introLine: "Two friends both want the same fruit. How do peacemakers fix it?",
+                completionLine: "Sharing made peace — and everyone is happy!",
+                icon: .dove,
+                spec: .sequence(steps: [
+                    SequenceStep(art: .villagerB, caption: "Both friends want the fruit"),
+                    SequenceStep(art: .fruit, caption: "They share it"),
+                    SequenceStep(art: .heart, caption: "Both friends are happy"),
+                    SequenceStep(art: .dove, caption: "That is peace!")
+                ]),
+                reward: Collectible(id: "c-peace", name: "Peace", art: .dove, kind: .badge),
+                scripture: "Matthew 5:9"
+            ),
+            Activity(
+                id: "qual-patience",
+                title: "Patience",
+                subtitle: "Plant, water... and wait!",
+                introLine: "Patience means waiting nicely. Plant the seed, water it, and wait for it to grow!",
+                completionLine: "You waited so patiently — and look how it grew!",
+                icon: .sprout,
+                spec: .actionSequence(start: .soil, steps: [
+                    ActionStep(tool: .seed, prompt: "Plant the seed... and wait!", result: .sprout),
+                    ActionStep(tool: .wateringCan, prompt: "Water it... and wait!", result: .sapling),
+                    ActionStep(tool: .sun, prompt: "Wait for the sunshine!", result: .tree)
+                ]),
+                reward: Collectible(id: "c-patience", name: "Patience", art: .tree, kind: .badge),
+                scripture: "James 5:7"
+            ),
+            Activity(
+                id: "qual-kindness",
+                title: "Kindness",
+                subtitle: "Help clean up the spill.",
+                introLine: "Uh oh — your friend spilled something! A kind helper cleans up. Take the cloth!",
+                completionLine: "Your kindness made your friend smile!",
+                icon: .cloth,
+                spec: .cleanUp(tool: .cloth, surface: .people, messCount: 3),
+                reward: Collectible(id: "c-kindness", name: "Kindness", art: .cloth, kind: .badge),
                 scripture: "Ephesians 4:32"
             ),
             Activity(
-                id: "qual-count",
-                title: "Count the Hearts",
-                subtitle: "Tap each heart to count!",
-                introLine: "So much love to share! How many hearts can you count?",
-                completionLine: "You counted all the love!",
-                icon: .heart,
-                spec: .count(items: [.heart], littleRange: 3...8, bigRange: 6...12),
-                reward: Collectible(id: "c-joy-sun", name: "Joy", art: .sun, kind: .badge),
-                scripture: "Galatians 5:22"
-            ),
-            Activity(
-                id: "qual-find",
-                title: "Find the Good Things",
-                subtitle: "Find the one that matches!",
-                introLine: "Good things are all around! Can you find each one?",
-                completionLine: "You found every good thing!",
-                icon: .star,
-                spec: .findIt(items: [.heart, .dove, .fruit, .star]),
-                reward: Collectible(id: "c-patience-tree", name: "Patience", art: .tree, kind: .badge),
-                scripture: "Galatians 5:22, 23"
-            ),
-            Activity(
-                id: "qual-match",
-                title: "Match the Good Fruit",
-                subtitle: "Find the matching pairs!",
-                introLine: "Love, joy, peace — can you find the pairs?",
-                completionLine: "You matched them all!",
+                id: "qual-goodness",
+                title: "Goodness",
+                subtitle: "Fill the basket to share.",
+                introLine: "Goodness means doing good things for others! Pick good fruit to share.",
+                completionLine: "A whole basket of goodness to give away!",
                 icon: .fruit,
-                spec: .matchPairs(pool: [.heart, .star, .dove, .fruit, .sun, .tree]),
-                reward: Collectible(id: "c-quality-star", name: "Goodness", art: .star, kind: .badge),
-                scripture: "Galatians 5:22, 23"
+                spec: .gather(item: .fruit, count: 4, container: .basket,
+                              scenery: .tree, decoyGuard: nil, decoyLine: nil),
+                reward: Collectible(id: "c-goodness", name: "Goodness", art: .fruit, kind: .badge),
+                scripture: "Galatians 6:10"
             ),
             Activity(
-                id: "qual-shadow",
-                title: "Gentle Shadows",
-                subtitle: "Match each one to its shadow.",
-                introLine: "Even shadows can be gentle! Can you match them?",
-                completionLine: "You matched every shadow!",
-                icon: .moon,
-                spec: .shadowMatch(items: [.heart, .star, .tree]),
-                reward: Collectible(id: "c-peace-moon", name: "Peace", art: .moon, kind: .badge),
+                id: "qual-faith",
+                title: "Faith",
+                subtitle: "Match the friends of faith!",
+                introLine: "Noah, David, Daniel, and Jonah all trusted Jehovah! Match the friends of faith.",
+                completionLine: "They all had faith in Jehovah — and you know them all!",
+                icon: .star,
+                spec: .matchPairs(pool: [.noah, .david, .daniel, .jonah]),
+                reward: Collectible(id: "c-faith", name: "Faith", art: .book, kind: .badge),
+                scripture: "Hebrews 11:6"
+            ),
+            Activity(
+                id: "qual-mildness",
+                title: "Mildness",
+                subtitle: "Find each gentle friend.",
+                introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend.",
+                completionLine: "Gentle and mild, just like Jesus!",
+                icon: .sheep,
+                spec: .findIt(items: [.dove, .sheep, .child, .heart]),
+                reward: Collectible(id: "c-mildness", name: "Mildness", art: .sheep, kind: .badge),
+                scripture: "Matthew 11:29"
+            ),
+            Activity(
+                id: "qual-selfcontrol",
+                title: "Self-Control",
+                subtitle: "Take just enough — then stop!",
+                introLine: "Self-control means knowing when to stop. Take just enough fruit — and not one more!",
+                completionLine: "You stopped at just the right time!",
+                icon: .basket,
+                spec: .giveNumber(item: .fruit, container: .basket,
+                                  littleRange: 2...3, bigRange: 3...5),
+                reward: Collectible(id: "c-self-control", name: "Self-Control", art: .basket, kind: .badge),
                 scripture: "Galatians 5:22, 23"
             )
         ],

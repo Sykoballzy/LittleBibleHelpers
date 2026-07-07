@@ -15,6 +15,7 @@ enum ArtKey: String, CaseIterable, Hashable {
     case jonah, boat, bigFish
     case jesus, bread
     case bag, bagWithBook, bagPacked, book, songbook, chair
+    case child, cloth, stone
 
     var displayName: String {
         switch self {
@@ -78,8 +79,50 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .book: return "Bible"
         case .songbook: return "songbook"
         case .chair: return "chair"
+        case .child: return "child"
+        case .cloth: return "cleaning cloth"
+        case .stone: return "smooth stone"
         }
     }
+}
+
+// MARK: - Tap-to-Color support
+
+/// The child-facing palette. Each colorable picture uses only the colors that
+/// belong in it, so the finished picture always looks right.
+enum PaletteColor: String, CaseIterable, Hashable {
+    case red, orange, yellow, green, blue, purple, brown, gray
+
+    var color: Color {
+        switch self {
+        case .red: return Color(red: 0.87, green: 0.34, blue: 0.30)
+        case .orange: return Color(red: 0.93, green: 0.60, blue: 0.20)
+        case .yellow: return Theme.sunny
+        case .green: return Theme.leaf
+        case .blue: return Theme.sky
+        case .purple: return Theme.berry
+        case .brown: return Theme.wood
+        case .gray: return Color(red: 0.62, green: 0.66, blue: 0.72)
+        }
+    }
+
+    var spokenName: String { rawValue.capitalized }
+}
+
+/// A single fillable region of a colorable picture, positioned in the
+/// 200x140 picture design space.
+enum RegionShape: Hashable {
+    case circle(diameter: CGFloat)
+    case ellipse(width: CGFloat, height: CGFloat)
+    /// A top-half rainbow band (ring segment): outer diameter + band thickness.
+    case arcBand(outer: CGFloat, thickness: CGFloat)
+}
+
+struct ColorRegion: Hashable {
+    let shape: RegionShape
+    let x: CGFloat
+    let y: CGFloat
+    let target: PaletteColor
 }
 
 enum CollectibleKind: String, Hashable {
@@ -143,6 +186,16 @@ enum GameSpec: Hashable {
     /// times; 2 little fish).
     case giveNumber(item: ArtKey, container: ArtKey,
                     littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
+    /// Tap-to-Color: pick a color chip, tap the matching region. The palette
+    /// holds only the colors that belong in the picture — no mess, no failure.
+    case tapColor(regions: [ColorRegion])
+    /// Step-by-step grid walk: tap an open neighboring tile to move the walker
+    /// past friendly blockers to the goal, collecting prizes. Teaches walking
+    /// calmly (never running) — Meet the Speaker, Come to Jesus.
+    case pathway(walker: ArtKey, goal: ArtKey, blocker: ArtKey, prize: ArtKey)
+    /// Wipe the smudges: drag the cloth onto each spot until everything
+    /// sparkles clean (clean the hall; kindness clean-up).
+    case cleanUp(tool: ArtKey, surface: ArtKey, messCount: Int)
 }
 
 struct Activity: Identifiable, Hashable {

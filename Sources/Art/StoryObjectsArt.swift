@@ -207,6 +207,34 @@ struct SongbookArt: View {
     }
 }
 
+/// A soft cleaning cloth with soap bubbles — for the Clean Up games.
+struct ClothArt: View {
+    private let fabric = Color(red: 0.58, green: 0.78, blue: 0.92)
+    private let fabricDeep = Color(red: 0.44, green: 0.64, blue: 0.80)
+
+    var body: some View {
+        ArtCanvas {
+            // folded cloth
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(fabric)
+                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 72, height: 56)
+                .rotationEffect(.degrees(-8))
+                .offset(y: 10)
+            // fold lines
+            Capsule().fill(fabricDeep).frame(width: 58, height: 4)
+                .rotationEffect(.degrees(-8)).offset(y: 0)
+            Capsule().fill(fabricDeep).frame(width: 52, height: 4)
+                .rotationEffect(.degrees(-8)).offset(y: 18)
+            // soap bubbles
+            Circle().stroke(Color.white, lineWidth: 3).frame(width: 16).offset(x: -30, y: -26)
+            Circle().stroke(Color.white, lineWidth: 2.5).frame(width: 11).offset(x: -12, y: -34)
+            Circle().stroke(Color.white, lineWidth: 2).frame(width: 8).offset(x: 4, y: -26)
+            Circle().fill(Color.white.opacity(0.7)).frame(width: 6).offset(x: 16, y: -34)
+        }
+    }
+}
+
 struct ChairArt: View {
     private let seatColor = Color(red: 0.52, green: 0.60, blue: 0.72)
     private let frame = Color(red: 0.40, green: 0.46, blue: 0.56)

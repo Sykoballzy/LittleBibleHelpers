@@ -82,6 +82,9 @@ struct ArtView: View {
         case .book: BookArt()
         case .songbook: SongbookArt()
         case .chair: ChairArt()
+        case .child: ChildArt()
+        case .cloth: ClothArt()
+        case .stone: StoneArt()
         }
     }
 }

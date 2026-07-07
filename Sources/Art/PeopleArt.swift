@@ -118,6 +118,43 @@ struct PeopleArt: View {
     }
 }
 
+/// A little child — the player's stand-in for pathway games.
+struct ChildArt: View {
+    private let skin = Color(red: 0.96, green: 0.80, blue: 0.64)
+    private let hair = Color(red: 0.45, green: 0.30, blue: 0.16)
+
+    var body: some View {
+        ArtCanvas {
+            // small tunic
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .fill(Theme.sky)
+                .overlay(RoundedRectangle(cornerRadius: 18).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 50, height: 42)
+                .offset(y: 40)
+            // big friendly head (kid proportions)
+            Circle()
+                .fill(skin)
+                .overlay(Circle().stroke(Theme.outline.opacity(0.28), lineWidth: 3))
+                .frame(width: 52)
+                .offset(y: -6)
+            Circle()
+                .trim(from: 0.5, to: 1.0)
+                .fill(hair)
+                .frame(width: 54)
+                .offset(y: -8)
+            // little tuft
+            Ellipse().fill(hair).frame(width: 14, height: 10).offset(y: -34)
+            CuteEyes(spacing: 17, size: 10).offset(y: -8)
+            Blush(spacing: 40).offset(y: 2)
+            Circle()
+                .trim(from: 0.12, to: 0.38)
+                .stroke(Theme.outline, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                .frame(width: 16)
+                .offset(y: 6)
+        }
+    }
+}
+
 /// A rolled message scroll — Noah's warning.
 struct ScrollArt: View {
     private let paper = Color(red: 0.99, green: 0.95, blue: 0.85)

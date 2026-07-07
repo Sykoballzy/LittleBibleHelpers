@@ -9,12 +9,25 @@ Ideas captured but not yet built. Ordered roughly by priority.
 - **Build a Pathway** — lay road tiles (straight / corner pieces) to guide a
   character along a path, collecting stars. Spatial/puzzle. Higher complexity —
   needs a tile grid and path-validation. *(Requested by Travis, iteration 4.)*
-- Remaining templates from the original brief: Coloring (Apple Pencil),
-  Dress Up, Jigsaw Puzzle. (Find the Missing Item is covered by Find It.)
+- **Tap-to-Color** — toddler coloring with no brush and no free-draw: tap a
+  region, tap a color, the region fills. The palette shows ONLY the colors that
+  belong in that picture, so the result always looks right and there is no
+  failure state or mess. Big regions, thick outlines. *(Travis's reframe of the
+  original "Coloring" idea — better for little hands than Apple Pencil.)*
+- Remaining brief templates: Dress Up, Jigsaw Puzzle. (Find the Missing Item is
+  covered by Find It; free-draw Coloring is superseded by Tap-to-Color above.)
 
 ## Content
 
-- ~~Six remaining worlds~~ — DONE (iteration 8): all 8 worlds at 8 games each.
+- ~~Six remaining worlds~~ — DONE (iter 8). ~~Fit pass / de-dupe~~ — DONE
+  (iter 9): worlds renamed (Noah, David, ...), zero within-world template
+  repeats, Qualities = one game per fruitage.
+- **Future Jesus packs** (Travis, iter 9): Jesus could be many worlds —
+  Jesus' Miracles, Jesus' Ministry, the Ransom's benefit (Memorial pack),
+  the Resurrection. Dozens of other Bible characters are pack candidates.
+- Broader David accounts now in scope after rename (harp for Saul, King
+  David). Keep it toddler-gentle; Goliath only as bravery/preparation
+  (Five Smooth Stones); adult accounts (e.g. Bathsheba) stay out.
 - Depth pass after playtest: more animation per game, richer per-world
   backgrounds (sea for Jonah, night palace for Daniel, hall interior for
   Meetings) — currently all worlds share the meadow background.
