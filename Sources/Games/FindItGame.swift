@@ -28,7 +28,8 @@ struct FindItGame: View {
             VStack(spacing: 22) {
                 if let target {
                     // Reference the child matches against — no reading needed.
-                    VStack(spacing: 8) {
+                    // The label underneath helps a parent name it out loud.
+                    VStack(spacing: 6) {
                         BannerTitle(text: "Find this one!", color: Theme.coral, textSize: 26)
                         ArtView(key: target)
                             .padding(14)
@@ -41,6 +42,9 @@ struct FindItGame: View {
                             .overlay(
                                 Circle().strokeBorder(Theme.coral.opacity(0.5), lineWidth: 4)
                             )
+                        Text(target.displayName.capitalized)
+                            .font(Theme.body(17))
+                            .foregroundColor(Theme.textDark.opacity(0.7))
                     }
                 }
 
@@ -49,14 +53,22 @@ struct FindItGame: View {
                         Button {
                             tap(item)
                         } label: {
-                            ArtView(key: item)
-                                .padding(18)
-                                .frame(width: cardSize, height: cardSize)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                        .fill(Color.white)
-                                        .shadow(color: .black.opacity(0.10), radius: 7, y: 4)
-                                )
+                            VStack(spacing: 4) {
+                                ArtView(key: item)
+                                    .padding(8)
+                                Text(item.displayName.capitalized)
+                                    .font(Theme.body(15))
+                                    .foregroundColor(Theme.textDark.opacity(0.7))
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.6)
+                            }
+                            .padding(12)
+                            .frame(width: cardSize, height: cardSize)
+                            .background(
+                                RoundedRectangle(cornerRadius: 26, style: .continuous)
+                                    .fill(Color.white)
+                                    .shadow(color: .black.opacity(0.10), radius: 7, y: 4)
+                            )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 26, style: .continuous)
                                         .strokeBorder(found == item ? Theme.leaf : Color.clear, lineWidth: 5)

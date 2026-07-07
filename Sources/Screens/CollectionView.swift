@@ -1,10 +1,11 @@
 import SwiftUI
 
-/// "My Collection" — earned stickers in color, locked ones as soft silhouettes.
+/// "My Collection" — organized world by world. Only earned stickers appear;
+/// each world shows a progress bar and an "x of y" counter so the child (and
+/// parent) can see how much is left to discover — without spoiling what.
 struct CollectionView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var audio: AudioService
-    @EnvironmentObject private var progress: ProgressStore
 
     var body: some View {
         ZStack {
@@ -24,11 +25,9 @@ struct CollectionView: View {
                 .padding(.top, 12)
 
                 ScrollView {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 22), count: 5),
-                              spacing: 22) {
-                        ForEach(ContentLibrary.allCollectibles) { collectible in
-                            CollectibleCard(collectible: collectible,
-                                            unlocked: progress.isUnlocked(collectible.id))
+                    VStack(spacing: 18) {
+                        ForEach(ContentLibrary.worlds) { world in
+                            WorldCollectionSection(world: world)
                         }
                     }
                     .padding(.horizontal, 36)
@@ -42,30 +41,87 @@ struct CollectionView: View {
     }
 }
 
-struct CollectibleCard: View {
-    let collectible: Collectible
-    let unlocked: Bool
+struct WorldCollectionSection: View {
+    let world: BibleWorld
+
+    @EnvironmentObject private var progress: ProgressStore
+
+    private var allCollectibles: [Collectible] {
+        world.activities.map(\.reward) + (world.bonusReward.map { [$0] } ?? [])
+    }
+
+    private var earned: [Collectible] {
+        allCollectibles.filter { progress.isUnlocked($0.id) }
+    }
 
     var body: some View {
-        VStack(spacing: 8) {
-            ZStack {
-                Circle().fill(Theme.cream)
-                ArtView(key: collectible.art)
-                    .padding(14)
-                    .grayscale(unlocked ? 0 : 1)
-                    .opacity(unlocked ? 1 : 0.25)
-            }
-            .frame(height: 126)
+        VStack(alignment: .leading, spacing: 14) {
+            // World header: icon, title, counter.
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle().fill(world.accent.opacity(0.18))
+                    ArtView(key: world.icon).padding(6)
+                }
+                .frame(width: 54, height: 54)
 
-            Text(unlocked ? collectible.name : "?")
-                .font(Theme.body(18))
-                .foregroundColor(Theme.textDark.opacity(unlocked ? 1 : 0.5))
+                Text(world.title)
+                    .font(Theme.body(24))
+                    .foregroundColor(Theme.textDark)
+
+                Spacer()
+
+                Text("\(earned.count) of \(allCollectibles.count)")
+                    .font(Theme.body(18))
+                    .foregroundColor(Theme.textDark.opacity(0.6))
+            }
+
+            // Progress bar.
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Theme.creamDeep)
+                    if !earned.isEmpty {
+                        Capsule()
+                            .fill(world.accent)
+                            .frame(width: geo.size.width * CGFloat(earned.count) / CGFloat(max(allCollectibles.count, 1)))
+                    }
+                }
+            }
+            .frame(height: 14)
+            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: earned.count)
+
+            // Earned stickers only — the rest stay a surprise.
+            if earned.isEmpty {
+                Text("Play the games in \(world.title) to earn stickers!")
+                    .font(Theme.body(16))
+                    .foregroundColor(Theme.textDark.opacity(0.5))
+                    .padding(.vertical, 4)
+            } else {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: 6),
+                          spacing: 14) {
+                    ForEach(earned) { collectible in
+                        VStack(spacing: 6) {
+                            ZStack {
+                                Circle().fill(Theme.cream)
+                                ArtView(key: collectible.art).padding(10)
+                            }
+                            .frame(height: 84)
+                            Text(collectible.name)
+                                .font(Theme.body(14))
+                                .foregroundColor(Theme.textDark)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
+                        }
+                        .transition(.scale.combined(with: .opacity))
+                    }
+                }
+            }
         }
-        .padding(12)
+        .padding(20)
         .background(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(Color.white.opacity(unlocked ? 0.94 : 0.55))
-                .shadow(color: .black.opacity(unlocked ? 0.08 : 0.03), radius: 6, y: 4)
+            RoundedRectangle(cornerRadius: 26, style: .continuous)
+                .fill(Color.white.opacity(0.92))
+                .shadow(color: .black.opacity(0.08), radius: 8, y: 5)
         )
     }
 }
