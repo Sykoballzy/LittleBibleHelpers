@@ -53,8 +53,8 @@ private struct GameScreen: View {
             MatchPairsGame(pool: pool, onComplete: finish)
         case .boardTheArk(let animals):
             BoardTheArkGame(animals: animals, onComplete: finish)
-        case .count(let items, let littleRange, let bigRange):
-            CountGame(items: items,
+        case .count(let items, let center, let littleRange, let bigRange):
+            CountGame(items: items, center: center,
                       range: settings.ageBand == .littleOnes ? littleRange : bigRange,
                       onComplete: finish)
         case .sequence(let steps):
@@ -73,8 +73,8 @@ private struct GameScreen: View {
         case .gather(let item, let count, let container, let scenery, let decoyGuard, let decoyLine):
             GatherGame(item: item, count: count, container: container, scenery: scenery,
                        decoyGuard: decoyGuard, decoyLine: decoyLine, onComplete: finish)
-        case .giveNumber(let item, let container, let littleRange, let bigRange):
-            GiveNumberGame(item: item, container: container,
+        case .giveNumber(let item, let container, let distractors, let littleRange, let bigRange):
+            GiveNumberGame(item: item, container: container, distractors: distractors,
                            range: settings.ageBand == .littleOnes ? littleRange : bigRange,
                            onComplete: finish)
         case .tapColor(let regions):
@@ -82,9 +82,8 @@ private struct GameScreen: View {
         case .pathway(let walker, let goal, let blocker, let prize):
             PathwayGame(walker: walker, goal: goal, blocker: blocker, prize: prize,
                         onComplete: finish)
-        case .cleanUp(let tool, let surface, let messCount):
-            CleanUpGame(tool: tool, surface: surface, messCount: messCount,
-                        onComplete: finish)
+        case .cleanUp(let surface, let tasks):
+            CleanUpGame(surface: surface, tasks: tasks, onComplete: finish)
         }
     }
 

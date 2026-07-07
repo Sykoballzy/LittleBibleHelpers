@@ -91,43 +91,44 @@ struct TapColorGame: View {
 
     // MARK: Rendering
 
+    /// Coloring-book rendering: every region is white with SOLID dark outlines
+    /// until filled — then it takes its color, keeping the outline.
     @ViewBuilder
     private func regionView(_ region: ColorRegion, isFilled: Bool) -> some View {
         let fillColor = isFilled ? region.target.color : Color.white
-        let outline = isFilled ? region.target.color.opacity(0.6) : Theme.outline.opacity(0.35)
+        let outline = Theme.outline.opacity(0.85)
         switch region.shape {
         case .circle(let diameter):
             Circle()
                 .fill(fillColor)
-                .overlay(
-                    Circle().strokeBorder(outline, style: StrokeStyle(lineWidth: 3, dash: isFilled ? [] : [7, 6]))
-                )
+                .overlay(Circle().strokeBorder(outline, lineWidth: 3.5))
                 .frame(width: diameter, height: diameter)
-                .scaleEffect(isFilled ? 1.0 : 0.98)
                 .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         case .ellipse(let width, let height):
             Ellipse()
                 .fill(fillColor)
-                .overlay(
-                    Ellipse().strokeBorder(outline, style: StrokeStyle(lineWidth: 3, dash: isFilled ? [] : [7, 6]))
-                )
+                .overlay(Ellipse().strokeBorder(outline, lineWidth: 3.5))
                 .frame(width: width, height: height)
                 .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         case .arcBand(let outer, let thickness):
-            Circle()
-                .trim(from: 0, to: 0.5)
-                .stroke(isFilled ? region.target.color : Color.white,
-                        style: StrokeStyle(lineWidth: thickness, lineCap: .butt))
-                .overlay(
-                    Circle()
-                        .trim(from: 0, to: 0.5)
-                        .stroke(outline, style: StrokeStyle(lineWidth: 2, dash: isFilled ? [] : [6, 5]))
-                        .frame(width: outer, height: outer)
-                        .rotationEffect(.degrees(180))
-                )
-                .frame(width: outer - thickness, height: outer - thickness)
-                .rotationEffect(.degrees(180))
-                .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
+            // Top-half ring: trim(0.5...1) runs 9 o'clock -> 12 -> 3 o'clock.
+            // Body stroke sits on the centerline; thin solid strokes mark the
+            // outer and inner edges so the empty band reads as line art.
+            ZStack {
+                Circle()
+                    .trim(from: 0.5, to: 1.0)
+                    .stroke(fillColor, style: StrokeStyle(lineWidth: thickness, lineCap: .butt))
+                    .frame(width: outer - thickness, height: outer - thickness)
+                Circle()
+                    .trim(from: 0.5, to: 1.0)
+                    .stroke(outline, lineWidth: 3)
+                    .frame(width: outer, height: outer)
+                Circle()
+                    .trim(from: 0.5, to: 1.0)
+                    .stroke(outline, lineWidth: 3)
+                    .frame(width: outer - 2 * thickness, height: outer - 2 * thickness)
+            }
+            .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         }
     }
 

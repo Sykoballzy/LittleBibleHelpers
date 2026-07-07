@@ -207,6 +207,124 @@ struct SongbookArt: View {
     }
 }
 
+/// A sturdy broom for sweeping the hall floor.
+struct BroomArt: View {
+    private let straw = Color(red: 0.90, green: 0.74, blue: 0.40)
+    private let strawDeep = Color(red: 0.78, green: 0.60, blue: 0.28)
+
+    var body: some View {
+        ArtCanvas {
+            // handle
+            Capsule()
+                .fill(Theme.wood)
+                .overlay(Capsule().stroke(Theme.outline.opacity(0.32), lineWidth: 2.5))
+                .frame(width: 10, height: 74)
+                .rotationEffect(.degrees(14))
+                .offset(x: 8, y: -18)
+            // binding
+            Capsule().fill(Theme.coral).frame(width: 34, height: 10)
+                .rotationEffect(.degrees(14)).offset(x: -6, y: 20)
+            // bristles
+            ForEach(0..<5, id: \.self) { i in
+                Capsule()
+                    .fill(i.isMultiple(of: 2) ? straw : strawDeep)
+                    .frame(width: 9, height: 34)
+                    .rotationEffect(.degrees(14 + Double(i - 2) * 7))
+                    .offset(x: -12 + CGFloat(i - 2) * 9, y: 40)
+            }
+        }
+    }
+}
+
+/// A spray bottle for washing the windows.
+struct SprayArt: View {
+    private let bottle = Color(red: 0.55, green: 0.80, blue: 0.75)
+    private let trigger = Color(red: 0.35, green: 0.55, blue: 0.52)
+
+    var body: some View {
+        ArtCanvas {
+            // bottle body
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(bottle)
+                .overlay(RoundedRectangle(cornerRadius: 14).stroke(Theme.outline.opacity(0.32), lineWidth: 3))
+                .frame(width: 42, height: 54)
+                .offset(x: -6, y: 22)
+            // neck
+            RoundedRectangle(cornerRadius: 5).fill(trigger).frame(width: 16, height: 18).offset(x: -6, y: -12)
+            // head + nozzle
+            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                .fill(trigger)
+                .overlay(RoundedRectangle(cornerRadius: 7).stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 40, height: 18)
+                .offset(x: 2, y: -26)
+            // trigger
+            Capsule().fill(trigger).frame(width: 8, height: 18)
+                .rotationEffect(.degrees(-20)).offset(x: -18, y: -14)
+            // mist
+            Circle().fill(Theme.sky.opacity(0.7)).frame(width: 6).offset(x: 32, y: -30)
+            Circle().fill(Theme.sky.opacity(0.5)).frame(width: 5).offset(x: 40, y: -24)
+            Circle().fill(Theme.sky.opacity(0.4)).frame(width: 4).offset(x: 38, y: -36)
+        }
+    }
+}
+
+/// The stone water jars from the wedding at Cana — empty, water, or wine.
+struct JarArt: View {
+    enum Fill { case empty, water, wine }
+    let fill: Fill
+
+    private let clay = Color(red: 0.80, green: 0.66, blue: 0.50)
+    private let clayDeep = Color(red: 0.68, green: 0.53, blue: 0.38)
+
+    var body: some View {
+        ArtCanvas {
+            // body (amphora belly)
+            Ellipse()
+                .fill(LinearGradient(colors: [clay, clayDeep], startPoint: .top, endPoint: .bottom))
+                .overlay(Ellipse().stroke(Theme.outline.opacity(0.32), lineWidth: 3))
+                .frame(width: 66, height: 74)
+                .offset(y: 16)
+            // handles
+            Circle()
+                .trim(from: 0.25, to: 0.75)
+                .stroke(clayDeep, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                .frame(width: 26)
+                .offset(x: -38, y: -6)
+            Circle()
+                .trim(from: 0.75, to: 1.25)
+                .stroke(clayDeep, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                .frame(width: 26)
+                .offset(x: 38, y: -6)
+            // neck + rim
+            RoundedRectangle(cornerRadius: 6).fill(clay)
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 34, height: 22)
+                .offset(y: -26)
+            Capsule()
+                .fill(clayDeep)
+                .overlay(Capsule().stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 46, height: 12)
+                .offset(y: -38)
+            // contents visible at the rim
+            switch fill {
+            case .empty:
+                Ellipse().fill(Color.black.opacity(0.25)).frame(width: 30, height: 7).offset(y: -37)
+            case .water:
+                Ellipse().fill(Theme.sky).frame(width: 34, height: 9).offset(y: -38)
+                Circle().fill(Color.white.opacity(0.7)).frame(width: 6).offset(x: -8, y: -39)
+            case .wine:
+                Ellipse().fill(Color(red: 0.55, green: 0.16, blue: 0.28)).frame(width: 34, height: 9).offset(y: -38)
+                Circle().fill(Color.white.opacity(0.4)).frame(width: 5).offset(x: -8, y: -39)
+            }
+            // a happy sparkle when the miracle has happened
+            if fill == .wine {
+                StarShape().fill(Theme.sunny).frame(width: 16, height: 16).offset(x: 30, y: -48)
+                StarShape().fill(Theme.sunny.opacity(0.7)).frame(width: 10, height: 10).offset(x: -32, y: -50)
+            }
+        }
+    }
+}
+
 /// A soft cleaning cloth with soap bubbles — for the Clean Up games.
 struct ClothArt: View {
     private let fabric = Color(red: 0.58, green: 0.78, blue: 0.92)

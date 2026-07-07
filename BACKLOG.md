@@ -2,6 +2,16 @@
 
 Ideas captured but not yet built. Ordered roughly by priority.
 
+## Big Kids band (ages 6–7) — approved direction (Travis, iter 10)
+
+- Third `AgeBand` case with harder parameters on existing templates: counts to
+  20, more match pairs, longer sequences, bigger give-N numbers.
+- Interactive family-worship features for readers: find-the-verse games,
+  scripture matching (the citation-pill infrastructure already exists),
+  simple word/picture matching.
+- Needs its own iteration — parameter plumbing is easy, the reading-level
+  content design is the real work.
+
 ## Game templates to build
 
 - ~~Give the Right Number~~ — DONE (iteration 8): `giveNumber` template, used
@@ -36,6 +46,10 @@ Ideas captured but not yet built. Ordered roughly by priority.
 - Seed-promise (Genesis 3:15) dedicated activity once art depth allows.
 
 ## Art & audio (deferred by decision, 2026-07-06)
+
+- Tap-to-Color pages: current pages are simple vector regions. Travis wants
+  proper coloring-book line art (AI-generated or commissioned) mapped to
+  tappable regions — richer scenes, more regions. Part of the art pass.
 
 - Commission or generate a cohesive premium illustration set to replace the
   programmatic-vector placeholders. Deferred until game design is locked so we

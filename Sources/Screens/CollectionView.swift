@@ -54,6 +54,11 @@ struct WorldCollectionSection: View {
         allCollectibles.filter { progress.isUnlocked($0.id) }
     }
 
+    private var percentage: Int {
+        guard !allCollectibles.isEmpty else { return 0 }
+        return Int((Double(earned.count) / Double(allCollectibles.count) * 100).rounded())
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // World header: icon, title, counter.
@@ -67,6 +72,13 @@ struct WorldCollectionSection: View {
                 Text(world.title)
                     .font(Theme.body(24))
                     .foregroundColor(Theme.textDark)
+
+                Text("\(percentage)%")
+                    .font(Theme.body(18))
+                    .foregroundColor(world.accent)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 3)
+                    .background(Capsule().fill(world.accent.opacity(0.14)))
 
                 Spacer()
 

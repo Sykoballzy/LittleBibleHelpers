@@ -41,18 +41,44 @@ struct DeliverGame: View {
                     .frame(width: personSize, height: personSize)
                     .position(x: w * 0.15, y: h * 0.68)
 
-                // Waiting townspeople.
+                // Waiting townspeople — with a pulsing "bring it here" ring.
                 ForEach(Array(targets.enumerated()), id: \.offset) { index, person in
                     let base = targetPosition(index: index, count: targets.count, size: geo.size)
                     let gone = departed.contains(index)
                     let isReacting = reacting == index
-                    ArtView(key: person)
-                        .frame(width: personSize, height: personSize)
-                        .rotationEffect(.degrees(isReacting ? 7 : 0))
-                        .offset(x: gone ? w * 0.35 : 0,
-                                y: gone ? h * 0.06 : (bob && !isReacting ? -4 : 0))
-                        .opacity(gone ? 0 : 1)
-                        .position(base)
+                    ZStack {
+                        if !gone {
+                            Circle()
+                                .strokeBorder(Theme.sunny, lineWidth: 4)
+                                .frame(width: personSize * 1.05, height: personSize * 1.05)
+                                .opacity(bob ? 0.75 : 0.15)
+                                .scaleEffect(bob ? 1.04 : 0.96)
+                        }
+                        ArtView(key: person)
+                            .frame(width: personSize, height: personSize)
+                            .rotationEffect(.degrees(isReacting ? 7 : 0))
+                    }
+                    .offset(x: gone ? w * 0.35 : 0,
+                            y: gone ? h * 0.06 : (bob && !isReacting ? -4 : 0))
+                    .opacity(gone ? 0 : 1)
+                    .position(base)
+                }
+
+                // Until the first delivery lands, a little arrow glides from
+                // the item toward the first person — no reading needed.
+                if deliveredCount == 0, !isDragging {
+                    let firstTarget = targetPosition(index: 0, count: targets.count, size: geo.size)
+                    let t: CGFloat = bob ? 0.62 : 0.28
+                    let hintPoint = CGPoint(x: itemHome.x + (firstTarget.x - itemHome.x) * t,
+                                            y: itemHome.y + (firstTarget.y - itemHome.y) * t)
+                    Image(systemName: "arrow.forward")
+                        .font(.system(size: 34, weight: .heavy))
+                        .foregroundColor(Theme.coral)
+                        .rotationEffect(.radians(Double(atan2(firstTarget.y - itemHome.y,
+                                                              firstTarget.x - itemHome.x))))
+                        .opacity(bob ? 0.9 : 0.25)
+                        .position(hintPoint)
+                        .allowsHitTesting(false)
                 }
 
                 // The draggable item (one at a time), popping fresh at the source.

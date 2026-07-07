@@ -15,7 +15,8 @@ enum ArtKey: String, CaseIterable, Hashable {
     case jonah, boat, bigFish
     case jesus, bread
     case bag, bagWithBook, bagPacked, book, songbook, chair
-    case child, cloth, stone
+    case child, cloth, stone, broom, spray
+    case jar, jarWater, jarWine
 
     var displayName: String {
         switch self {
@@ -82,6 +83,20 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .child: return "child"
         case .cloth: return "cleaning cloth"
         case .stone: return "smooth stone"
+        case .broom: return "broom"
+        case .spray: return "spray bottle"
+        case .jar: return "big jar"
+        case .jarWater: return "jar of water"
+        case .jarWine: return "jar of wine"
+        }
+    }
+
+    /// Correct plural for narration ("two sheep", not "two sheeps").
+    var pluralName: String {
+        switch self {
+        case .sheep: return "sheep"
+        case .fish: return "fish"
+        default: return displayName + "s"
         }
     }
 }
@@ -167,7 +182,8 @@ struct SortItem: Hashable {
 enum GameSpec: Hashable {
     case matchPairs(pool: [ArtKey])
     case boardTheArk(animals: [ArtKey])
-    case count(items: [ArtKey], littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
+    case count(items: [ArtKey], center: ArtKey?,
+               littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
     case sequence(steps: [SequenceStep])
     case sortClassify(categories: [SortCategory], items: [SortItem])
     case actionSequence(start: ArtKey, steps: [ActionStep])
@@ -181,10 +197,10 @@ enum GameSpec: Hashable {
     /// refuse to be taken (forbidden fruit). Plain gathers omit both.
     case gather(item: ArtKey, count: Int, container: ArtKey,
                 scenery: ArtKey?, decoyGuard: ArtKey?, decoyLine: String?)
-    /// "Give N": a big target number; the child counts out exactly that many
-    /// items into the container from a tray with extras (Daniel prayed 3
-    /// times; 2 little fish).
-    case giveNumber(item: ArtKey, container: ArtKey,
+    /// "Give N": exactly N of the right item wait in a tray mixed with decoy
+    /// items of other kinds. The child must find and give ALL the right ones —
+    /// and nothing else. Decoys bounce back kindly.
+    case giveNumber(item: ArtKey, container: ArtKey, distractors: [ArtKey],
                     littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
     /// Tap-to-Color: pick a color chip, tap the matching region. The palette
     /// holds only the colors that belong in the picture — no mess, no failure.
@@ -193,9 +209,17 @@ enum GameSpec: Hashable {
     /// past friendly blockers to the goal, collecting prizes. Teaches walking
     /// calmly (never running) — Meet the Speaker, Come to Jesus.
     case pathway(walker: ArtKey, goal: ArtKey, blocker: ArtKey, prize: ArtKey)
-    /// Wipe the smudges: drag the cloth onto each spot until everything
-    /// sparkles clean (clean the hall; kindness clean-up).
-    case cleanUp(tool: ArtKey, surface: ArtKey, messCount: Int)
+    /// Multi-step chores: each task brings its own tool (broom, cloth, spray)
+    /// and its own spots to clean — sweep the floor, wipe the chairs, wash the
+    /// windows — until everything sparkles.
+    case cleanUp(surface: ArtKey, tasks: [CleanTask])
+}
+
+/// One chore in a Clean Up game.
+struct CleanTask: Hashable {
+    let tool: ArtKey
+    let messCount: Int
+    let prompt: String
 }
 
 struct Activity: Identifiable, Hashable {

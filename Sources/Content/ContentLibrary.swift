@@ -96,7 +96,7 @@ enum ContentLibrary {
                 introLine: "So many animals are coming to the ark! How many can you count?",
                 completionLine: "You counted all the animals!",
                 icon: .giraffe,
-                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove],
+                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove], center: nil,
                              littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
             ),
@@ -135,12 +135,12 @@ enum ContentLibrary {
                 completionLine: "What a beautiful rainbow!",
                 icon: .rainbow,
                 spec: .tapColor(regions: [
-                    ColorRegion(shape: .arcBand(outer: 130, thickness: 16), x: 100, y: 96, target: .red),
-                    ColorRegion(shape: .arcBand(outer: 96, thickness: 16), x: 100, y: 96, target: .yellow),
-                    ColorRegion(shape: .arcBand(outer: 62, thickness: 16), x: 100, y: 96, target: .blue),
-                    ColorRegion(shape: .circle(diameter: 30), x: 168, y: 28, target: .yellow),
-                    ColorRegion(shape: .ellipse(width: 44, height: 26), x: 32, y: 34, target: .gray),
-                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
+                    ColorRegion(shape: .arcBand(outer: 170, thickness: 20), x: 100, y: 118, target: .red),
+                    ColorRegion(shape: .arcBand(outer: 130, thickness: 20), x: 100, y: 118, target: .yellow),
+                    ColorRegion(shape: .arcBand(outer: 90, thickness: 20), x: 100, y: 118, target: .blue),
+                    ColorRegion(shape: .circle(diameter: 30), x: 172, y: 26, target: .yellow),
+                    ColorRegion(shape: .ellipse(width: 44, height: 24), x: 28, y: 30, target: .gray),
+                    ColorRegion(shape: .ellipse(width: 200, height: 24), x: 100, y: 134, target: .green)
                 ]),
                 reward: Collectible(id: "c-rainbow-colors", name: "Rainbow Colors", art: .rainbow, kind: .badge),
                 scripture: "Genesis 9:13"
@@ -190,7 +190,7 @@ enum ContentLibrary {
                 introLine: "God filled the night sky with stars. How many can you count?",
                 completionLine: "You counted every star!",
                 icon: .star,
-                spec: .count(items: [.star], littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.star], center: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-star", name: "Star", art: .star, kind: .badge)
             ),
             Activity(
@@ -297,7 +297,7 @@ enum ContentLibrary {
                 introLine: "David watched over every single sheep. How many can you count?",
                 completionLine: "You counted the whole flock!",
                 icon: .sheep,
-                spec: .count(items: [.sheep], littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.sheep], center: .david, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-lamb", name: "Lamb", art: .sheep, kind: .animal),
                 scripture: "Psalm 23:1, 2"
             ),
@@ -364,6 +364,7 @@ enum ContentLibrary {
                 completionLine: "Five smooth stones — and Jehovah made David brave!",
                 icon: .stone,
                 spec: .giveNumber(item: .stone, container: .bag,
+                                  distractors: [.fruit, .seed],
                                   littleRange: 5...5, bigRange: 5...5),
                 reward: Collectible(id: "c-sling", name: "Sling", art: .sling, kind: .badge),
                 scripture: "1 Samuel 17:40"
@@ -413,6 +414,7 @@ enum ContentLibrary {
                 completionLine: "Morning, noon, and night — Daniel always prayed!",
                 icon: .window,
                 spec: .giveNumber(item: .star, container: .window,
+                                  distractors: [.moon, .sun],
                                   littleRange: 3...3, bigRange: 3...3),
                 reward: Collectible(id: "c-window", name: "Window", art: .window, kind: .badge),
                 scripture: "Daniel 6:10"
@@ -435,14 +437,14 @@ enum ContentLibrary {
             ),
             Activity(
                 id: "daniel-angel",
-                title: "The Angel Helps",
-                subtitle: "Bring the angel's light to each lion.",
-                introLine: "Jehovah sent his angel to shut the lions' mouths. Bring the light to each lion!",
-                completionLine: "The lions could not hurt Daniel!",
-                icon: .lion,
-                spec: .deliver(item: .star, source: .angel,
+                title: "The Angel Shuts Their Mouths",
+                subtitle: "Send the angel to each lion.",
+                introLine: "Jehovah sent his angel to protect Daniel and shut the mouths of the lions. Send the angel to each lion!",
+                completionLine: "The angel shut every lion's mouth — Daniel was safe!",
+                icon: .angel,
+                spec: .deliver(item: .angel, source: .daniel,
                                targets: [.lion, .lion, .lion],
-                               deliverLine: "The lion's mouth stayed shut!"),
+                               deliverLine: "The angel shut the lion's mouth!"),
                 reward: Collectible(id: "c-angel", name: "Angel", art: .angel, kind: .character),
                 scripture: "Daniel 6:22"
             ),
@@ -450,10 +452,10 @@ enum ContentLibrary {
                 id: "daniel-count",
                 title: "Count the Lions",
                 subtitle: "Tap each lion to count!",
-                introLine: "The den was full of lions! How many can you count?",
-                completionLine: "You counted every lion!",
+                introLine: "Daniel was in the den, and Jehovah kept him safe. How many lions can you count around him?",
+                completionLine: "You counted every lion — and Daniel was safe the whole time!",
                 icon: .lion,
-                spec: .count(items: [.lion], littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.lion], center: .daniel, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-den-lion", name: "Den Lion", art: .lion, kind: .animal),
                 scripture: "Daniel 6:16"
             ),
@@ -511,10 +513,10 @@ enum ContentLibrary {
                 completionLine: "The night is over — what a beautiful morning!",
                 icon: .sun,
                 spec: .tapColor(regions: [
-                    ColorRegion(shape: .arcBand(outer: 132, thickness: 14), x: 100, y: 94, target: .orange),
-                    ColorRegion(shape: .circle(diameter: 54), x: 100, y: 88, target: .yellow),
-                    ColorRegion(shape: .ellipse(width: 42, height: 22), x: 36, y: 32, target: .gray),
-                    ColorRegion(shape: .ellipse(width: 190, height: 28), x: 100, y: 128, target: .brown)
+                    ColorRegion(shape: .arcBand(outer: 150, thickness: 18), x: 100, y: 120, target: .orange),
+                    ColorRegion(shape: .circle(diameter: 56), x: 100, y: 100, target: .yellow),
+                    ColorRegion(shape: .ellipse(width: 42, height: 22), x: 34, y: 30, target: .gray),
+                    ColorRegion(shape: .ellipse(width: 200, height: 26), x: 100, y: 134, target: .brown)
                 ]),
                 reward: Collectible(id: "c-daniel-star", name: "Bright Star", art: .star, kind: .badge),
                 scripture: "Daniel 6:19"
@@ -558,6 +560,7 @@ enum ContentLibrary {
                 completionLine: "Three nights — and Jonah kept praying!",
                 icon: .moon,
                 spec: .giveNumber(item: .moon, container: .bigFish,
+                                  distractors: [.star, .fish],
                                   littleRange: 3...3, bigRange: 3...3),
                 reward: Collectible(id: "c-three-moons", name: "Three Nights", art: .moon, kind: .badge),
                 scripture: "Jonah 1:17"
@@ -582,7 +585,7 @@ enum ContentLibrary {
                 introLine: "The sea is full of fish that Jehovah made! How many can you count?",
                 completionLine: "You counted every fish!",
                 icon: .fish,
-                spec: .count(items: [.fish], littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.fish], center: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-sea-fish", name: "Sea Fish", art: .fish, kind: .animal),
                 scripture: "Jonah 1:17"
             ),
@@ -690,16 +693,18 @@ enum ContentLibrary {
                 scripture: "Matthew 14:19-21"
             ),
             Activity(
-                id: "jesus-fish",
-                title: "Two Little Fish",
-                subtitle: "Put two fish in the basket.",
-                introLine: "A boy shared his food — five loaves and two little fish! Put the two fish in the basket.",
-                completionLine: "Jesus made that little lunch feed everyone!",
-                icon: .fish,
-                spec: .giveNumber(item: .fish, container: .basket,
-                                  littleRange: 2...2, bigRange: 2...2),
-                reward: Collectible(id: "c-two-fish", name: "Two Fish", art: .fish, kind: .badge),
-                scripture: "Matthew 14:17"
+                id: "jesus-wine",
+                title: "Water into Wine",
+                subtitle: "Help with the very first miracle!",
+                introLine: "At a wedding feast, the wine ran out. Jesus performed his very first miracle! Fill the big jars with water and watch what happens.",
+                completionLine: "The water became the finest wine — Jesus' first miracle!",
+                icon: .jar,
+                spec: .actionSequence(start: .jar, steps: [
+                    ActionStep(tool: .bucket, prompt: "Fill the jars with water!", result: .jarWater),
+                    ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarWine)
+                ]),
+                reward: Collectible(id: "c-wine-jars", name: "Wine Jars", art: .jarWine, kind: .badge),
+                scripture: "John 2:1-11"
             ),
             Activity(
                 id: "jesus-gather",
@@ -725,15 +730,16 @@ enum ContentLibrary {
                 scripture: "Luke 15:4-7"
             ),
             Activity(
-                id: "jesus-count",
-                title: "Loaves and Fish",
-                subtitle: "Tap each one to count!",
-                introLine: "Five loaves and two little fish! How many can you count today?",
-                completionLine: "You counted the whole meal!",
-                icon: .bread,
-                spec: .count(items: [.bread, .fish], littleRange: 3...7, bigRange: 5...12),
-                reward: Collectible(id: "c-five-loaves", name: "Five Loaves", art: .bread, kind: .badge),
-                scripture: "Matthew 14:17"
+                id: "jesus-apostles",
+                title: "Count the Apostles",
+                subtitle: "Count Jesus' special friends!",
+                introLine: "Jesus chose twelve apostles to be his special helpers. Count his friends!",
+                completionLine: "Jesus' friends helped him preach everywhere!",
+                icon: .jesus,
+                spec: .count(items: [.villagerA, .villagerB, .villagerC], center: .jesus,
+                             littleRange: 4...8, bigRange: 12...12),
+                reward: Collectible(id: "c-twelve", name: "The Twelve", art: .star, kind: .badge),
+                scripture: "Luke 6:13"
             ),
             Activity(
                 id: "jesus-come",
@@ -822,6 +828,7 @@ enum ContentLibrary {
                 completionLine: "The hall is ready — thank you, little helper!",
                 icon: .chair,
                 spec: .giveNumber(item: .chair, container: .hall,
+                                  distractors: [.songbook, .bag],
                                   littleRange: 3...5, bigRange: 4...8),
                 reward: Collectible(id: "c-chair", name: "Chair", art: .chair, kind: .badge),
                 scripture: "Hebrews 10:24, 25"
@@ -857,7 +864,7 @@ enum ContentLibrary {
                 introLine: "Look how many friends came to the meeting! How many can you count?",
                 completionLine: "So many friends who love Jehovah!",
                 icon: .villagerA,
-                spec: .count(items: [.villagerA, .villagerB, .villagerC],
+                spec: .count(items: [.villagerA, .villagerB, .villagerC], center: nil,
                              littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-friend", name: "Friend", art: .villagerB, kind: .character),
                 scripture: "Psalm 133:1"
@@ -866,10 +873,14 @@ enum ContentLibrary {
                 id: "meet-clean",
                 title: "Clean the Hall",
                 subtitle: "Wipe every spot until it shines!",
-                introLine: "Our meeting place should be clean and beautiful! Take the cloth and wipe every spot.",
+                introLine: "Our meeting place should be clean and beautiful! Sweep the floor, wipe the chairs, and wash the windows.",
                 completionLine: "The hall is shiny clean and ready!",
-                icon: .cloth,
-                spec: .cleanUp(tool: .cloth, surface: .hall, messCount: 4),
+                icon: .broom,
+                spec: .cleanUp(surface: .hall, tasks: [
+                    CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!"),
+                    CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!"),
+                    CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!")
+                ]),
                 reward: Collectible(id: "c-hall", name: "Meeting Place", art: .hall, kind: .badge),
                 scripture: "1 Corinthians 14:40"
             ),
@@ -966,7 +977,9 @@ enum ContentLibrary {
                 introLine: "Uh oh — your friend spilled something! A kind helper cleans up. Take the cloth!",
                 completionLine: "Your kindness made your friend smile!",
                 icon: .cloth,
-                spec: .cleanUp(tool: .cloth, surface: .people, messCount: 3),
+                spec: .cleanUp(surface: .people, tasks: [
+                    CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe up the spill!")
+                ]),
                 reward: Collectible(id: "c-kindness", name: "Kindness", art: .cloth, kind: .badge),
                 scripture: "Ephesians 4:32"
             ),
@@ -1012,6 +1025,7 @@ enum ContentLibrary {
                 completionLine: "You stopped at just the right time!",
                 icon: .basket,
                 spec: .giveNumber(item: .fruit, container: .basket,
+                                  distractors: [.star, .heart],
                                   littleRange: 2...3, bigRange: 3...5),
                 reward: Collectible(id: "c-self-control", name: "Self-Control", art: .basket, kind: .badge),
                 scripture: "Galatians 5:22, 23"

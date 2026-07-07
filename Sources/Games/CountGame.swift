@@ -1,58 +1,102 @@
 import SwiftUI
 
-/// Template 3 (v3): a two-phase counting game with a randomized target.
-/// Phase 1 — tap each item to count it (badge pops on, running total updates).
-/// Phase 2 — "How many did you find?" pick the matching numeral.
-/// The target is chosen per play from the age-appropriate range, and items lay
-/// out in a countable grid that scales up to ~12.
+/// Template 3 (v4): counting by type, one kind at a time.
+/// All the items appear together (optionally around a central figure — Daniel
+/// in the lions' pit, David with his flock). The child counts one TYPE at a
+/// time: "Count the sheep!" — tap them all, hear the total, watch them pop
+/// away — then the next type. Single-type games finish with the classic
+/// "How many did you find?" numeral pick.
 struct CountGame: View {
     let items: [ArtKey]
+    let center: ArtKey?
     let range: ClosedRange<Int>
     let onComplete: () -> Void
 
     @EnvironmentObject private var audio: AudioService
 
-    private enum Phase { case counting, choosing }
+    private struct Countable: Identifiable {
+        let id = UUID()
+        let art: ArtKey
+        let position: CGPoint   // unit coordinates
+    }
 
-    @State private var target = 0
-    @State private var arts: [ArtKey] = []
-    @State private var tappedOrder: [Int] = []
+    @State private var countables: [Countable] = []
+    @State private var typeOrder: [ArtKey] = []
+    @State private var roundIndex = 0
+    @State private var tappedIDs: [UUID] = []
+    @State private var removedTypes: Set<ArtKey> = []
+    @State private var wiggleID: UUID?
+    @State private var saidWrongType = false
     @State private var options: [Int] = []
     @State private var wrongPick: Int?
+    @State private var totalCount = 0
+
+    private var currentType: ArtKey? {
+        roundIndex < typeOrder.count ? typeOrder[roundIndex] : nil
+    }
+
+    private var isMultiType: Bool { typeOrder.count > 1 }
 
     var body: some View {
         GeometryReader { geo in
-            if target > 0 {
+            if !countables.isEmpty {
                 let w = geo.size.width
                 let h = geo.size.height
-                let positions = gridPositions(count: target, size: geo.size)
-                let size = itemSize(count: target, in: geo.size)
+                let size = itemSize(count: countables.count, in: geo.size)
 
                 ZStack {
-                    // Items being counted.
-                    ForEach(0..<target, id: \.self) { i in
-                        let isTapped = tappedOrder.contains(i)
-                        ZStack(alignment: .topTrailing) {
-                            ArtView(key: arts.indices.contains(i) ? arts[i] : (items.first ?? .star))
-                                .frame(width: size, height: size)
-                            if let order = tappedOrder.firstIndex(of: i) {
-                                NumberBadge(number: order + 1)
-                                    .offset(x: 4, y: -4)
-                            }
-                        }
-                        .scaleEffect(isTapped ? 1.10 : 1.0)
-                        .animation(.spring(response: 0.35, dampingFraction: 0.55), value: isTapped)
-                        .position(positions[i])
-                        .onTapGesture { if target > 0 { tap(i) } }
+                    // Central figure (Daniel in the pit, David with the flock).
+                    if let center {
+                        ArtView(key: center)
+                            .frame(width: min(w, h) * 0.30, height: min(w, h) * 0.30)
+                            .position(x: w * 0.5, y: h * 0.38)
+                            .allowsHitTesting(false)
                     }
 
-                    // Phase 1: running total.
-                    if wrongPick == nil, tappedOrder.count < target || options.isEmpty {
-                        RunningTotal(count: tappedOrder.count)
+                    // Round prompt: what are we counting right now?
+                    if let currentType, options.isEmpty {
+                        HStack(spacing: 10) {
+                            ArtView(key: currentType).frame(width: 40, height: 40)
+                            Text("Count the \(currentType.pluralName)!")
+                                .font(Theme.body(20))
+                                .foregroundColor(Theme.textDark)
+                        }
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 8)
+                        .background(Capsule().fill(Color.white.opacity(0.85)))
+                        .position(x: w / 2, y: h * 0.06)
+                    }
+
+                    // The countable items.
+                    ForEach(countables) { countable in
+                        if !removedTypes.contains(countable.art) {
+                            let isTapped = tappedIDs.contains(countable.id)
+                            let isActive = countable.art == currentType || !isMultiType
+                            ZStack(alignment: .topTrailing) {
+                                ArtView(key: countable.art)
+                                    .frame(width: size, height: size)
+                                if let order = tappedIDs.firstIndex(of: countable.id) {
+                                    NumberBadge(number: order + 1)
+                                        .offset(x: 4, y: -4)
+                                }
+                            }
+                            .opacity(isActive ? 1 : 0.5)
+                            .scaleEffect(isTapped ? 1.10 : 1.0)
+                            .rotationEffect(.degrees(wiggleID == countable.id ? 7 : 0))
+                            .animation(.spring(response: 0.35, dampingFraction: 0.55), value: isTapped)
+                            .position(x: w * countable.position.x, y: h * countable.position.y)
+                            .onTapGesture { tap(countable) }
+                            .transition(.scale.combined(with: .opacity))
+                        }
+                    }
+
+                    // Running total for the current round.
+                    if options.isEmpty {
+                        RunningTotal(count: tappedIDs.count)
                             .position(x: w / 2, y: h * 0.93)
                     }
 
-                    // Phase 2: prompt + number choices.
+                    // Final numeral pick (single-type games only).
                     if !options.isEmpty {
                         VStack(spacing: 16) {
                             BannerTitle(text: "How many did you find?", color: Theme.berry, textSize: 24)
@@ -70,32 +114,32 @@ struct CountGame: View {
                 }
             }
         }
-        .onAppear {
-            if target == 0 {
-                let t = Int.random(in: range)
-                arts = Self.buildArts(count: t, from: items)
-                target = t
-            }
-        }
+        .onAppear(perform: setUp)
     }
 
-    /// Fills `count` positions from the item pool (repeating + shuffled for variety).
-    private static func buildArts(count: Int, from items: [ArtKey]) -> [ArtKey] {
-        guard !items.isEmpty else { return [] }
-        var pool: [ArtKey] = []
-        while pool.count < count { pool += items }
-        return Array(pool.shuffled().prefix(count))
+    // MARK: Setup
+
+    private func setUp() {
+        guard countables.isEmpty else { return }
+        totalCount = Int.random(in: range)
+
+        // Assign types by cycling the pool, then keep round order stable.
+        var arts: [ArtKey] = []
+        while arts.count < totalCount { arts += items }
+        arts = Array(arts.shuffled().prefix(totalCount))
+        typeOrder = items.filter { arts.contains($0) }
+
+        let positions = gridPositions(count: totalCount, avoidCenter: center != nil)
+        countables = zip(arts, positions).map { Countable(art: $0, position: $1) }
     }
 
-    // MARK: Layout
-
-    private func gridPositions(count: Int, size: CGSize) -> [CGPoint] {
+    private func gridPositions(count: Int, avoidCenter: Bool) -> [CGPoint] {
         let cols = count <= 4 ? count : (count <= 9 ? 3 : 4)
         let rows = Int(ceil(Double(count) / Double(cols)))
-        let top = size.height * 0.10
-        let bottom = size.height * 0.60
-        let left = size.width * 0.12
-        let right = size.width * 0.88
+        let top: CGFloat = 0.14
+        let bottom: CGFloat = 0.62
+        let left: CGFloat = 0.12
+        let right: CGFloat = 0.88
 
         return (0..<count).map { i in
             let r = i / cols
@@ -103,8 +147,12 @@ struct CountGame: View {
             let itemsInRow = (r == rows - 1) ? (count - cols * (rows - 1)) : cols
             let colFrac = itemsInRow > 1 ? CGFloat(c) / CGFloat(itemsInRow - 1) : 0.5
             let rowFrac = rows > 1 ? CGFloat(r) / CGFloat(rows - 1) : 0.5
-            let x = left + (right - left) * colFrac
+            var x = left + (right - left) * colFrac
             let y = top + (bottom - top) * rowFrac
+            // Push items out of the central figure's space.
+            if avoidCenter, abs(x - 0.5) < 0.16, y > 0.18, y < 0.58 {
+                x = x < 0.5 ? 0.5 - 0.24 : 0.5 + 0.24
+            }
             return CGPoint(x: x, y: y)
         }
     }
@@ -112,32 +160,74 @@ struct CountGame: View {
     private func itemSize(count: Int, in size: CGSize) -> CGFloat {
         let base = min(size.width, size.height)
         switch count {
-        case 0...4: return base * 0.22
-        case 5...8: return base * 0.17
+        case 0...4: return base * 0.21
+        case 5...8: return base * 0.16
         default: return base * 0.13
         }
     }
 
     // MARK: Interaction
 
-    private func tap(_ index: Int) {
-        guard !tappedOrder.contains(index) else { return }
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-            tappedOrder.append(index)
+    private func tap(_ countable: Countable) {
+        guard options.isEmpty, let currentType else { return }
+        guard !tappedIDs.contains(countable.id) else { return }
+
+        // Wrong type: gentle wiggle + one teaching line per round.
+        guard countable.art == currentType || !isMultiType else {
+            Haptics.gentleError()
+            withAnimation(.spring(response: 0.15, dampingFraction: 0.3)) { wiggleID = countable.id }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                withAnimation { wiggleID = nil }
+            }
+            if !saidWrongType {
+                saidWrongType = true
+                audio.speak("That's a \(countable.art.displayName) — we're counting \(currentType.pluralName)!")
+            }
+            return
         }
+
         Haptics.soft()
-        let count = tappedOrder.count
-        audio.speak("\(count)")
-        if count == target {
-            options = Self.buildOptions(correct: target)
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+            tappedIDs.append(countable.id)
+        }
+
+        let remainingOfType = countables.filter {
+            $0.art == currentType && !removedTypes.contains($0.art) && !tappedIDs.contains($0.id)
+        }
+        guard remainingOfType.isEmpty else {
+            audio.speak("\(tappedIDs.count)")
+            return
+        }
+
+        // Round complete.
+        let roundTotal = tappedIDs.count
+        audio.speak("\(roundTotal) \(roundTotal == 1 ? currentType.displayName : currentType.pluralName)!")
+
+        if isMultiType {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation(.spring(response: 0.45, dampingFraction: 0.7)) {
+                    _ = removedTypes.insert(currentType)
+                }
+                tappedIDs = []
+                saidWrongType = false
+                roundIndex += 1
+                if let next = self.currentType {
+                    audio.speak("Now count the \(next.pluralName)!")
+                } else {
+                    audio.speak("You counted everything!")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.4, execute: onComplete)
+                }
+            }
+        } else {
+            options = Self.buildOptions(correct: totalCount)
             audio.speak("How many did you find?")
         }
     }
 
     private func pickNumber(_ value: Int) {
-        if value == target {
+        if value == totalCount {
             Haptics.success()
-            audio.speak("Yes! You counted \(target)!")
+            audio.speak("Yes! You counted \(totalCount)!")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.4, execute: onComplete)
         } else {
             Haptics.gentleError()
@@ -149,7 +239,6 @@ struct CountGame: View {
         }
     }
 
-    /// Correct answer plus two nearby distractors, shuffled.
     private static func buildOptions(correct: Int) -> [Int] {
         var set: Set<Int> = [correct]
         var candidates = [correct - 1, correct + 1, correct - 2, correct + 2, correct - 3, correct + 3]

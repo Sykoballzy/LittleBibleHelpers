@@ -85,6 +85,11 @@ struct ArtView: View {
         case .child: ChildArt()
         case .cloth: ClothArt()
         case .stone: StoneArt()
+        case .broom: BroomArt()
+        case .spray: SprayArt()
+        case .jar: JarArt(fill: .empty)
+        case .jarWater: JarArt(fill: .water)
+        case .jarWine: JarArt(fill: .wine)
         }
     }
 }

@@ -171,7 +171,7 @@ struct BoardTheArkGame: View {
         let sameSpecies = boarded.filter { $0.art == passenger.art }.count
         if sameSpecies == 2 {
             activeSpecies = nil
-            audio.speak("Two \(passenger.art.displayName)s are safe on the ark!")
+            audio.speak("Two \(passenger.art.pluralName) are safe on the ark!")
         } else {
             activeSpecies = passenger.art
             audio.speak("Now bring the other \(passenger.art.displayName)!")
