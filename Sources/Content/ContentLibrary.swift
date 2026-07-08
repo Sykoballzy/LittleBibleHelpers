@@ -808,7 +808,7 @@ enum ContentLibrary {
                 icon: .hall,
                 spec: .sequence(steps: [
                     SequenceStep(art: .bag, caption: "Pack your bag"),
-                    SequenceStep(art: .hall, caption: "Go to the Kingdom Hall"),
+                    SequenceStep(art: .hall, caption: "Go to the meeting"),
                     SequenceStep(art: .songbook, caption: "Sing together"),
                     SequenceStep(art: .book, caption: "Listen and learn")
                 ]),
