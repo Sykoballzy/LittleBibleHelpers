@@ -2,70 +2,84 @@
 
 Ideas captured but not yet built. Ordered roughly by priority.
 
-## Big Kids band (ages 6–7) — approved direction (Travis, iter 10)
+## 1. The Art Pass (next major initiative — approved direction)
 
-- Third `AgeBand` case with harder parameters on existing templates: counts to
-  20, more match pairs, longer sequences, bigger give-N numbers.
+Replace programmatic vector placeholders with AI-generated, reusable,
+consistent assets. Committed direction (Travis, iter 12): not hiring an
+illustrator; generate impactful reusable assets instead.
+
+- **Component character system** ("South Park model"): one reusable body rig
+  with swappable features — skin tones, hair, beards, robes, expressions —
+  so every Bible character and villager comes from the same kit and stays
+  consistent across worlds. Unlocks: 12 distinct apostle faces, named
+  characters, richer Deliver/Pathway scenes.
+- **Coloring-book pages for Tap-to-Color**: white line-art scenes (thick
+  black outlines, big closed regions), one PNG per page + a region map
+  (tap zones as data over the image). Fixes the template's quality ceiling.
+- **Per-world backgrounds**: sea for Jonah, night palace for Daniel, hall
+  interior for Meetings, garden for Creation (all worlds share the meadow
+  today).
+- **Scene props**: real floor/dust art for Clean Up's sweep task, aisle/chair
+  rows for Meet the Speaker, den walls for Daniel.
+- Pipeline: Travis generates from a written asset spec (exact filenames,
+  sizes, transparent backgrounds, style prompt); assets go in a Resources/
+  folder; project.yml gains a resources entry (one-time regenerate); art
+  keys switch from vector views to images asset-by-asset.
+
+## 2. Big Kids band (ages 6–7) — approved direction
+
+- Third `AgeBand` case with harder parameters on existing templates: counts
+  to 20, more pairs, longer sequences, bigger give-N numbers.
 - Interactive family-worship features for readers: find-the-verse games,
-  scripture matching (the citation-pill infrastructure already exists),
-  simple word/picture matching.
-- Needs its own iteration — parameter plumbing is easy, the reading-level
-  content design is the real work.
+  scripture matching (citation-pill infrastructure exists), word/picture
+  matching.
+- "Name the Apostles" face-matching version (needs the character system
+  from the art pass: 12 distinct portraits).
 
-## Game templates to build
+## 3. Game templates still to build
 
-- ~~Give the Right Number~~ — DONE (iteration 8): `giveNumber` template, used
-  for Daniel's 3 prayers, Jonah's 3 nights, the 2 fish, chairs, sharing.
-- **Build a Pathway** — lay road tiles (straight / corner pieces) to guide a
-  character along a path, collecting stars. Spatial/puzzle. Higher complexity —
-  needs a tile grid and path-validation. *(Requested by Travis, iteration 4.)*
-- **Tap-to-Color** — toddler coloring with no brush and no free-draw: tap a
-  region, tap a color, the region fills. The palette shows ONLY the colors that
-  belong in that picture, so the result always looks right and there is no
-  failure state or mess. Big regions, thick outlines. *(Travis's reframe of the
-  original "Coloring" idea — better for little hands than Apple Pencil.)*
-- Remaining brief templates: Dress Up, Jigsaw Puzzle. (Find the Missing Item is
-  covered by Find It; free-draw Coloring is superseded by Tap-to-Color above.)
+- Dress Up (get David ready; prepare for the meeting).
+- Jigsaw Puzzle (6–12 big pieces).
+- Built already: Match, Board, Count(-by-type/labels), Sequence, Sort,
+  Action Sequence(+reps), Find It, Shadow Match, Deliver, Gather,
+  Give Number(+decoys), Tap-to-Color, Pathway, Clean Up — 14 templates.
 
-## Content
+## 4. Content expansion (pack roadmap)
 
-- ~~Six remaining worlds~~ — DONE (iter 8). ~~Fit pass / de-dupe~~ — DONE
-  (iter 9): worlds renamed (Noah, David, ...), zero within-world template
-  repeats, Qualities = one game per fruitage.
-- **Future Jesus packs** (Travis, iter 9): Jesus could be many worlds —
-  Jesus' Miracles, Jesus' Ministry, the Ransom's benefit (Memorial pack),
-  the Resurrection. Dozens of other Bible characters are pack candidates.
-- Broader David accounts now in scope after rename (harp for Saul, King
-  David). Keep it toddler-gentle; Goliath only as bravery/preparation
-  (Five Smooth Stones); adult accounts (e.g. Bathsheba) stay out.
-- Depth pass after playtest: more animation per game, richer per-world
-  backgrounds (sea for Jonah, night palace for Daniel, hall interior for
-  Meetings) — currently all worlds share the meadow background.
-- Memorial pack and Convention packs (the Deliver template is ready for
-  "pass the bread"-style activities).
+- **Jesus packs** (Travis): Jesus' Miracles, Jesus' Ministry, the Ransom's
+  benefit (Memorial pack), the Resurrection.
+- **Memorial pack**: Deliver template ready for "pass the bread"-style
+  activities; respectful preparation/etiquette games.
+- **Convention packs** (yearly): pack the bag, find your seat, badge
+  collectibles, theme coloring pages.
+- More character worlds: dozens of candidates (Moses, Joseph, Ruth, Esther,
+  Samuel, Josiah — young-person accounts especially).
+- Broader David accounts (harp for Saul, King David) — toddler-gentle only;
+  adult accounts (e.g. Bathsheba) stay out.
 - Seed-promise (Genesis 3:15) dedicated activity once art depth allows.
 
-## Art & audio (deferred by decision, 2026-07-06)
+## 5. Audio (deferred)
 
-- Tap-to-Color pages: current pages are simple vector regions. Travis wants
-  proper coloring-book line art (AI-generated or commissioned) mapped to
-  tappable regions — richer scenes, more regions. Part of the art pass.
+- Recorded warm narration replacing the system TTS voice (only
+  `AudioService` changes; every line lives in content already).
+- Gentle sound effects, silent in Meeting Mode.
+- NWT-alignment review of all narration lines (caught one: "Peace, be
+  still" is KJV; NWT Mark 4:39 is "Hush! Be quiet!" — fixed iter 12).
 
-- Commission or generate a cohesive premium illustration set to replace the
-  programmatic-vector placeholders. Deferred until game design is locked so we
-  don't pay to illustrate scenes that may change.
-- Record warm child-friendly narration to replace the placeholder system voice
-  (only `AudioService` changes; every line already lives in content).
-- Gentle sound effects behind `AudioService`, silent in Meeting Mode.
+## 6. Ship-readiness (not started)
 
-## Known follow-ups
+- App icon + launch screen.
+- StoreKit: free base + one-time offline content-pack purchases (no ads,
+  no subscriptions — decided).
+- Apple Developer account ($99/yr), TestFlight to a real iPad (drag feel,
+  audio, and performance can't be judged in the VM).
+- Kids Category compliance review; privacy label (no data collected).
+- Translations into major languages (post-launch).
 
-- Sort & Classify: sea/sky use duplicate art (only one fish / one bird asset
-  today). Add more sea/sky creatures when art expands.
-- Consider a 2-bin variant of Sort for the youngest (2–3) age band.
-- Gather template: tree/garden scenery is currently baked into the template.
-  Generalize the backdrop when a second gather-style activity is built.
-- Deliver template: recipients react by wandering off; consider varied
-  reactions (wave, shake head) once the animation budget grows.
-- Story Hub uses 3 columns at 7+ activities; revisit card layout if any world
-  exceeds 9.
+## Known follow-ups (small)
+
+- Sort & Classify: sea/sky use duplicate art; add creatures when art grows.
+- 2-bin sort variant for the 2–3 band.
+- Deliver: varied recipient reactions (wave, nod) when animation budget grows.
+- Story Hub: revisit card layout if any world exceeds 9 activities.
+- Clean Up sweep task: real dust-pile/floor art (art pass).

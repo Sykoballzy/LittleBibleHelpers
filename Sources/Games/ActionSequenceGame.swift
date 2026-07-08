@@ -22,7 +22,14 @@ struct ActionSequenceGame: View {
     @State private var repsDone = 0
 
     private var centralArt: ArtKey {
-        stepIndex == 0 ? start : steps[stepIndex - 1].result
+        // Mid-step interim stages (jar 1 fills, jar 2 fills...).
+        if stepIndex < steps.count, repsDone > 0 {
+            let interim = steps[stepIndex].repResults
+            if repsDone - 1 < interim.count {
+                return interim[repsDone - 1]
+            }
+        }
+        return stepIndex == 0 ? start : steps[stepIndex - 1].result
     }
 
     private var currentPrompt: String {

@@ -137,11 +137,12 @@ enum ContentLibrary {
                 completionLine: "What a beautiful rainbow!",
                 icon: .rainbow,
                 spec: .tapColor(regions: [
-                    ColorRegion(shape: .arcBand(outer: 170, thickness: 20), x: 100, y: 118, target: .red),
-                    ColorRegion(shape: .arcBand(outer: 130, thickness: 20), x: 100, y: 118, target: .yellow),
-                    ColorRegion(shape: .arcBand(outer: 90, thickness: 20), x: 100, y: 118, target: .blue),
-                    ColorRegion(shape: .circle(diameter: 30), x: 172, y: 26, target: .yellow),
-                    ColorRegion(shape: .ellipse(width: 44, height: 24), x: 28, y: 30, target: .gray),
+                    ColorRegion(shape: .arcBand(outer: 170, thickness: 13), x: 100, y: 118, target: .red),
+                    ColorRegion(shape: .arcBand(outer: 144, thickness: 13), x: 100, y: 118, target: .orange),
+                    ColorRegion(shape: .arcBand(outer: 118, thickness: 13), x: 100, y: 118, target: .yellow),
+                    ColorRegion(shape: .arcBand(outer: 92, thickness: 13), x: 100, y: 118, target: .green),
+                    ColorRegion(shape: .arcBand(outer: 66, thickness: 13), x: 100, y: 118, target: .blue),
+                    ColorRegion(shape: .arcBand(outer: 40, thickness: 13), x: 100, y: 118, target: .purple),
                     ColorRegion(shape: .ellipse(width: 200, height: 24), x: 100, y: 134, target: .green)
                 ]),
                 reward: Collectible(id: "c-rainbow-colors", name: "Rainbow Colors", art: .rainbow, kind: .badge),
@@ -668,7 +669,7 @@ enum ContentLibrary {
         activities: [
             Activity(
                 id: "jesus-order",
-                title: "Peace! Be Still!",
+                title: "Hush! Be Quiet!",
                 subtitle: "Put the story in order.",
                 introLine: "One night a big storm rocked the boat — but Jesus was not afraid! Let's tell the story.",
                 completionLine: "Even the wind and the sea obey Jesus!",
@@ -676,8 +677,8 @@ enum ContentLibrary {
                 spec: .sequence(steps: [
                     SequenceStep(art: .boat, caption: "Jesus and his friends sailed"),
                     SequenceStep(art: .stormCloud, caption: "A big storm came"),
-                    SequenceStep(art: .jesus, caption: "Jesus said, Peace! Be still!"),
-                    SequenceStep(art: .sun, caption: "The sea became calm")
+                    SequenceStep(art: .jesus, caption: "Jesus said, Hush! Be quiet!"),
+                    SequenceStep(art: .sun, caption: "A great calm set in")
                 ]),
                 reward: Collectible(id: "c-calm-sea", name: "Calm Sea", art: .sun, kind: .badge),
                 scripture: "Mark 4:35-41"
@@ -702,9 +703,10 @@ enum ContentLibrary {
                 introLine: "At a wedding feast, the wine ran out. Jesus performed his very first miracle! Fill the big jars with water and watch what happens.",
                 completionLine: "The water became the finest wine — Jesus' first miracle!",
                 icon: .jar,
-                spec: .actionSequence(start: .jar, steps: [
-                    ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jarWater, reps: 3),
-                    ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarWine)
+                spec: .actionSequence(start: .jars0, steps: [
+                    ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jars3,
+                               reps: 3, repResults: [.jars1, .jars2]),
+                    ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarsWine)
                 ]),
                 reward: Collectible(id: "c-wine-jars", name: "Wine Jars", art: .jarWine, kind: .badge),
                 scripture: "John 2:1-11"

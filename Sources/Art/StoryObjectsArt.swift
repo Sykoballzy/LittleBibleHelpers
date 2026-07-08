@@ -207,6 +207,63 @@ struct SongbookArt: View {
     }
 }
 
+/// Three stone jars side by side — they fill with water one at a time, then
+/// all become wine at the miracle (John 2:6, 7).
+struct JarTrioArt: View {
+    let filled: Int
+    let wine: Bool
+
+    private let clay = Color(red: 0.80, green: 0.66, blue: 0.50)
+    private let clayDeep = Color(red: 0.68, green: 0.53, blue: 0.38)
+    private let water = Theme.sky
+    private let wineRed = Color(red: 0.55, green: 0.16, blue: 0.28)
+
+    var body: some View {
+        ArtCanvas {
+            ForEach(0..<3, id: \.self) { i in
+                miniJar(index: i)
+                    .offset(x: CGFloat(i - 1) * 40, y: CGFloat(i == 1 ? 6 : 0))
+            }
+            if wine {
+                StarShape().fill(Theme.sunny).frame(width: 18, height: 18).offset(x: 34, y: -46)
+                StarShape().fill(Theme.sunny.opacity(0.7)).frame(width: 12, height: 12).offset(x: -38, y: -50)
+                StarShape().fill(Theme.sunny.opacity(0.5)).frame(width: 9, height: 9).offset(x: 0, y: -56)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func miniJar(index: Int) -> some View {
+        let hasContents = wine || index < filled
+        ZStack {
+            // belly
+            Ellipse()
+                .fill(LinearGradient(colors: [clay, clayDeep], startPoint: .top, endPoint: .bottom))
+                .overlay(Ellipse().stroke(Theme.outline.opacity(0.32), lineWidth: 2.5))
+                .frame(width: 34, height: 44)
+                .offset(y: 18)
+            // neck + rim
+            RoundedRectangle(cornerRadius: 4).fill(clay)
+                .frame(width: 18, height: 12)
+                .offset(y: -8)
+            Capsule()
+                .fill(clayDeep)
+                .overlay(Capsule().stroke(Theme.outline.opacity(0.3), lineWidth: 2))
+                .frame(width: 26, height: 8)
+                .offset(y: -15)
+            // contents at the rim
+            if hasContents {
+                Ellipse()
+                    .fill(wine ? wineRed : water)
+                    .frame(width: 19, height: 5)
+                    .offset(y: -15)
+            } else {
+                Ellipse().fill(Color.black.opacity(0.25)).frame(width: 17, height: 4).offset(y: -15)
+            }
+        }
+    }
+}
+
 /// A sturdy broom for sweeping the hall floor.
 struct BroomArt: View {
     private let straw = Color(red: 0.90, green: 0.74, blue: 0.40)

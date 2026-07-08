@@ -31,6 +31,7 @@ struct CountGame: View {
     @State private var options: [Int] = []
     @State private var wrongPick: Int?
     @State private var totalCount = 0
+    @State private var lastLabel: String?
 
     private var currentType: ArtKey? {
         roundIndex < typeOrder.count ? typeOrder[roundIndex] : nil
@@ -55,6 +56,19 @@ struct CountGame: View {
                             .frame(width: min(w, h) * 0.30, height: min(w, h) * 0.30)
                             .position(x: w * 0.5, y: h * 0.38)
                             .allowsHitTesting(false)
+                    }
+
+                    // Labels mode: show the name we just met, big and readable.
+                    if hasLabels, let lastLabel {
+                        Text(lastLabel)
+                            .font(.system(size: 30, weight: .heavy, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 8)
+                            .background(Capsule().fill(Theme.berry))
+                            .position(x: w / 2, y: h * 0.06)
+                            .id(lastLabel)
+                            .transition(.scale.combined(with: .opacity))
                     }
 
                     // Round prompt: what are we counting right now?
@@ -199,11 +213,13 @@ struct CountGame: View {
         // in one continuous pass.
         if let labels {
             let index = tappedIDs.count - 1
+            let name = index < labels.count ? labels[index] : "\(tappedIDs.count)"
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) { lastLabel = name }
             if tappedIDs.count < countables.count {
-                audio.speak(index < labels.count ? labels[index] : "\(tappedIDs.count)")
+                audio.speak(name)
                 return
             }
-            audio.speak("\(countables.count)! You counted them all!")
+            audio.speak("\(name)! That makes \(countables.count)!")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.6, execute: onComplete)
             return
         }

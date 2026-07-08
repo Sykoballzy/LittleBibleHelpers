@@ -90,6 +90,11 @@ struct ArtView: View {
         case .jar: JarArt(fill: .empty)
         case .jarWater: JarArt(fill: .water)
         case .jarWine: JarArt(fill: .wine)
+        case .jars0: JarTrioArt(filled: 0, wine: false)
+        case .jars1: JarTrioArt(filled: 1, wine: false)
+        case .jars2: JarTrioArt(filled: 2, wine: false)
+        case .jars3: JarTrioArt(filled: 3, wine: false)
+        case .jarsWine: JarTrioArt(filled: 3, wine: true)
         }
     }
 }

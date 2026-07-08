@@ -17,6 +17,7 @@ enum ArtKey: String, CaseIterable, Hashable {
     case bag, bagWithBook, bagPacked, book, songbook, chair
     case child, cloth, stone, broom, spray
     case jar, jarWater, jarWine
+    case jars0, jars1, jars2, jars3, jarsWine
 
     var displayName: String {
         switch self {
@@ -88,6 +89,8 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .jar: return "big jar"
         case .jarWater: return "jar of water"
         case .jarWine: return "jar of wine"
+        case .jars0, .jars1, .jars2, .jars3: return "big jars"
+        case .jarsWine: return "jars of wine"
         }
     }
 
@@ -164,6 +167,9 @@ struct ActionStep: Hashable {
     let prompt: String
     let result: ArtKey
     var reps: Int = 1
+    /// Interim artwork shown after each rep (jar 1 fills, jar 2 fills...);
+    /// the final rep shows `result`.
+    var repResults: [ArtKey] = []
 }
 
 /// A bin in the Sort & Classify game (e.g. Land / Sea / Sky).

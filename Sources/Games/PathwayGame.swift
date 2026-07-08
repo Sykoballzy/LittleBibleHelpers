@@ -41,6 +41,21 @@ struct PathwayGame: View {
     @State private var wigglingBlocker: Cell?
     @State private var saidWalkHint = false
     @State private var done = false
+    @State private var pulse = false
+
+    /// Open cells one step away — highlighted so a little one can see
+    /// exactly where a step can go.
+    private var stepChoices: [Cell] {
+        [Cell(col: walkerCell.col + 1, row: walkerCell.row),
+         Cell(col: walkerCell.col - 1, row: walkerCell.row),
+         Cell(col: walkerCell.col, row: walkerCell.row + 1),
+         Cell(col: walkerCell.col, row: walkerCell.row - 1)]
+            .filter { cell in
+                cell.col >= 0 && cell.col < Self.cols &&
+                cell.row >= 0 && cell.row < Self.rows &&
+                !blockers.contains(cell)
+            }
+    }
 
     var body: some View {
         GeometryReader { geo in
@@ -64,6 +79,19 @@ struct PathwayGame: View {
                         .frame(width: cellSize * 0.94, height: cellSize * 0.94)
                         .position(center(of: cell, origin: origin, cellSize: cellSize))
                         .onTapGesture { tap(cell) }
+                }
+
+                // Where you can step next — gently pulsing footprints.
+                if !done {
+                    ForEach(stepChoices, id: \.self) { cell in
+                        Circle()
+                            .strokeBorder(Theme.leaf, lineWidth: 4)
+                            .frame(width: cellSize * 0.42, height: cellSize * 0.42)
+                            .opacity(pulse ? 0.85 : 0.25)
+                            .scaleEffect(pulse ? 1.08 : 0.92)
+                            .position(center(of: cell, origin: origin, cellSize: cellSize))
+                            .allowsHitTesting(false)
+                    }
                 }
 
                 // Prizes.
@@ -90,12 +118,21 @@ struct PathwayGame: View {
                     .position(center(of: Self.goalCell, origin: origin, cellSize: cellSize))
                     .allowsHitTesting(false)
 
-                // The walker.
-                ArtView(key: walker)
-                    .frame(width: cellSize * 0.80, height: cellSize * 0.80)
-                    .position(center(of: walkerCell, origin: origin, cellSize: cellSize))
-                    .allowsHitTesting(false)
-                    .zIndex(5)
+                // The walker — clearly "you": a glowing sunny disc underneath.
+                ZStack {
+                    Circle()
+                        .fill(Theme.sunny.opacity(0.45))
+                        .frame(width: cellSize * 0.95, height: cellSize * 0.95)
+                    Circle()
+                        .strokeBorder(Theme.sunny, lineWidth: 4)
+                        .frame(width: cellSize * 0.95, height: cellSize * 0.95)
+                    ArtView(key: walker)
+                        .frame(width: cellSize * 0.78, height: cellSize * 0.78)
+                        .offset(y: pulse ? -3 : 1)
+                }
+                .position(center(of: walkerCell, origin: origin, cellSize: cellSize))
+                .allowsHitTesting(false)
+                .zIndex(5)
 
                 // Prize counter.
                 if !prizes.isEmpty || collected > 0 {
@@ -117,6 +154,9 @@ struct PathwayGame: View {
                 let layout = Self.layouts.randomElement() ?? Self.layouts[0]
                 blockers = layout.blockers
                 prizes = Set(layout.prizes)
+            }
+            withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
+                pulse = true
             }
         }
     }
