@@ -9,6 +9,7 @@ import SwiftUI
 struct CountGame: View {
     let items: [ArtKey]
     let center: ArtKey?
+    let labels: [String]?
     let range: ClosedRange<Int>
     let onComplete: () -> Void
 
@@ -35,7 +36,10 @@ struct CountGame: View {
         roundIndex < typeOrder.count ? typeOrder[roundIndex] : nil
     }
 
-    private var isMultiType: Bool { typeOrder.count > 1 }
+    /// With labels (naming the apostles), every item counts in one continuous
+    /// pass regardless of type — no per-type rounds.
+    private var isMultiType: Bool { labels == nil && typeOrder.count > 1 }
+    private var hasLabels: Bool { labels != nil }
 
     var body: some View {
         GeometryReader { geo in
@@ -54,7 +58,7 @@ struct CountGame: View {
                     }
 
                     // Round prompt: what are we counting right now?
-                    if let currentType, options.isEmpty {
+                    if let currentType, options.isEmpty, !hasLabels {
                         HStack(spacing: 10) {
                             ArtView(key: currentType).frame(width: 40, height: 40)
                             Text("Count the \(currentType.pluralName)!")
@@ -173,7 +177,7 @@ struct CountGame: View {
         guard !tappedIDs.contains(countable.id) else { return }
 
         // Wrong type: gentle wiggle + one teaching line per round.
-        guard countable.art == currentType || !isMultiType else {
+        guard countable.art == currentType || !isMultiType || hasLabels else {
             Haptics.gentleError()
             withAnimation(.spring(response: 0.15, dampingFraction: 0.3)) { wiggleID = countable.id }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -189,6 +193,19 @@ struct CountGame: View {
         Haptics.soft()
         withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
             tappedIDs.append(countable.id)
+        }
+
+        // Labels mode: speak the NAME (Peter! Andrew!) and count everyone
+        // in one continuous pass.
+        if let labels {
+            let index = tappedIDs.count - 1
+            if tappedIDs.count < countables.count {
+                audio.speak(index < labels.count ? labels[index] : "\(tappedIDs.count)")
+                return
+            }
+            audio.speak("\(countables.count)! You counted them all!")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.6, execute: onComplete)
+            return
         }
 
         let remainingOfType = countables.filter {

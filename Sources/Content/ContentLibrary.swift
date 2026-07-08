@@ -3,12 +3,14 @@ import SwiftUI
 /// Version 1 content. Future packs append worlds (or add activities to
 /// existing worlds) here; nothing else in the app needs to change.
 enum ContentLibrary {
+    /// Ordered as a journey through time: Creation → Noah → David → Jonah →
+    /// Daniel → Jesus, then meeting life and the qualities we grow today.
     static let worlds: [BibleWorld] = [
         creation,
         noahsArk,
         davidSheep,
-        danielLions,
         jonahBigFish,
+        danielLions,
         jesusFriends,
         meetings,
         qualities
@@ -96,7 +98,7 @@ enum ContentLibrary {
                 introLine: "So many animals are coming to the ark! How many can you count?",
                 completionLine: "You counted all the animals!",
                 icon: .giraffe,
-                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove], center: nil,
+                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
             ),
@@ -190,7 +192,7 @@ enum ContentLibrary {
                 introLine: "God filled the night sky with stars. How many can you count?",
                 completionLine: "You counted every star!",
                 icon: .star,
-                spec: .count(items: [.star], center: nil, littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.star], center: nil, labels: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-star", name: "Star", art: .star, kind: .badge)
             ),
             Activity(
@@ -297,7 +299,7 @@ enum ContentLibrary {
                 introLine: "David watched over every single sheep. How many can you count?",
                 completionLine: "You counted the whole flock!",
                 icon: .sheep,
-                spec: .count(items: [.sheep], center: .david, littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.sheep], center: .david, labels: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-lamb", name: "Lamb", art: .sheep, kind: .animal),
                 scripture: "Psalm 23:1, 2"
             ),
@@ -455,7 +457,7 @@ enum ContentLibrary {
                 introLine: "Daniel was in the den, and Jehovah kept him safe. How many lions can you count around him?",
                 completionLine: "You counted every lion — and Daniel was safe the whole time!",
                 icon: .lion,
-                spec: .count(items: [.lion], center: .daniel, littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.lion], center: .daniel, labels: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-den-lion", name: "Den Lion", art: .lion, kind: .animal),
                 scripture: "Daniel 6:16"
             ),
@@ -585,7 +587,7 @@ enum ContentLibrary {
                 introLine: "The sea is full of fish that Jehovah made! How many can you count?",
                 completionLine: "You counted every fish!",
                 icon: .fish,
-                spec: .count(items: [.fish], center: nil, littleRange: 3...8, bigRange: 6...12),
+                spec: .count(items: [.fish], center: nil, labels: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-sea-fish", name: "Sea Fish", art: .fish, kind: .animal),
                 scripture: "Jonah 1:17"
             ),
@@ -598,7 +600,8 @@ enum ContentLibrary {
                 icon: .sprout,
                 spec: .actionSequence(start: .soil, steps: [
                     ActionStep(tool: .seed, prompt: "Jehovah planted it!", result: .sprout),
-                    ActionStep(tool: .moon, prompt: "It grew overnight!", result: .tree)
+                    ActionStep(tool: .moon, prompt: "It grew overnight!", result: .sapling),
+                    ActionStep(tool: .sun, prompt: "Shade for Jonah!", result: .tree)
                 ]),
                 reward: Collectible(id: "c-shade-plant", name: "Shade Plant", art: .sprout, kind: .badge),
                 scripture: "Jonah 4:6"
@@ -700,7 +703,7 @@ enum ContentLibrary {
                 completionLine: "The water became the finest wine — Jesus' first miracle!",
                 icon: .jar,
                 spec: .actionSequence(start: .jar, steps: [
-                    ActionStep(tool: .bucket, prompt: "Fill the jars with water!", result: .jarWater),
+                    ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jarWater, reps: 3),
                     ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarWine)
                 ]),
                 reward: Collectible(id: "c-wine-jars", name: "Wine Jars", art: .jarWine, kind: .badge),
@@ -731,15 +734,18 @@ enum ContentLibrary {
             ),
             Activity(
                 id: "jesus-apostles",
-                title: "Count the Apostles",
-                subtitle: "Count Jesus' special friends!",
-                introLine: "Jesus chose twelve apostles to be his special helpers. Count his friends!",
+                title: "Name the Apostles",
+                subtitle: "Tap each friend to meet him!",
+                introLine: "Jesus chose twelve apostles to be his special helpers. Tap each friend to hear his name!",
                 completionLine: "Jesus' friends helped him preach everywhere!",
                 icon: .jesus,
                 spec: .count(items: [.villagerA, .villagerB, .villagerC], center: .jesus,
-                             littleRange: 4...8, bigRange: 12...12),
+                             labels: ["Peter", "Andrew", "James", "John", "Philip",
+                                      "Bartholomew", "Matthew", "Thomas", "James",
+                                      "Simon", "Judas", "Judas Iscariot"],
+                             littleRange: 5...8, bigRange: 12...12),
                 reward: Collectible(id: "c-twelve", name: "The Twelve", art: .star, kind: .badge),
-                scripture: "Luke 6:13"
+                scripture: "Luke 6:13-16"
             ),
             Activity(
                 id: "jesus-come",
@@ -864,7 +870,7 @@ enum ContentLibrary {
                 introLine: "Look how many friends came to the meeting! How many can you count?",
                 completionLine: "So many friends who love Jehovah!",
                 icon: .villagerA,
-                spec: .count(items: [.villagerA, .villagerB, .villagerC], center: nil,
+                spec: .count(items: [.villagerA, .villagerB, .villagerC], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-friend", name: "Friend", art: .villagerB, kind: .character),
                 scripture: "Psalm 133:1"
@@ -878,8 +884,8 @@ enum ContentLibrary {
                 icon: .broom,
                 spec: .cleanUp(surface: .hall, tasks: [
                     CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!"),
-                    CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!"),
-                    CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!")
+                    CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!", target: .chair),
+                    CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!", target: .window)
                 ]),
                 reward: Collectible(id: "c-hall", name: "Meeting Place", art: .hall, kind: .badge),
                 scripture: "1 Corinthians 14:40"

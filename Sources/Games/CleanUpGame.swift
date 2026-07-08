@@ -67,22 +67,32 @@ struct CleanUpGame: View {
                     .position(x: w / 2, y: h * 0.05)
                 }
 
-                // Smudges for the current task (and their sparkles).
+                // The current task's dirty things: real objects (chairs,
+                // windows) when the task has a target, plain smudges when not.
+                // Cleaned objects stay on screen, freshly clean.
                 if let task {
                     let spots = Array(Self.bands[taskIndex % Self.bands.count].prefix(task.messCount))
                     ForEach(0..<spots.count, id: \.self) { i in
                         let spot = CGPoint(x: w * spots[i].x, y: h * spots[i].y)
-                        if !cleaned.contains(i) {
-                            SmudgeView()
-                                .frame(width: smudgeSize, height: smudgeSize)
-                                .position(spot)
-                        } else if sparkles.contains(i) {
-                            StarShape()
-                                .fill(Theme.sunny)
-                                .frame(width: smudgeSize * 0.6, height: smudgeSize * 0.6)
-                                .position(spot)
-                                .transition(.scale.combined(with: .opacity))
+                        ZStack {
+                            if let target = task.target {
+                                ArtView(key: target)
+                                    .frame(width: smudgeSize * 1.4, height: smudgeSize * 1.4)
+                                    .saturation(cleaned.contains(i) ? 1.0 : 0.55)
+                            }
+                            if !cleaned.contains(i) {
+                                SmudgeView()
+                                    .frame(width: smudgeSize, height: smudgeSize)
+                                    .offset(y: task.target == nil ? 0 : smudgeSize * 0.1)
+                            } else if sparkles.contains(i) {
+                                StarShape()
+                                    .fill(Theme.sunny)
+                                    .frame(width: smudgeSize * 0.6, height: smudgeSize * 0.6)
+                                    .transition(.scale.combined(with: .opacity))
+                            }
                         }
+                        .position(spot)
+                        .allowsHitTesting(false)
                     }
                 }
 

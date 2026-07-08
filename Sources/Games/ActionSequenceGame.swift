@@ -19,6 +19,7 @@ struct ActionSequenceGame: View {
     @State private var bump = false
     @State private var saidHint = false
     @State private var pulse = false
+    @State private var repsDone = 0
 
     private var centralArt: ArtKey {
         stepIndex == 0 ? start : steps[stepIndex - 1].result
@@ -122,14 +123,23 @@ struct ActionSequenceGame: View {
         if tool == steps[stepIndex].tool {
             Haptics.success()
             withAnimation(.spring(response: 0.4, dampingFraction: 0.5)) { bump = true }
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) { stepIndex += 1 }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                 withAnimation { bump = false }
             }
+
+            // Steps can ask for several uses (fill ALL the jars).
+            repsDone += 1
+            if repsDone < steps[stepIndex].reps {
+                audio.speak("Again! \(steps[stepIndex].prompt)")
+                return
+            }
+
+            repsDone = 0
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) { stepIndex += 1 }
             if stepIndex < steps.count {
                 audio.speak(steps[stepIndex].prompt)
             } else {
-                audio.speak("You did it! You built the ark!")
+                audio.speak("You did it!")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.4, execute: onComplete)
             }
         } else {

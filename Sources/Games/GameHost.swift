@@ -53,8 +53,8 @@ private struct GameScreen: View {
             MatchPairsGame(pool: pool, onComplete: finish)
         case .boardTheArk(let animals):
             BoardTheArkGame(animals: animals, onComplete: finish)
-        case .count(let items, let center, let littleRange, let bigRange):
-            CountGame(items: items, center: center,
+        case .count(let items, let center, let labels, let littleRange, let bigRange):
+            CountGame(items: items, center: center, labels: labels,
                       range: settings.ageBand == .littleOnes ? littleRange : bigRange,
                       onComplete: finish)
         case .sequence(let steps):

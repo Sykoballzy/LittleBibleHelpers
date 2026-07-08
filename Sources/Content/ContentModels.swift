@@ -45,7 +45,7 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .arkHull: return "ark"
         case .villagerA: return "neighbor"
         case .villagerB: return "friend"
-        case .villagerC: return "neighbor"
+        case .villagerC: return "helper"
         case .scroll: return "message"
         case .adam: return "Adam"
         case .people: return "Adam and Eve"
@@ -157,11 +157,13 @@ struct SequenceStep: Hashable {
 }
 
 /// One step of the Action Sequence ("process") template: drag `tool` onto the
-/// central object, which then becomes `result`.
+/// central object, which then becomes `result`. `reps` asks for the tool to be
+/// used that many times before the step completes (fill ALL the jars).
 struct ActionStep: Hashable {
     let tool: ArtKey
     let prompt: String
     let result: ArtKey
+    var reps: Int = 1
 }
 
 /// A bin in the Sort & Classify game (e.g. Land / Sea / Sky).
@@ -182,7 +184,10 @@ struct SortItem: Hashable {
 enum GameSpec: Hashable {
     case matchPairs(pool: [ArtKey])
     case boardTheArk(animals: [ArtKey])
-    case count(items: [ArtKey], center: ArtKey?,
+    /// `labels` (optional) are spoken instead of numerals, one per tap — used
+    /// to NAME the twelve apostles while counting them. Labels also merge all
+    /// item types into one continuous count (no per-type rounds).
+    case count(items: [ArtKey], center: ArtKey?, labels: [String]?,
                littleRange: ClosedRange<Int>, bigRange: ClosedRange<Int>)
     case sequence(steps: [SequenceStep])
     case sortClassify(categories: [SortCategory], items: [SortItem])
@@ -215,11 +220,13 @@ enum GameSpec: Hashable {
     case cleanUp(surface: ArtKey, tasks: [CleanTask])
 }
 
-/// One chore in a Clean Up game.
+/// One chore in a Clean Up game. When `target` is set, real objects (chairs,
+/// windows) appear dirty and stay on screen sparkling clean after the wipe.
 struct CleanTask: Hashable {
     let tool: ArtKey
     let messCount: Int
     let prompt: String
+    var target: ArtKey? = nil
 }
 
 struct Activity: Identifiable, Hashable {

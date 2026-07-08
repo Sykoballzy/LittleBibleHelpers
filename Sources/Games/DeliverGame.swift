@@ -35,11 +35,13 @@ struct DeliverGame: View {
                     .frame(width: w * 0.26, height: w * 0.26)
                     .opacity(0.85)
                     .position(x: w * 0.10, y: h * 0.38)
+                    .allowsHitTesting(false)
 
                 // Source character.
                 ArtView(key: source)
                     .frame(width: personSize, height: personSize)
                     .position(x: w * 0.15, y: h * 0.68)
+                    .allowsHitTesting(false)
 
                 // Waiting townspeople — with a pulsing "bring it here" ring.
                 ForEach(Array(targets.enumerated()), id: \.offset) { index, person in
@@ -62,11 +64,15 @@ struct DeliverGame: View {
                             y: gone ? h * 0.06 : (bob && !isReacting ? -4 : 0))
                     .opacity(gone ? 0 : 1)
                     .position(base)
+                    .allowsHitTesting(false)
                 }
 
                 // Until the first delivery lands, a little arrow glides from
                 // the item toward the first person — no reading needed.
-                if deliveredCount == 0, !isDragging {
+                // IMPORTANT: it must stay in the view tree during a drag
+                // (fading via opacity), otherwise removing it cancels the
+                // drag gesture mid-flight.
+                if deliveredCount == 0 {
                     let firstTarget = targetPosition(index: 0, count: targets.count, size: geo.size)
                     let t: CGFloat = bob ? 0.62 : 0.28
                     let hintPoint = CGPoint(x: itemHome.x + (firstTarget.x - itemHome.x) * t,
@@ -76,7 +82,7 @@ struct DeliverGame: View {
                         .foregroundColor(Theme.coral)
                         .rotationEffect(.radians(Double(atan2(firstTarget.y - itemHome.y,
                                                               firstTarget.x - itemHome.x))))
-                        .opacity(bob ? 0.9 : 0.25)
+                        .opacity(isDragging ? 0 : (bob ? 0.9 : 0.25))
                         .position(hintPoint)
                         .allowsHitTesting(false)
                 }
@@ -91,6 +97,7 @@ struct DeliverGame: View {
                                 .fill(Color.white)
                                 .shadow(color: .black.opacity(0.12), radius: 5, y: 3)
                         )
+                        .contentShape(Circle().inset(by: -24)) // generous grab area
                         .scaleEffect(isDragging ? 1.1 : 1.0)
                         .offset(dragOffset)
                         .position(itemHome)
@@ -98,7 +105,7 @@ struct DeliverGame: View {
                         .id(deliveredCount) // fresh pop per delivery
                         .transition(.scale.combined(with: .opacity))
                         .gesture(
-                            DragGesture()
+                            DragGesture(minimumDistance: 1)
                                 .onChanged { value in
                                     isDragging = true
                                     dragOffset = value.translation

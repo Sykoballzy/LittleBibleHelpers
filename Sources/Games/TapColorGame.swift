@@ -41,9 +41,9 @@ struct TapColorGame: View {
                     .frame(width: frameW + 28, height: frameH + 28)
                     .position(x: frameOrigin.x + frameW / 2, y: frameOrigin.y + frameH / 2)
 
-                // Regions.
+                // Regions (both position AND size scale with the card).
                 ForEach(Array(regions.enumerated()), id: \.offset) { index, region in
-                    regionView(region, isFilled: filled.contains(index))
+                    regionView(region, isFilled: filled.contains(index), scale: scale)
                         .position(x: frameOrigin.x + region.x * scale,
                                   y: frameOrigin.y + region.y * scale)
                         .allowsHitTesting(false)
@@ -92,9 +92,10 @@ struct TapColorGame: View {
     // MARK: Rendering
 
     /// Coloring-book rendering: every region is white with SOLID dark outlines
-    /// until filled — then it takes its color, keeping the outline.
+    /// until filled — then it takes its color, keeping the outline. All
+    /// dimensions are design units × `scale` so visuals match the tap zones.
     @ViewBuilder
-    private func regionView(_ region: ColorRegion, isFilled: Bool) -> some View {
+    private func regionView(_ region: ColorRegion, isFilled: Bool, scale: CGFloat) -> some View {
         let fillColor = isFilled ? region.target.color : Color.white
         let outline = Theme.outline.opacity(0.85)
         switch region.shape {
@@ -102,31 +103,33 @@ struct TapColorGame: View {
             Circle()
                 .fill(fillColor)
                 .overlay(Circle().strokeBorder(outline, lineWidth: 3.5))
-                .frame(width: diameter, height: diameter)
+                .frame(width: diameter * scale, height: diameter * scale)
                 .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         case .ellipse(let width, let height):
             Ellipse()
                 .fill(fillColor)
                 .overlay(Ellipse().strokeBorder(outline, lineWidth: 3.5))
-                .frame(width: width, height: height)
+                .frame(width: width * scale, height: height * scale)
                 .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         case .arcBand(let outer, let thickness):
             // Top-half ring: trim(0.5...1) runs 9 o'clock -> 12 -> 3 o'clock.
             // Body stroke sits on the centerline; thin solid strokes mark the
             // outer and inner edges so the empty band reads as line art.
+            let outerPx = outer * scale
+            let thicknessPx = thickness * scale
             ZStack {
                 Circle()
                     .trim(from: 0.5, to: 1.0)
-                    .stroke(fillColor, style: StrokeStyle(lineWidth: thickness, lineCap: .butt))
-                    .frame(width: outer - thickness, height: outer - thickness)
+                    .stroke(fillColor, style: StrokeStyle(lineWidth: thicknessPx, lineCap: .butt))
+                    .frame(width: outerPx - thicknessPx, height: outerPx - thicknessPx)
                 Circle()
                     .trim(from: 0.5, to: 1.0)
                     .stroke(outline, lineWidth: 3)
-                    .frame(width: outer, height: outer)
+                    .frame(width: outerPx, height: outerPx)
                 Circle()
                     .trim(from: 0.5, to: 1.0)
                     .stroke(outline, lineWidth: 3)
-                    .frame(width: outer - 2 * thickness, height: outer - 2 * thickness)
+                    .frame(width: outerPx - 2 * thicknessPx, height: outerPx - 2 * thicknessPx)
             }
             .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isFilled)
         }
