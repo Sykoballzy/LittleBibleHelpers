@@ -2,29 +2,36 @@
 
 Ideas captured but not yet built. Ordered roughly by priority.
 
-## 1. The Art Pass (next major initiative — approved direction)
+## 0. Platform strategy — Android is REQUIRED (Travis, 2026-07-08)
 
-Replace programmatic vector placeholders with AI-generated, reusable,
-consistent assets. Committed direction (Travis, iter 12): not hiring an
-illustrator; generate impactful reusable assets instead.
+- Android must ship, fairly high priority. The current app is native SwiftUI,
+  so "porting" = rebuilding the engine in a cross-platform framework.
+- Working recommendation: **Flutter rewrite as the v1.0 engine** once games
+  are validated on a real iPad — one codebase for iOS + Android, excellent
+  for custom-drawn kids' games. The SwiftUI app is the validated prototype/
+  spec; ALL art-pass PNGs, content data, narration scripts, and game designs
+  transfer directly.
+- Decision gate: BEFORE building StoreKit or recording narration (both are
+  platform-specific spends). Art pass is platform-neutral — do it now.
+- A Mac is still required regardless (iOS builds/signing even in Flutter).
+  Travis is shopping: new low-end M4 Mac mini (or Apple Certified Refurbished)
+  over the used market.
 
-- **Component character system** ("South Park model"): one reusable body rig
-  with swappable features — skin tones, hair, beards, robes, expressions —
-  so every Bible character and villager comes from the same kit and stays
-  consistent across worlds. Unlocks: 12 distinct apostle faces, named
-  characters, richer Deliver/Pathway scenes.
-- **Coloring-book pages for Tap-to-Color**: white line-art scenes (thick
-  black outlines, big closed regions), one PNG per page + a region map
-  (tap zones as data over the image). Fixes the template's quality ceiling.
-- **Per-world backgrounds**: sea for Jonah, night palace for Daniel, hall
-  interior for Meetings, garden for Creation (all worlds share the meadow
-  today).
-- **Scene props**: real floor/dust art for Clean Up's sweep task, aisle/chair
-  rows for Meet the Speaker, den walls for Daniel.
-- Pipeline: Travis generates from a written asset spec (exact filenames,
-  sizes, transparent backgrounds, style prompt); assets go in a Resources/
-  folder; project.yml gains a resources entry (one-time regenerate); art
-  keys switch from vector views to images asset-by-asset.
+## 1. The Art Pass (IN PROGRESS — spec shipped 2026-07-08)
+
+- `ART_SPEC.md` written: 73-asset manifest, master style prompt, doctrinal
+  art rules, consistency method, phases (cast → objects → backgrounds →
+  coloring pages → the Twelve).
+- App wiring DONE: any `Resources/art_<key>.png` automatically replaces its
+  vector placeholder (ArtView image override); project.yml includes optional
+  Resources folder.
+- Travis generates assets into `Resources/`; Claude commits + maps coloring
+  regions and backgrounds as they arrive.
+
+Goals (from Travis's "South Park" reusable-asset direction): component
+character system (one body formula, swappable features — unlocks 12 apostle
+faces), coloring-book pages for Tap-to-Color, per-world backgrounds, and
+scene props (dust piles, aisle rows, den walls). Details in ART_SPEC.md.
 
 ## 2. Big Kids band (ages 6–7) — approved direction
 

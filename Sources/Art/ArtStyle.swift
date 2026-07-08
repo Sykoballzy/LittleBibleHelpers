@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// All artwork is designed in a fixed 120x120 unit space and scaled to fit
 /// whatever frame the caller provides. Offsets are measured from center.
@@ -17,10 +18,25 @@ struct ArtCanvas<Content: View>: View {
 }
 
 /// Routes an art key to its illustration.
+///
+/// Art-pass pipeline: if a bundled image named `art_<key>` exists (e.g.
+/// `art_lion.png` in Resources/), it automatically REPLACES the programmatic
+/// vector below — no code change needed per asset. See ART_SPEC.md.
 struct ArtView: View {
     let key: ArtKey
 
     var body: some View {
+        if let image = UIImage(named: "art_\(key.rawValue)") {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+        } else {
+            vectorBody
+        }
+    }
+
+    @ViewBuilder
+    private var vectorBody: some View {
         switch key {
         case .elephant: ElephantArt()
         case .giraffe: GiraffeArt()
