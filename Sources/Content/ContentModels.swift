@@ -4,7 +4,8 @@ import SwiftUI
 /// can be swapped from programmatic vectors to commissioned assets without
 /// touching content or game code.
 enum ArtKey: String, CaseIterable, Hashable {
-    case elephant, giraffe, lion, sheep, bird, fish
+    case elephant, giraffe, lion, sheep, bird, dove, fish
+    case speaker, hallWindow
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
     case moon, tree, earth
     case saw, hammer, brush, arkPlanks, arkFrame, arkHull
@@ -26,7 +27,10 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .lion: return "lion"
         case .sheep: return "sheep"
         case .bird: return "bird"
+        case .dove: return "dove"
         case .fish: return "fish"
+        case .speaker: return "speaker"
+        case .hallWindow: return "window"
         case .ark: return "ark"
         case .noah: return "Noah"
         case .rainbow: return "rainbow"

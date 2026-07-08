@@ -20,9 +20,23 @@ transparency audit. Wired into the app and committed.
 - Child feature: Parent Area sets name + Boy/Girl; the `child` key renders
   `art_malechild.png` / `art_femalechild.png`; narration cheers by name.
 
-### ✏️ Last sticker
+### ✏️ Stickers to make (playtest round, 2026-07-08)
 - [ ] `art_penFull.png` — edit `art_pen`, add two sheep peeking over the
       rail. (Vector fallback covers it meanwhile.)
+- [ ] `art_bird.png` — NEW: a generic cheerful little songbird (bluebird or
+      sparrow style), NO olive branch. The dove art is now `art_dove.png`
+      and stays Noah/Peace-specific; this bird covers creation/sky contexts.
+- [ ] `art_speaker.png` — NEW: modern-day meeting speaker — friendly man in
+      a suit and tie, holding a Bible, warm smile. (Meetings world is
+      MODERN dress, unlike the Bible-account worlds.)
+- [ ] `art_hallWindow.png` — NEW: modern meeting-hall window — clean
+      rectangular white/cream frame, four bright panes, simple sill.
+      (Daniel keeps the arched stone night window; this one is for
+      Clean the Hall.)
+- [ ] (idea, optional) modern-dress congregation friends
+      (`art_friendA/B/C`) — would let all of Meetings world read modern-day
+      instead of reusing the robed Bible villagers. Wire-up needed after
+      generation, so tell Claude when these exist.
 
 ### 🔎 Optional polish (only if it bugs you on device)
 - [ ] `art_bigFish.png` — chubby fish, not whale-shaped. Doctrinally fine.

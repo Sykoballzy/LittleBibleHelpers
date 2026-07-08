@@ -118,6 +118,56 @@ struct PeopleArt: View {
     }
 }
 
+/// The meeting speaker — modern day, suit and tie, warm smile.
+struct SpeakerArt: View {
+    private let skin = Color(red: 0.94, green: 0.78, blue: 0.62)
+    private let hair = Color(red: 0.30, green: 0.22, blue: 0.15)
+    private let suit = Color(red: 0.25, green: 0.32, blue: 0.45)
+
+    var body: some View {
+        ArtCanvas {
+            // suit jacket
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(suit)
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 64, height: 50)
+                .offset(y: 38)
+            // white shirt
+            TriangleShape()
+                .fill(Color.white)
+                .frame(width: 26, height: 22)
+                .rotationEffect(.degrees(180))
+                .offset(y: 24)
+            // tie
+            Capsule().fill(Theme.coral).frame(width: 9, height: 26).offset(y: 34)
+            // lapels
+            Capsule().fill(suit).frame(width: 8, height: 22)
+                .rotationEffect(.degrees(24)).offset(x: -12, y: 26)
+            Capsule().fill(suit).frame(width: 8, height: 22)
+                .rotationEffect(.degrees(-24)).offset(x: 12, y: 26)
+            // head
+            Circle()
+                .fill(skin)
+                .overlay(Circle().stroke(Theme.outline.opacity(0.28), lineWidth: 3))
+                .frame(width: 46)
+                .offset(y: -10)
+            // tidy hair
+            Circle()
+                .trim(from: 0.5, to: 1.0)
+                .fill(hair)
+                .frame(width: 48)
+                .offset(y: -12)
+            CuteEyes(spacing: 16, size: 9).offset(y: -12)
+            Blush(spacing: 36).offset(y: -4)
+            Circle()
+                .trim(from: 0.12, to: 0.38)
+                .stroke(Theme.outline, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                .frame(width: 15)
+                .offset(y: -1)
+        }
+    }
+}
+
 /// A little child — the player's stand-in for pathway games.
 struct ChildArt: View {
     private let skin = Color(red: 0.96, green: 0.80, blue: 0.64)

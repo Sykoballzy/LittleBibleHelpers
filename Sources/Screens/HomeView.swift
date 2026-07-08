@@ -18,7 +18,7 @@ struct HomeView: View {
                     ArtView(key: .giraffe)
                         .frame(width: 130, height: 130)
                         .position(x: geo.size.width * 0.89, y: geo.size.height * 0.70)
-                    ArtView(key: .bird)
+                    ArtView(key: .dove)
                         .frame(width: 90, height: 90)
                         .position(x: geo.size.width * 0.22, y: geo.size.height * 0.30)
                 }

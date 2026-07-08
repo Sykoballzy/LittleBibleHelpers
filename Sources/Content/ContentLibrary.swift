@@ -77,7 +77,7 @@ enum ContentLibrary {
                 introLine: "The animals come two by two! Can you find the matching pairs?",
                 completionLine: "You matched all the animals!",
                 icon: .lion,
-                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .bird, .sheep, .fish]),
+                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .dove, .sheep, .fish]),
                 reward: Collectible(id: "c-lion", name: "Lion", art: .lion, kind: .animal)
             ),
             Activity(
@@ -98,9 +98,9 @@ enum ContentLibrary {
                 introLine: "So many animals are coming to the ark! How many can you count?",
                 completionLine: "You counted all the animals!",
                 icon: .giraffe,
-                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .bird], center: nil, labels: nil,
+                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
-                reward: Collectible(id: "c-dove", name: "Dove", art: .bird, kind: .animal)
+                reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
             ),
             Activity(
                 id: "noah-order",
@@ -887,7 +887,7 @@ enum ContentLibrary {
                 spec: .cleanUp(surface: .hall, tasks: [
                     CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!"),
                     CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!", target: .chair),
-                    CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!", target: .window)
+                    CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!", target: .hallWindow)
                 ]),
                 reward: Collectible(id: "c-hall", name: "Meeting Place", art: .hall, kind: .badge),
                 scripture: "1 Corinthians 14:40"
@@ -899,7 +899,7 @@ enum ContentLibrary {
                 introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting.",
                 completionLine: "You said such a nice hello — and you walked the whole way!",
                 icon: .child,
-                spec: .pathway(walker: .child, goal: .villagerC, blocker: .villagerA, prize: .star),
+                spec: .pathway(walker: .child, goal: .speaker, blocker: .villagerA, prize: .star),
                 reward: Collectible(id: "c-bible", name: "My Bible", art: .book, kind: .badge),
                 scripture: "Romans 12:10"
             )
@@ -953,14 +953,14 @@ enum ContentLibrary {
                 subtitle: "Put peacemaking in order.",
                 introLine: "Two friends both want the same fruit. How do peacemakers fix it?",
                 completionLine: "Sharing made peace — and everyone is happy!",
-                icon: .bird,
+                icon: .dove,
                 spec: .sequence(steps: [
                     SequenceStep(art: .villagerB, caption: "Both friends want the fruit"),
                     SequenceStep(art: .fruit, caption: "They share it"),
                     SequenceStep(art: .heart, caption: "Both friends are happy"),
-                    SequenceStep(art: .bird, caption: "That is peace!")
+                    SequenceStep(art: .dove, caption: "That is peace!")
                 ]),
-                reward: Collectible(id: "c-peace", name: "Peace", art: .bird, kind: .badge),
+                reward: Collectible(id: "c-peace", name: "Peace", art: .dove, kind: .badge),
                 scripture: "Matthew 5:9"
             ),
             Activity(
@@ -1021,7 +1021,7 @@ enum ContentLibrary {
                 introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend.",
                 completionLine: "Gentle and mild, just like Jesus!",
                 icon: .sheep,
-                spec: .findIt(items: [.bird, .sheep, .child, .heart]),
+                spec: .findIt(items: [.dove, .sheep, .child, .heart]),
                 reward: Collectible(id: "c-mildness", name: "Mildness", art: .sheep, kind: .badge),
                 scripture: "Matthew 11:29"
             ),

@@ -207,6 +207,38 @@ struct SongbookArt: View {
     }
 }
 
+/// A modern meeting-hall window: clean rectangular frame, four bright panes.
+struct HallWindowArt: View {
+    private let frame = Color(red: 0.92, green: 0.90, blue: 0.86)
+    private let glass = Theme.skyTop
+
+    var body: some View {
+        ArtCanvas {
+            // frame
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(frame)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.outline.opacity(0.32), lineWidth: 3))
+                .frame(width: 76, height: 92)
+            // glass
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(glass)
+                .frame(width: 62, height: 78)
+            // mullions
+            Capsule().fill(frame).frame(width: 6, height: 78)
+            Capsule().fill(frame).frame(width: 62, height: 6)
+            // shine
+            Capsule().fill(Color.white.opacity(0.55)).frame(width: 7, height: 26)
+                .rotationEffect(.degrees(24)).offset(x: -16, y: -22)
+            // sill
+            RoundedRectangle(cornerRadius: 4)
+                .fill(frame)
+                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 88, height: 10)
+                .offset(y: 50)
+        }
+    }
+}
+
 /// Three stone jars side by side — they fill with water one at a time, then
 /// all become wine at the miracle (John 2:6, 7).
 struct JarTrioArt: View {
