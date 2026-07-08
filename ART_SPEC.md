@@ -7,6 +7,36 @@ placeholder.
 
 ---
 
+## 0. STATUS TRACKER (working doc — updated 2026-07-08, wiring shipped)
+
+**72 of 73 sticker keys have real art — the sticker set is DONE** (only
+`art_penFull` remains on its vector fallback). All 74 files PASS the
+transparency audit. Wired into the app and committed.
+
+### ✅ Wired & shipped
+- The full cast, all animals, all objects, jars (singles + trio stages),
+  bags (all 3 states), cleaning tools, the fixed hall.
+- `bird` key renamed (was dove) → uses `art_bird.png`.
+- Child feature: Parent Area sets name + Boy/Girl; the `child` key renders
+  `art_malechild.png` / `art_femalechild.png`; narration cheers by name.
+
+### ✏️ Last sticker
+- [ ] `art_penFull.png` — edit `art_pen`, add two sheep peeking over the
+      rail. (Vector fallback covers it meanwhile.)
+
+### 🔎 Optional polish (only if it bugs you on device)
+- [ ] `art_bigFish.png` — chubby fish, not whale-shaped. Doctrinally fine.
+- [ ] `art_angel.png` — correct (no wings/halo) but a bit Jesus-adjacent.
+
+### 🗺️ Not started — later phases (the next generation sessions)
+- [ ] 8 backgrounds `bg_*` (Phase 3) — biggest world-variety win; keep
+      opaque, do NOT background-remove
+- [ ] 5 coloring pages `coloring_*` (Phase 4) — white line-art, no bg removal
+- [ ] 12 apostles `art_apostle_01..12` (Phase 5) — unlocks face-match game
+- [ ] App icon (1024×1024, opaque) — required for TestFlight
+
+---
+
 ## 1. Global rules (every image)
 
 - **Format:** PNG, true transparent background (verify — not a white square).
@@ -17,6 +47,32 @@ placeholder.
 - **No text, letters, numbers, logos, watermarks, or signatures.**
 - Consistent light source (soft, from upper left). No hard drop shadows.
 - Must read clearly at 80 px — bold silhouette, no fussy detail.
+- **NO white die-cut "sticker" border** — the dark outlines must meet the
+  transparent background directly. (The word "sticker" in a prompt sometimes
+  triggers a literal white border; if it appears, edit it off.)
+
+### ⚠️ Gotchas we hit (read before generating)
+
+1. **Fake transparency is the #1 trap.** Many tools export the gray-and-white
+   checkerboard BAKED INTO the pixels — it looks transparent in every preview
+   but is a solid opaque square in the file. **Always download/export the
+   REAL original PNG**, not a preview screenshot. If unsure, background-remove
+   it (Adobe Express etc.) or ask Claude to run the alpha audit. Backgrounds
+   (`bg_*`) and coloring pages (`coloring_*`) are the exceptions — those are
+   SUPPOSED to be opaque; don't bg-remove them.
+2. **Objects trigger "product photo" mode** — models add a white background
+   and a floor drop-shadow to props (planks, tools, jars). Add
+   *"fully transparent background, no drop shadow"* explicitly to object
+   prompts.
+3. **Buildings/scenes trigger "architectural render" mode** — realistic
+   perspective, window reflections, muted palette. Force cartoon with:
+   *"simple flat cartoon shapes, thick dark outlines, flat cel shading,
+   NOT realistic, NOT an architectural rendering, no window reflections."*
+4. **Scale can't be done with adjectives.** "Huge"/"giant" mean nothing on a
+   blank canvas, and negatives ("not a whale") backfire. Convey size through
+   ANATOMY and in-frame anchors: *"proportionally tiny eye, small fins that
+   look tiny against its giant body, mouth big enough to swallow a boat."*
+   Describe the shape you WANT positively ("shaped like a friendly whale").
 
 ### Master style block (paste at the start of every prompt)
 

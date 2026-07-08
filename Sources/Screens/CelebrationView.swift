@@ -11,6 +11,7 @@ struct CelebrationView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var audio: AudioService
     @EnvironmentObject private var progress: ProgressStore
+    @EnvironmentObject private var settings: SettingsStore
 
     @State private var revealed = false
     @State private var bonusRevealed = false
@@ -103,10 +104,13 @@ struct CelebrationView: View {
             }
         }
         if let pair = ContentLibrary.lookup(worldID: worldID, activityID: activityID) {
+            // Cheer the child by name when a name has been set.
+            let name = settings.cheerName
+            let cheer = name.isEmpty ? "" : ", \(name)"
             if worldComplete {
-                audio.speak("You did it! You finished \(world?.title ?? "the story") and earned a new friend!")
+                audio.speak("You did it\(cheer)! You finished \(world?.title ?? "the story") and earned a new friend!")
             } else {
-                audio.speak("Great job! " + pair.activity.completionLine)
+                audio.speak("Great job\(cheer)! " + pair.activity.completionLine)
             }
         }
     }

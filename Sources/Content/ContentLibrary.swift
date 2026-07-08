@@ -77,7 +77,7 @@ enum ContentLibrary {
                 introLine: "The animals come two by two! Can you find the matching pairs?",
                 completionLine: "You matched all the animals!",
                 icon: .lion,
-                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .dove, .sheep, .fish]),
+                spec: .matchPairs(pool: [.lion, .giraffe, .elephant, .bird, .sheep, .fish]),
                 reward: Collectible(id: "c-lion", name: "Lion", art: .lion, kind: .animal)
             ),
             Activity(
@@ -98,9 +98,9 @@ enum ContentLibrary {
                 introLine: "So many animals are coming to the ark! How many can you count?",
                 completionLine: "You counted all the animals!",
                 icon: .giraffe,
-                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .dove], center: nil, labels: nil,
+                spec: .count(items: [.elephant, .giraffe, .lion, .sheep, .bird], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
-                reward: Collectible(id: "c-dove", name: "Dove", art: .dove, kind: .animal)
+                reward: Collectible(id: "c-dove", name: "Dove", art: .bird, kind: .animal)
             ),
             Activity(
                 id: "noah-order",
@@ -180,8 +180,8 @@ enum ContentLibrary {
                         SortItem(art: .sheep, categoryID: "land"),
                         SortItem(art: .fish, categoryID: "sea"),
                         SortItem(art: .fish, categoryID: "sea"),
-                        SortItem(art: .dove, categoryID: "sky"),
-                        SortItem(art: .dove, categoryID: "sky")
+                        SortItem(art: .bird, categoryID: "sky"),
+                        SortItem(art: .bird, categoryID: "sky")
                     ]
                 ),
                 reward: Collectible(id: "c-tree", name: "Tree", art: .tree, kind: .badge)
@@ -238,7 +238,7 @@ enum ContentLibrary {
                 introLine: "Adam gave every animal its name! Can you find each one?",
                 completionLine: "You found every animal, just like Adam!",
                 icon: .adam,
-                spec: .findIt(items: [.lion, .elephant, .sheep, .dove]),
+                spec: .findIt(items: [.lion, .elephant, .sheep, .bird]),
                 reward: Collectible(id: "c-adam", name: "Adam", art: .adam, kind: .character),
                 scripture: "Genesis 2:19"
             ),
@@ -498,7 +498,7 @@ enum ContentLibrary {
                     ],
                     items: [
                         SortItem(art: .sun, categoryID: "morning"),
-                        SortItem(art: .dove, categoryID: "morning"),
+                        SortItem(art: .bird, categoryID: "morning"),
                         SortItem(art: .fruit, categoryID: "morning"),
                         SortItem(art: .moon, categoryID: "night"),
                         SortItem(art: .star, categoryID: "night"),
@@ -624,7 +624,7 @@ enum ContentLibrary {
                 subtitle: "Where does each one belong?",
                 introLine: "Some things belong in the sea, and some belong in the sky! Can you sort them?",
                 completionLine: "You sorted the sea and the sky!",
-                icon: .dove,
+                icon: .bird,
                 spec: .sortClassify(
                     categories: [
                         SortCategory(id: "sea", title: "Sea", color: Theme.sky),
@@ -634,12 +634,12 @@ enum ContentLibrary {
                         SortItem(art: .fish, categoryID: "sea"),
                         SortItem(art: .bigFish, categoryID: "sea"),
                         SortItem(art: .boat, categoryID: "sea"),
-                        SortItem(art: .dove, categoryID: "sky"),
+                        SortItem(art: .bird, categoryID: "sky"),
                         SortItem(art: .stormCloud, categoryID: "sky"),
                         SortItem(art: .star, categoryID: "sky")
                     ]
                 ),
-                reward: Collectible(id: "c-sky-dove", name: "Sky Dove", art: .dove, kind: .badge),
+                reward: Collectible(id: "c-sky-dove", name: "Sky Bird", art: .bird, kind: .badge),
                 scripture: "Jonah 1:9"
             ),
             Activity(
@@ -953,14 +953,14 @@ enum ContentLibrary {
                 subtitle: "Put peacemaking in order.",
                 introLine: "Two friends both want the same fruit. How do peacemakers fix it?",
                 completionLine: "Sharing made peace — and everyone is happy!",
-                icon: .dove,
+                icon: .bird,
                 spec: .sequence(steps: [
                     SequenceStep(art: .villagerB, caption: "Both friends want the fruit"),
                     SequenceStep(art: .fruit, caption: "They share it"),
                     SequenceStep(art: .heart, caption: "Both friends are happy"),
-                    SequenceStep(art: .dove, caption: "That is peace!")
+                    SequenceStep(art: .bird, caption: "That is peace!")
                 ]),
-                reward: Collectible(id: "c-peace", name: "Peace", art: .dove, kind: .badge),
+                reward: Collectible(id: "c-peace", name: "Peace", art: .bird, kind: .badge),
                 scripture: "Matthew 5:9"
             ),
             Activity(
@@ -1021,7 +1021,7 @@ enum ContentLibrary {
                 introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend.",
                 completionLine: "Gentle and mild, just like Jesus!",
                 icon: .sheep,
-                spec: .findIt(items: [.dove, .sheep, .child, .heart]),
+                spec: .findIt(items: [.bird, .sheep, .child, .heart]),
                 reward: Collectible(id: "c-mildness", name: "Mildness", art: .sheep, kind: .badge),
                 scripture: "Matthew 11:29"
             ),

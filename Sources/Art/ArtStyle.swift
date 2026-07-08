@@ -25,11 +25,25 @@ struct ArtCanvas<Content: View>: View {
 struct ArtView: View {
     let key: ArtKey
 
+    @EnvironmentObject private var settings: SettingsStore
+
+    private var imageName: String {
+        // The player's stand-in is the family's own child: boy or girl,
+        // chosen in the Parent Area.
+        if key == .child {
+            return settings.childGender == .girl ? "art_femalechild" : "art_malechild"
+        }
+        return "art_\(key.rawValue)"
+    }
+
     var body: some View {
-        if let image = UIImage(named: "art_\(key.rawValue)") {
+        if let image = UIImage(named: imageName) {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFit()
+                // Generated assets are cropped tight to the artwork; a touch
+                // of breathing room keeps them from butting against frames.
+                .scaleEffect(0.94)
         } else {
             vectorBody
         }
@@ -42,7 +56,7 @@ struct ArtView: View {
         case .giraffe: GiraffeArt()
         case .lion: LionArt()
         case .sheep: SheepArt()
-        case .dove: DoveArt()
+        case .bird: DoveArt()
         case .fish: FishArt()
         case .ark: ArkArt()
         case .noah: NoahArt()

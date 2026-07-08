@@ -28,6 +28,7 @@ struct ParentAreaView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
+                        childCard
                         settingsCard
                         progressCard
                         aboutCard
@@ -44,6 +45,45 @@ struct ParentAreaView: View {
         } message: {
             Text("Completed activities and the sticker collection will start over.")
         }
+    }
+
+    private var childCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            sectionTitle("Your child")
+
+            TextField("Child's name", text: $settings.childName)
+                .font(Theme.body(20))
+                .foregroundColor(Theme.textDark)
+                .padding(14)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Theme.cream)
+                )
+                .autocorrectionDisabled()
+
+            HStack(spacing: 12) {
+                ForEach(ChildGender.allCases) { gender in
+                    Button {
+                        settings.childGender = gender
+                    } label: {
+                        Text(gender.label)
+                            .font(Theme.body(18))
+                            .foregroundColor(settings.childGender == gender ? .white : Theme.textDark)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(
+                                Capsule().fill(settings.childGender == gender ? Theme.leaf : Theme.creamDeep)
+                            )
+                    }
+                    .buttonStyle(SquishyButtonStyle())
+                }
+            }
+
+            Text("The name is used to cheer your child on by name, and Boy/Girl chooses their look in the walking games.")
+                .font(.system(size: 15, design: .rounded))
+                .foregroundColor(Theme.textDark.opacity(0.6))
+        }
+        .softCard()
     }
 
     private var settingsCard: some View {
