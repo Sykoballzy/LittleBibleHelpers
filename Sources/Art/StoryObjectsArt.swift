@@ -207,6 +207,90 @@ struct SongbookArt: View {
     }
 }
 
+/// A cozy family home — warm walls, friendly door, little garden.
+struct HomeArt: View {
+    private let wall = Color(red: 0.98, green: 0.92, blue: 0.80)
+    private let roof = Color(red: 0.80, green: 0.45, blue: 0.35)
+
+    var body: some View {
+        ArtCanvas {
+            // roof
+            TriangleShape()
+                .fill(roof)
+                .overlay(TriangleShape().stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 96, height: 38)
+                .offset(y: -30)
+            // chimney
+            RoundedRectangle(cornerRadius: 3).fill(Theme.woodDeep)
+                .frame(width: 12, height: 20)
+                .offset(x: 26, y: -40)
+            // walls
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(wall)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 80, height: 52)
+                .offset(y: 14)
+            // door with heart
+            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                .fill(Theme.wood)
+                .overlay(RoundedRectangle(cornerRadius: 7).stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 22, height: 30)
+                .offset(x: -18, y: 25)
+            HeartShape().fill(Theme.coral).frame(width: 10, height: 9).offset(x: -18, y: 20)
+            // window
+            RoundedRectangle(cornerRadius: 5).fill(Theme.skyTop)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
+                .frame(width: 20, height: 18)
+                .offset(x: 18, y: 14)
+            // flowers
+            Circle().fill(Theme.coral).frame(width: 8).offset(x: 8, y: 38)
+            Circle().fill(Theme.sunny).frame(width: 8).offset(x: 20, y: 40)
+            Ellipse().fill(Theme.grass).frame(width: 70, height: 10).offset(y: 44)
+        }
+    }
+}
+
+/// A schoolmate — modern kid, t-shirt and shorts.
+struct ClassmateArt: View {
+    let shirt: Color
+    let hair: Color
+
+    private let skin = Color(red: 0.95, green: 0.79, blue: 0.63)
+
+    var body: some View {
+        ArtCanvas {
+            // t-shirt
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(shirt)
+                .overlay(RoundedRectangle(cornerRadius: 14).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 48, height: 36)
+                .offset(y: 32)
+            // shorts
+            RoundedRectangle(cornerRadius: 8).fill(Theme.woodDeep.opacity(0.7))
+                .frame(width: 40, height: 16)
+                .offset(y: 56)
+            // head
+            Circle()
+                .fill(skin)
+                .overlay(Circle().stroke(Theme.outline.opacity(0.28), lineWidth: 3))
+                .frame(width: 50)
+                .offset(y: -8)
+            Circle()
+                .trim(from: 0.5, to: 1.0)
+                .fill(hair)
+                .frame(width: 52)
+                .offset(y: -10)
+            CuteEyes(spacing: 16, size: 10).offset(y: -10)
+            Blush(spacing: 38).offset(y: 0)
+            Circle()
+                .trim(from: 0.12, to: 0.38)
+                .stroke(Theme.outline, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                .frame(width: 15)
+                .offset(y: 4)
+        }
+    }
+}
+
 /// A modern meeting-hall window: clean rectangular frame, four bright panes.
 struct HallWindowArt: View {
     private let frame = Color(red: 0.92, green: 0.90, blue: 0.86)

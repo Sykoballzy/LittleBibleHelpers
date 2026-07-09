@@ -4,7 +4,8 @@ import SwiftUI
 /// existing worlds) here; nothing else in the app needs to change.
 enum ContentLibrary {
     /// Ordered as a journey through time: Creation → Noah → David → Jonah →
-    /// Daniel → Jesus, then meeting life and the qualities we grow today.
+    /// Daniel → Jesus, then our life today — meetings, the ministry, home
+    /// life, and the qualities we grow.
     static let worlds: [BibleWorld] = [
         creation,
         noahsArk,
@@ -13,6 +14,8 @@ enum ContentLibrary {
         danielLions,
         jesusFriends,
         meetings,
+        ministry,
+        activities,
         qualities
     ]
 
@@ -1040,5 +1043,247 @@ enum ContentLibrary {
             )
         ],
         bonusReward: Collectible(id: "c-your-light", name: "Your Light", art: .sun, kind: .character)
+    )
+
+    // MARK: - Ministry (modern day)
+
+    static let ministry = BibleWorld(
+        id: "ministry",
+        title: "Ministry",
+        tagline: "Share the good news!",
+        icon: .scroll,
+        accent: Color(red: 0.42, green: 0.56, blue: 0.80),
+        welcomeLine: "We love telling people about Jehovah! What would you like to do in the ministry?",
+        activities: [
+            Activity(
+                id: "ministry-walk",
+                title: "Out in the Ministry",
+                subtitle: "Walk to the friendly door!",
+                introLine: "Let's go in the ministry together! Walk, one step at a time, to the friendly house.",
+                completionLine: "How beautiful are the feet that bring good news!",
+                icon: .home,
+                spec: .pathway(walker: .child, goal: .home, blocker: .tree, prize: .heart),
+                reward: Collectible(id: "c-friendly-door", name: "Friendly Door", art: .home, kind: .badge),
+                scripture: "Isaiah 52:7"
+            ),
+            Activity(
+                id: "ministry-school",
+                title: "Tell Your Schoolmates",
+                subtitle: "Share the good news at school.",
+                introLine: "You can tell your friends at school about Jehovah! Share the message with each schoolmate.",
+                completionLine: "You let your light shine at school!",
+                icon: .classmateA,
+                spec: .deliver(item: .scroll, source: .child,
+                               targets: [.classmateA, .classmateB, .classmateA],
+                               deliverLine: "You shared the good news!"),
+                reward: Collectible(id: "c-schoolmate", name: "Schoolmate", art: .classmateA, kind: .character),
+                scripture: "Matthew 5:16"
+            ),
+            Activity(
+                id: "ministry-present",
+                title: "Practice Your Presentation",
+                subtitle: "What do we do first?",
+                introLine: "Let's practice for the ministry, just like at family worship! What comes first?",
+                completionLine: "You are ready to share the good news!",
+                icon: .book,
+                spec: .sequence(steps: [
+                    SequenceStep(art: .child, caption: "Say hello with a smile"),
+                    SequenceStep(art: .book, caption: "Read a scripture"),
+                    SequenceStep(art: .scroll, caption: "Share the good news"),
+                    SequenceStep(art: .hall, caption: "Invite them to the meeting")
+                ]),
+                reward: Collectible(id: "c-ready-heart", name: "Ready Heart", art: .heart, kind: .badge),
+                scripture: "1 Peter 3:15"
+            ),
+            Activity(
+                id: "ministry-match",
+                title: "Match the Friends",
+                subtitle: "Find the matching pairs!",
+                introLine: "All our friends love the good news! Can you find the matching pairs?",
+                completionLine: "You matched all the friends!",
+                icon: .friendA,
+                spec: .matchPairs(pool: [.friendA, .friendB, .friendC, .speaker, .child, .heart]),
+                reward: Collectible(id: "c-speaker", name: "Speaker", art: .speaker, kind: .character),
+                scripture: "Proverbs 17:17"
+            ),
+            Activity(
+                id: "ministry-bag",
+                title: "Ready for the Ministry",
+                subtitle: "Pack everything you need!",
+                introLine: "Time to get ready for the ministry! Pack your bag.",
+                completionLine: "Your bag is packed — let's go!",
+                icon: .bag,
+                spec: .actionSequence(start: .bag, steps: [
+                    ActionStep(tool: .book, prompt: "Pack your Bible!", result: .bagWithBook),
+                    ActionStep(tool: .scroll, prompt: "Pack something to share!", result: .bagPacked, reps: 2)
+                ]),
+                reward: Collectible(id: "c-ministry-bag", name: "Ministry Bag", art: .bagPacked, kind: .badge),
+                scripture: "Matthew 28:19, 20"
+            ),
+            Activity(
+                id: "ministry-bring",
+                title: "What Do We Bring?",
+                subtitle: "Find the one that matches!",
+                introLine: "In the ministry we bring love, God's word, good news, and peace! Can you find each one?",
+                completionLine: "You bring the very best things!",
+                icon: .heart,
+                spec: .findIt(items: [.heart, .book, .scroll, .dove]),
+                reward: Collectible(id: "c-good-news", name: "Good News", art: .scroll, kind: .badge),
+                scripture: "Romans 10:15"
+            ),
+            Activity(
+                id: "ministry-count",
+                title: "Count the Schoolmates",
+                subtitle: "Tap each schoolmate to count!",
+                introLine: "So many friends to share with! How many schoolmates can you count?",
+                completionLine: "The good news is for everyone!",
+                icon: .classmateB,
+                spec: .count(items: [.classmateA], center: nil, labels: nil,
+                             littleRange: 3...8, bigRange: 6...12),
+                reward: Collectible(id: "c-bright-example", name: "Bright Example", art: .star, kind: .badge),
+                scripture: "Matthew 24:14"
+            ),
+            Activity(
+                id: "ministry-give",
+                title: "Books to Share",
+                subtitle: "Pack just enough books.",
+                introLine: "We share God's word with others! Pack just enough books — and nothing else.",
+                completionLine: "There is more happiness in giving!",
+                icon: .book,
+                spec: .giveNumber(item: .book, container: .bag,
+                                  distractors: [.fruit, .cloth],
+                                  littleRange: 2...3, bigRange: 3...5),
+                reward: Collectible(id: "c-share-books", name: "Books to Share", art: .book, kind: .badge),
+                scripture: "Acts 20:35"
+            )
+        ],
+        bonusReward: Collectible(id: "c-all-the-earth", name: "To All the Earth", art: .earth, kind: .character)
+    )
+
+    // MARK: - Christian Activities (modern day)
+
+    static let activities = BibleWorld(
+        id: "activities",
+        title: "Christian Activities",
+        tagline: "Our happy way of life!",
+        icon: .home,
+        accent: Color(red: 0.85, green: 0.48, blue: 0.55),
+        welcomeLine: "Family worship, friends, and helping at home — our life is full of happy things!",
+        activities: [
+            Activity(
+                id: "act-worship",
+                title: "Family Worship Night",
+                subtitle: "Put the evening in order.",
+                introLine: "It's family worship night! What do we do together?",
+                completionLine: "What a happy family worship night!",
+                icon: .book,
+                spec: .sequence(steps: [
+                    SequenceStep(art: .book, caption: "Read the Bible together"),
+                    SequenceStep(art: .heart, caption: "Talk about Jehovah"),
+                    SequenceStep(art: .songbook, caption: "Sing a song"),
+                    SequenceStep(art: .fruit, caption: "Enjoy a treat!")
+                ]),
+                reward: Collectible(id: "c-family-love", name: "Family Love", art: .heart, kind: .badge),
+                scripture: "Deuteronomy 6:6, 7"
+            ),
+            Activity(
+                id: "act-welcome",
+                title: "Welcome Guests",
+                subtitle: "Share the meal with everyone.",
+                introLine: "Friends are visiting! Hospitality means sharing. Give everyone some bread.",
+                completionLine: "Everyone feels so welcome!",
+                icon: .bread,
+                spec: .deliver(item: .bread, source: .child,
+                               targets: [.friendA, .friendB, .friendC],
+                               deliverLine: "Welcome to our home!"),
+                reward: Collectible(id: "c-hospitality", name: "Hospitality", art: .bread, kind: .badge),
+                scripture: "Romans 12:13"
+            ),
+            Activity(
+                id: "act-table",
+                title: "Dinner for Guests",
+                subtitle: "Set out just enough.",
+                introLine: "Our guests are hungry! Put just enough rolls in the basket.",
+                completionLine: "The table is ready — be our guest!",
+                icon: .basket,
+                spec: .giveNumber(item: .bread, container: .basket,
+                                  distractors: [.songbook, .cloth],
+                                  littleRange: 3...5, bigRange: 4...8),
+                reward: Collectible(id: "c-sharing-table", name: "Sharing Table", art: .fruit, kind: .badge),
+                scripture: "1 Peter 4:9"
+            ),
+            Activity(
+                id: "act-tidy",
+                title: "Ready for Guests",
+                subtitle: "Tidy the house together!",
+                introLine: "Friends are coming over! Let's make the house clean and cozy.",
+                completionLine: "The house is ready — welcome, friends!",
+                icon: .broom,
+                spec: .cleanUp(surface: .home, tasks: [
+                    CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!"),
+                    CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the table!")
+                ]),
+                reward: Collectible(id: "c-happy-helper", name: "Happy Helper", art: .broom, kind: .badge),
+                scripture: "Colossians 3:23"
+            ),
+            Activity(
+                id: "act-match",
+                title: "Match the Happy Things",
+                subtitle: "Find the matching pairs!",
+                introLine: "Our home is full of happy things! Can you find the pairs?",
+                completionLine: "You matched them all!",
+                icon: .sun,
+                spec: .matchPairs(pool: [.book, .songbook, .bread, .heart, .fruit, .star]),
+                reward: Collectible(id: "c-sunny-day", name: "Sunny Day", art: .sun, kind: .badge),
+                scripture: "Proverbs 18:24"
+            ),
+            Activity(
+                id: "act-friends",
+                title: "Friends Come Over",
+                subtitle: "Who's at the door?",
+                introLine: "Knock knock! Our friends are here! Can you find each one?",
+                completionLine: "A true friend loves at all times!",
+                icon: .friendC,
+                spec: .findIt(items: [.friendA, .friendB, .friendC, .speaker]),
+                reward: Collectible(id: "c-grandma", name: "Grandma", art: .friendC, kind: .character),
+                scripture: "Proverbs 17:17"
+            ),
+            Activity(
+                id: "act-visit",
+                title: "Visit Grandma",
+                subtitle: "Walk to grandma's house!",
+                introLine: "Let's visit grandma — she loves when you come! Walk to her, one step at a time.",
+                completionLine: "Grandma is so happy to see you!",
+                icon: .friendC,
+                spec: .pathway(walker: .child, goal: .friendC, blocker: .tree, prize: .heart),
+                reward: Collectible(id: "c-sister", name: "Sister", art: .friendA, kind: .character),
+                scripture: "Leviticus 19:32"
+            ),
+            Activity(
+                id: "act-sort",
+                title: "Share It or Put It Away",
+                subtitle: "Get ready for company!",
+                introLine: "Guests are coming! Some things we set out to share, and some things we put away. Can you sort them?",
+                completionLine: "Everything is in its place!",
+                icon: .basket,
+                spec: .sortClassify(
+                    categories: [
+                        SortCategory(id: "share", title: "Set Out", color: Theme.leaf),
+                        SortCategory(id: "away", title: "Put Away", color: Theme.wood)
+                    ],
+                    items: [
+                        SortItem(art: .bread, categoryID: "share"),
+                        SortItem(art: .fruit, categoryID: "share"),
+                        SortItem(art: .songbook, categoryID: "share"),
+                        SortItem(art: .broom, categoryID: "away"),
+                        SortItem(art: .cloth, categoryID: "away"),
+                        SortItem(art: .hammer, categoryID: "away")
+                    ]
+                ),
+                reward: Collectible(id: "c-set-to-serve", name: "Set to Serve", art: .basket, kind: .badge),
+                scripture: "Hebrews 13:16"
+            )
+        ],
+        bonusReward: Collectible(id: "c-happy-home", name: "Happy Home", art: .home, kind: .character)
     )
 }

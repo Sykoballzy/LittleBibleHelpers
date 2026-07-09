@@ -34,6 +34,13 @@ transparency audit. Wired into the app and committed.
 - [ ] OPTIONAL remake pass (ChatGPT, matching the cast style): `art_speaker`,
       `art_friendA/B/C` — same subjects, transparent, no ground patch,
       ~1024px. Drop in with the same filenames; no wiring needed.
+- [ ] `art_home.png` — NEW (Ministry + Christian Activities worlds): a cozy
+      family home — warm cream walls, friendly door with a little heart,
+      one window, flowers at the base, small chimney. Cartoon, NOT an
+      architectural render.
+- [ ] `art_classmateA.png` / `art_classmateB.png` — NEW: two modern
+      schoolkids (t-shirt and shorts style, one girl one boy or vary), big
+      friendly eyes, same cast proportions as malechild/femalechild.
 - [ ] LATER: Qualities world could also go modern-dress (it's everyday life,
       not a Bible account) — swap its villagers for friends after the
       remake pass. Tell Claude to wire when ready.

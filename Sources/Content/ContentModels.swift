@@ -7,6 +7,7 @@ enum ArtKey: String, CaseIterable, Hashable {
     case elephant, giraffe, lion, sheep, bird, dove, fish
     case speaker, hallWindow
     case friendA, friendB, friendC
+    case home, classmateA, classmateB
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
     case moon, tree, earth
     case saw, hammer, brush, arkPlanks, arkFrame, arkHull
@@ -35,6 +36,8 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .friendA: return "sister"
         case .friendB: return "brother"
         case .friendC: return "grandma"
+        case .home: return "house"
+        case .classmateA, .classmateB: return "schoolmate"
         case .ark: return "ark"
         case .noah: return "Noah"
         case .rainbow: return "rainbow"
