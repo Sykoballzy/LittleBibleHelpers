@@ -1,0 +1,542 @@
+# NARRATION REVIEW — every user-facing line
+Read once for NWT alignment, doctrine, and tone. Mark anything off and
+tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
+
+
+## Noah's Ark (first playable world)
+- title: "Noah"
+- tagline: "He built, he preached, he trusted Jehovah!"
+- welcomeLine: "Welcome to Noah's Ark! Which game would you like to play?"
+- title: "Build the Ark"
+- subtitle: "Use each tool to build!"
+- introLine: "Noah needs to build a big ark. Can you help? Use each tool!"
+- completionLine: "You built the ark!"
+- ActionStep(tool: .saw, prompt: "Saw the wood!", result: .arkFrame)
+- ActionStep(tool: .hammer, prompt: "Hammer the planks!", result: .arkHull)
+- ActionStep(tool: .brush, prompt: "Paint the ark!", result: .ark)
+- scripture: "Genesis 6:14-16"
+- title: "Noah Tells Everyone"
+- subtitle: "Share the message with each person."
+- introLine: "Noah told everyone that a flood was coming. Can you help him share the message?"
+- completionLine: "Noah told everyone! He was a faithful preacher."
+- deliverLine: "Noah shared the warning!")
+- scripture: "2 Peter 2:5"
+- title: "Match the Animals"
+- subtitle: "Find the matching pairs!"
+- introLine: "The animals come two by two! Can you find the matching pairs?"
+- completionLine: "You matched all the animals!"
+- title: "All Aboard!"
+- subtitle: "Bring each animal onto the ark."
+- introLine: "The rain is coming! Can you help the animals onto the ark?"
+- completionLine: "All the animals are safe on the ark!"
+- scripture: "Genesis 7:8, 9"
+- title: "Count the Animals"
+- subtitle: "Tap each animal to count!"
+- introLine: "So many animals are coming to the ark! How many can you count?"
+- completionLine: "You counted all the animals!"
+- title: "What Happened First?"
+- subtitle: "Put the story in order."
+- introLine: "Let's tell the story! What happened first?"
+- completionLine: "You told the whole story!"
+- SequenceStep(art: .arkFrame, caption: "Noah builds the ark")
+- SequenceStep(art: .elephant, caption: "The animals come two by two")
+- SequenceStep(art: .stormCloud, caption: "The rain falls")
+- SequenceStep(art: .ark, caption: "The ark floats many days")
+- SequenceStep(art: .rainbow, caption: "God sends a rainbow")
+- scripture: "Genesis 6–9"
+- title: "Find the Tool"
+- subtitle: "Help Noah find it!"
+- introLine: "Noah needs his tools! Can you find the right one?"
+- completionLine: "You found all the tools!"
+- title: "Color the Rainbow"
+- subtitle: "Tap a color, then tap the picture!"
+- introLine: "After the flood, Jehovah put a beautiful rainbow in the sky! Let's color it."
+- completionLine: "What a beautiful rainbow!"
+- scripture: "Genesis 9:13"
+
+## Creation (second world)
+- title: "Creation"
+- tagline: "The whole world is a gift!"
+- welcomeLine: "God made a beautiful world! Let's explore it. Which game would you like to play?"
+- title: "Sort the World"
+- subtitle: "Land, sea, or sky?"
+- introLine: "God made animals for the land, the sea, and the sky! Can you help each one find its home?"
+- completionLine: "You sorted them all!"
+- SortCategory(id: "land", title: "Land", color: Theme.leaf)
+- SortCategory(id: "sea", title: "Sea", color: Theme.sky)
+- SortCategory(id: "sky", title: "Sky", color: Theme.berry)
+- title: "Count the Stars"
+- subtitle: "Tap each star to count!"
+- introLine: "God filled the night sky with stars. How many can you count?"
+- completionLine: "You counted every star!"
+- title: "What Came First?"
+- subtitle: "Put creation in order."
+- introLine: "Let's remember the days of creation. What came first?"
+- completionLine: "You remembered it all!"
+- SequenceStep(art: .sun, caption: "Jehovah made the light")
+- SequenceStep(art: .tree, caption: "Jehovah made the plants")
+- SequenceStep(art: .lion, caption: "Jehovah made the animals")
+- SequenceStep(art: .people, caption: "Jehovah made people")
+- scripture: "Genesis 1"
+- title: "Color the Garden"
+- subtitle: "Tap a color, then tap the picture!"
+- introLine: "Jehovah made a beautiful garden! Let's color it together."
+- completionLine: "The garden looks beautiful!"
+- scripture: "Genesis 2:9"
+- title: "Name the Animals"
+- subtitle: "Help Adam find each animal."
+- introLine: "Adam gave every animal its name! Can you find each one?"
+- completionLine: "You found every animal, just like Adam!"
+- scripture: "Genesis 2:19"
+- title: "Grow the Garden"
+- subtitle: "Help the little tree grow!"
+- introLine: "Jehovah makes everything grow! Can you help this tree? Use each tool!"
+- completionLine: "You grew a beautiful tree!"
+- ActionStep(tool: .seed, prompt: "Plant the seed!", result: .sprout)
+- ActionStep(tool: .wateringCan, prompt: "Water the sprout!", result: .sapling)
+- ActionStep(tool: .sun, prompt: "Let the sun shine!", result: .tree)
+- title: "Shadow Garden"
+- subtitle: "Match each creation to its shadow."
+- introLine: "Everything Jehovah made has a shape! Can you match the shadows?"
+- completionLine: "You matched every shadow!"
+- title: "Fruit from the Garden"
+- subtitle: "Pick good fruit — but not from that tree!"
+- introLine: "The garden is full of good fruit! Pick some for Adam and Eve. But remember — Jehovah said not to take from that one tree."
+- completionLine: "You picked such good fruit — and you listened to Jehovah!"
+- decoyLine: "No — Jehovah said not from that tree.")
+- scripture: "Genesis 2:16, 17"
+
+## David & the Sheep
+- title: "David"
+- tagline: "Shepherd, singer, brave friend of Jehovah!"
+- welcomeLine: "David took good care of his sheep, and Jehovah took good care of David!"
+- title: "Count the Sheep"
+- subtitle: "Tap each sheep to count!"
+- introLine: "David watched over every single sheep. How many can you count?"
+- completionLine: "You counted the whole flock!"
+- scripture: "Psalm 23:1, 2"
+- title: "Water for the Sheep"
+- subtitle: "Give every sheep a drink."
+- introLine: "A good shepherd brings water to his sheep. Can you help David?"
+- completionLine: "Every sheep had a cool drink!"
+- deliverLine: "A cool drink for the sheep!")
+- scripture: "Psalm 23:2"
+- title: "Build the Sheep Pen"
+- subtitle: "Use each tool to build!"
+- introLine: "The sheep need a safe home for the night. Let's build a pen!"
+- completionLine: "The sheep are safe in their pen!"
+- ActionStep(tool: .saw, prompt: "Saw the wood!", result: .penFrame)
+- ActionStep(tool: .hammer, prompt: "Hammer the fence!", result: .pen)
+- ActionStep(tool: .staff, prompt: "Bring the sheep home!", result: .penFull)
+- scripture: "1 Samuel 16:11"
+- title: "David Is Brave"
+- subtitle: "Put the story in order."
+- introLine: "One day a lion tried to take a lamb! Let's tell what happened."
+- completionLine: "Jehovah helped David be brave!"
+- SequenceStep(art: .sheep, caption: "David watched the sheep")
+- SequenceStep(art: .lion, caption: "A lion took a lamb")
+- SequenceStep(art: .david, caption: "Jehovah made David brave")
+- SequenceStep(art: .heart, caption: "The lamb was safe!")
+- scripture: "1 Samuel 17:34-36"
+- title: "Match David's Things"
+- subtitle: "Find the matching pairs!"
+- introLine: "David had a harp, a sling, and a staff! Can you find the pairs?"
+- completionLine: "You matched them all!"
+- scripture: "1 Samuel 16:23"
+- title: "Five Smooth Stones"
+- subtitle: "Put five stones in David's bag."
+- introLine: "David chose five smooth stones from the stream. Jehovah would help him be brave! Can you count out five?"
+- completionLine: "Five smooth stones — and Jehovah made David brave!"
+- scripture: "1 Samuel 17:40"
+- title: "Lead the Sheep Home"
+- subtitle: "Step by step to the pen!"
+- introLine: "A good shepherd leads his sheep home. Walk the little sheep past the trees, one step at a time!"
+- completionLine: "The sheep followed the shepherd all the way home!"
+- scripture: "Psalm 23:2, 3"
+- title: "Gather the Flock"
+- subtitle: "Bring every sheep to the pen."
+- introLine: "Night is coming! Help David gather every sheep safely into the pen."
+- completionLine: "The whole flock is safe — not one is missing!"
+- scripture: "Psalm 23:1"
+
+## Daniel & the Lions
+- title: "Daniel"
+- tagline: "Faithful every single day!"
+- welcomeLine: "Daniel loved Jehovah and prayed every single day — no matter what!"
+- title: "Three Times a Day"
+- subtitle: "Give the window three stars."
+- introLine: "Daniel prayed to Jehovah three times every day. Put a star in the window for each prayer!"
+- completionLine: "Morning, noon, and night — Daniel always prayed!"
+- scripture: "Daniel 6:10"
+- title: "Daniel's Night"
+- subtitle: "Put the story in order."
+- introLine: "Daniel kept praying, so he was put with the lions! Let's tell what happened."
+- completionLine: "Jehovah kept Daniel safe all night!"
+- SequenceStep(art: .daniel, caption: "Daniel prayed to Jehovah")
+- SequenceStep(art: .lion, caption: "Daniel was put with the lions")
+- SequenceStep(art: .angel, caption: "The angel shut their mouths")
+- SequenceStep(art: .sun, caption: "In the morning, Daniel was safe!")
+- scripture: "Daniel 6:16-22"
+- title: "The Angel Shuts Their Mouths"
+- subtitle: "Send the angel to each lion."
+- introLine: "Jehovah sent his angel to protect Daniel and shut the mouths of the lions. Send the angel to each lion!"
+- completionLine: "The angel shut every lion's mouth — Daniel was safe!"
+- deliverLine: "The angel shut the lion's mouth!")
+- scripture: "Daniel 6:22"
+- title: "Count the Lions"
+- subtitle: "Tap each lion to count!"
+- introLine: "Daniel was in the den, and Jehovah kept him safe. How many lions can you count around him?"
+- completionLine: "You counted every lion — and Daniel was safe the whole time!"
+- scripture: "Daniel 6:16"
+- title: "Match the Palace"
+- subtitle: "Find the matching pairs!"
+- introLine: "Daniel lived near the king's palace. Can you find the pairs?"
+- completionLine: "You matched them all!"
+- scripture: "Daniel 6:25-27"
+- title: "Faithful Steps"
+- subtitle: "Walk calmly to the window."
+- introLine: "Some men watched Daniel, hoping he would stop praying. But Daniel walked calmly home to his window — just like always! Walk with him, one step at a time."
+- completionLine: "Daniel was never afraid to pray!"
+- scripture: "Daniel 6:10, 11"
+- title: "Morning and Night"
+- subtitle: "Daniel prayed at both!"
+- introLine: "Daniel prayed when the sun came up, at midday, and when the moon rose — every day! What belongs to the morning, and what belongs to the night?"
+- completionLine: "You sorted the morning and the night!"
+- SortCategory(id: "morning", title: "Morning", color: Theme.sunny)
+- SortCategory(id: "night", title: "Night", color: Theme.berry)
+- scripture: "Daniel 6:10"
+- title: "Color the Morning"
+- subtitle: "Tap a color, then tap the picture!"
+- introLine: "At the first light of dawn, the king ran to the den — and Daniel was safe! Let's color the happy morning."
+- completionLine: "The night is over — what a beautiful morning!"
+- scripture: "Daniel 6:19"
+
+## Jonah & the Big Fish
+- title: "Jonah"
+- tagline: "A big fish and a big lesson!"
+- welcomeLine: "Jonah learned that it is always best to listen to Jehovah!"
+- title: "Jonah's Journey"
+- subtitle: "Put the story in order."
+- introLine: "Jonah ran away on a boat — but Jehovah had a plan! Let's tell the story."
+- completionLine: "Jonah listened to Jehovah after all!"
+- SequenceStep(art: .boat, caption: "Jonah sailed away")
+- SequenceStep(art: .stormCloud, caption: "A big storm came")
+- SequenceStep(art: .bigFish, caption: "A big fish swallowed Jonah")
+- SequenceStep(art: .jonah, caption: "Jonah prayed to Jehovah")
+- SequenceStep(art: .sun, caption: "Jonah was safe on land!")
+- scripture: "Jonah 1, 2"
+- title: "Three Days, Three Nights"
+- subtitle: "Give the big fish three moons."
+- introLine: "Jonah was inside the big fish for three days and three nights. Put up a moon for each night!"
+- completionLine: "Three nights — and Jonah kept praying!"
+- scripture: "Jonah 1:17"
+- title: "Jonah Tells Nineveh"
+- subtitle: "Share the message with each person."
+- introLine: "Jehovah sent Jonah to the big city of Nineveh. Help Jonah share the message — and this time, the people listened!"
+- completionLine: "The people of Nineveh listened and changed!"
+- deliverLine: "The people listened!")
+- scripture: "Jonah 3:4, 5"
+- title: "Count the Fish"
+- subtitle: "Tap each fish to count!"
+- introLine: "The sea is full of fish that Jehovah made! How many can you count?"
+- completionLine: "You counted every fish!"
+- scripture: "Jonah 1:17"
+- title: "The Shade Plant"
+- subtitle: "Help the plant grow tall!"
+- introLine: "Jehovah made a leafy plant grow up over Jonah to give him shade. Help it grow!"
+- completionLine: "What wonderful shade — Jehovah is kind!"
+- ActionStep(tool: .seed, prompt: "Jehovah planted it!", result: .sprout)
+- ActionStep(tool: .moon, prompt: "It grew overnight!", result: .sapling)
+- ActionStep(tool: .sun, prompt: "Shade for Jonah!", result: .tree)
+- scripture: "Jonah 4:6"
+- title: "Find It at Sea"
+- subtitle: "Find the one that matches!"
+- introLine: "Look out at the sea! Can you find each one?"
+- completionLine: "You found them all!"
+- scripture: "Jonah 1:4"
+- title: "Sea and Sky"
+- subtitle: "Where does each one belong?"
+- introLine: "Some things belong in the sea, and some belong in the sky! Can you sort them?"
+- completionLine: "You sorted the sea and the sky!"
+- SortCategory(id: "sea", title: "Sea", color: Theme.sky)
+- SortCategory(id: "sky", title: "Sky", color: Theme.berry)
+- scripture: "Jonah 1:9"
+- title: "Sea Shadows"
+- subtitle: "Match each one to its shadow."
+- introLine: "The sea makes shadowy shapes! Can you match them?"
+- completionLine: "You matched every shadow!"
+- scripture: "Jonah 2:10"
+
+## Jesus & His Friends
+- title: "Jesus"
+- tagline: "Learn to be kind like Jesus!"
+- welcomeLine: "Jesus loved people and taught them all about Jehovah!"
+- title: "Hush! Be Quiet!"
+- subtitle: "Put the story in order."
+- introLine: "One night a big storm rocked the boat — but Jesus was not afraid! Let's tell the story."
+- completionLine: "Even the wind and the sea obey Jesus!"
+- SequenceStep(art: .boat, caption: "Jesus and his friends sailed")
+- SequenceStep(art: .stormCloud, caption: "A big storm came")
+- SequenceStep(art: .jesus, caption: "Jesus said, Hush! Be quiet!")
+- SequenceStep(art: .sun, caption: "A great calm set in")
+- scripture: "Mark 4:35-41"
+- title: "Bread for Everyone"
+- subtitle: "Give bread to each person."
+- introLine: "A big crowd was hungry, and Jesus fed them all! Help share the bread."
+- completionLine: "Everyone had plenty to eat!"
+- deliverLine: "Everyone had plenty to eat!")
+- scripture: "Matthew 14:19-21"
+- title: "Water into Wine"
+- subtitle: "Help with the very first miracle!"
+- introLine: "At a wedding feast, the wine ran out. Jesus performed his very first miracle! Fill the big jars with water and watch what happens."
+- completionLine: "The water became the finest wine — Jesus' first miracle!"
+- ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jars3
+- ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarsWine)
+- scripture: "John 2:1-11"
+- title: "Gather the Leftovers"
+- subtitle: "Fill the basket with bread."
+- introLine: "After everyone ate, there was still bread left over — twelve baskets full! Help gather it up."
+- completionLine: "Nothing was wasted!"
+- scripture: "Matthew 14:20"
+- title: "The Lost Sheep"
+- subtitle: "Find the one that matches!"
+- introLine: "A shepherd looks for his lost sheep until he finds it! Can you find each one?"
+- completionLine: "You found the lost sheep — time to celebrate!"
+- scripture: "Luke 15:4-7"
+- title: "Name the Apostles"
+- subtitle: "Tap each friend to meet him!"
+- introLine: "Jesus chose twelve apostles to be his special helpers. Tap each friend to hear his name!"
+- completionLine: "Jesus' friends helped him preach everywhere!"
+- scripture: "Luke 6:13-16"
+- title: "Come to Jesus"
+- subtitle: "Walk all the way to Jesus!"
+- introLine: "Some friends said the children should stay away. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time."
+- completionLine: "Jesus was so happy to see you!"
+- scripture: "Mark 10:13-16"
+- title: "Galilee Shadows"
+- subtitle: "Match each one to its shadow."
+- introLine: "The evening sun makes long shadows by the sea! Can you match them?"
+- completionLine: "You matched every shadow!"
+- scripture: "Matthew 13:1, 2"
+
+## Meetings & Conventions
+- title: "Meetings"
+- tagline: "Get ready — it's meeting day!"
+- welcomeLine: "We love going to the meeting to learn about Jehovah with our friends!"
+- title: "Pack Your Meeting Bag"
+- subtitle: "Put each thing in the bag!"
+- introLine: "It's almost meeting time! Let's pack your bag. What do we need?"
+- completionLine: "Your bag is ready for the meeting!"
+- ActionStep(tool: .book, prompt: "Pack your Bible!", result: .bagWithBook)
+- ActionStep(tool: .songbook, prompt: "Pack the songbook!", result: .bagPacked)
+- scripture: "Hebrews 10:24, 25"
+- title: "Meeting Day!"
+- subtitle: "Put meeting day in order."
+- introLine: "What do we do on meeting day? Let's put it in order!"
+- completionLine: "What a happy meeting day!"
+- SequenceStep(art: .bag, caption: "Pack your bag")
+- SequenceStep(art: .hall, caption: "Go to the meeting")
+- SequenceStep(art: .songbook, caption: "Sing together")
+- SequenceStep(art: .book, caption: "Listen and learn")
+- scripture: "Psalm 122:1"
+- title: "Helping Hands"
+- subtitle: "Give a songbook to each friend."
+- introLine: "Helpers make everyone feel welcome! Give a songbook to each friend."
+- completionLine: "Everyone is ready to sing!"
+- deliverLine: "Here's a songbook for you!")
+- scripture: "Psalm 133:1"
+- title: "Set Up the Chairs"
+- subtitle: "Help set up for the meeting."
+- introLine: "Our friends are coming! Help set up the chairs before the meeting starts."
+- completionLine: "The hall is ready — thank you, little helper!"
+- scripture: "Hebrews 10:24, 25"
+- title: "What Goes in the Bag?"
+- subtitle: "Take it along, or leave it home?"
+- introLine: "Some things come to the meeting, and some things stay home! Can you sort them?"
+- completionLine: "You packed just the right things!"
+- SortCategory(id: "take", title: "Take Along", color: Theme.leaf)
+- SortCategory(id: "home", title: "Leave Home", color: Theme.wood)
+- scripture: "Hebrews 10:24, 25"
+- title: "Count Your Friends"
+- subtitle: "Tap each friend to count!"
+- introLine: "Look how many friends came to the meeting! How many can you count?"
+- completionLine: "So many friends who love Jehovah!"
+- scripture: "Psalm 133:1"
+- title: "Clean the Hall"
+- subtitle: "Wipe every spot until it shines!"
+- introLine: "Our meeting place should be clean and beautiful! Sweep the floor, wipe the chairs, and wash the windows."
+- completionLine: "The hall is shiny clean and ready!"
+- CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!")
+- CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!", target: .chair)
+- CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!", target: .hallWindow)
+- scripture: "1 Corinthians 14:40"
+- title: "Meet the Speaker"
+- subtitle: "Walk nicely down the aisle."
+- introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting."
+- completionLine: "You said such a nice hello — and you walked the whole way!"
+- scripture: "Romans 12:10"
+
+## Christian Qualities
+- title: "Christian Qualities"
+- tagline: "Grow the fruitage of the spirit!"
+- welcomeLine: "Jehovah's spirit helps us grow nine good fruits — love, joy, peace, and more!"
+- title: "Love"
+- subtitle: "Give a heart to each friend."
+- introLine: "The first fruit is love! Jesus said to love one another. Share a heart with everyone."
+- completionLine: "Love makes every day brighter!"
+- deliverLine: "That was so loving!")
+- scripture: "John 13:34"
+- title: "Joy"
+- subtitle: "Tap a color, then tap the picture!"
+- introLine: "Joy makes us want to sing! Color the happy picture."
+- completionLine: "What a joyful picture!"
+- scripture: "Psalm 100:2"
+- title: "Peace"
+- subtitle: "Put peacemaking in order."
+- introLine: "Two friends both want the same fruit. How do peacemakers fix it?"
+- completionLine: "Sharing made peace — and everyone is happy!"
+- SequenceStep(art: .villagerB, caption: "Both friends want the fruit")
+- SequenceStep(art: .fruit, caption: "They share it")
+- SequenceStep(art: .heart, caption: "Both friends are happy")
+- SequenceStep(art: .dove, caption: "That is peace!")
+- scripture: "Matthew 5:9"
+- title: "Patience"
+- subtitle: "Plant, water... and wait!"
+- introLine: "Patience means waiting nicely. Plant the seed, water it, and wait for it to grow!"
+- completionLine: "You waited so patiently — and look how it grew!"
+- ActionStep(tool: .seed, prompt: "Plant the seed... and wait!", result: .sprout)
+- ActionStep(tool: .wateringCan, prompt: "Water it... and wait!", result: .sapling)
+- ActionStep(tool: .sun, prompt: "Wait for the sunshine!", result: .tree)
+- scripture: "James 5:7"
+- title: "Kindness"
+- subtitle: "Help clean up the spill."
+- introLine: "Uh oh — your friend spilled something! A kind helper cleans up. Take the cloth!"
+- completionLine: "Your kindness made your friend smile!"
+- CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe up the spill!")
+- scripture: "Ephesians 4:32"
+- title: "Goodness"
+- subtitle: "Fill the basket to share."
+- introLine: "Goodness means doing good things for others! Pick good fruit to share."
+- completionLine: "A whole basket of goodness to give away!"
+- scripture: "Galatians 6:10"
+- title: "Faith"
+- subtitle: "Match the friends of faith!"
+- introLine: "Noah, David, Daniel, and Jonah all trusted Jehovah! Match the friends of faith."
+- completionLine: "They all had faith in Jehovah — and you know them all!"
+- scripture: "Hebrews 11:6"
+- title: "Mildness"
+- subtitle: "Find each gentle friend."
+- introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend."
+- completionLine: "Gentle and mild, just like Jesus!"
+- scripture: "Matthew 11:29"
+- title: "Self-Control"
+- subtitle: "Take just enough — then stop!"
+- introLine: "Self-control means knowing when to stop. Take just enough fruit — and not one more!"
+- completionLine: "You stopped at just the right time!"
+- scripture: "Galatians 5:22, 23"
+
+## Ministry (modern day)
+- title: "Ministry"
+- tagline: "Share the good news!"
+- welcomeLine: "We love telling people about Jehovah! What would you like to do in the ministry?"
+- title: "Out in the Ministry"
+- subtitle: "Walk to the friendly door!"
+- introLine: "Let's go in the ministry together! Walk, one step at a time, to the friendly house."
+- completionLine: "How beautiful are the feet that bring good news!"
+- scripture: "Isaiah 52:7"
+- title: "Tell Your Schoolmates"
+- subtitle: "Share the good news at school."
+- introLine: "You can tell your friends at school about Jehovah! Share the message with each schoolmate."
+- completionLine: "You let your light shine at school!"
+- deliverLine: "You shared the good news!")
+- scripture: "Matthew 5:16"
+- title: "Practice Your Presentation"
+- subtitle: "What do we do first?"
+- introLine: "Let's practice for the ministry, just like at family worship! What comes first?"
+- completionLine: "You are ready to share the good news!"
+- SequenceStep(art: .child, caption: "Say hello with a smile")
+- SequenceStep(art: .book, caption: "Read a scripture")
+- SequenceStep(art: .scroll, caption: "Share the good news")
+- SequenceStep(art: .hall, caption: "Invite them to the meeting")
+- scripture: "1 Peter 3:15"
+- title: "Match the Friends"
+- subtitle: "Find the matching pairs!"
+- introLine: "All our friends love the good news! Can you find the matching pairs?"
+- completionLine: "You matched all the friends!"
+- scripture: "Proverbs 17:17"
+- title: "Ready for the Ministry"
+- subtitle: "Pack everything you need!"
+- introLine: "Time to get ready for the ministry! Pack your bag."
+- completionLine: "Your bag is packed — let's go!"
+- ActionStep(tool: .book, prompt: "Pack your Bible!", result: .bagWithBook)
+- ActionStep(tool: .scroll, prompt: "Pack something to share!", result: .bagPacked, reps: 2)
+- scripture: "Matthew 28:19, 20"
+- title: "What Do We Bring?"
+- subtitle: "Find the one that matches!"
+- introLine: "In the ministry we bring love, God's word, good news, and peace! Can you find each one?"
+- completionLine: "You bring the very best things!"
+- scripture: "Romans 10:15"
+- title: "Count the Schoolmates"
+- subtitle: "Tap each schoolmate to count!"
+- introLine: "So many friends to share with! How many schoolmates can you count?"
+- completionLine: "The good news is for everyone!"
+- scripture: "Matthew 24:14"
+- title: "Books to Share"
+- subtitle: "Pack just enough books."
+- introLine: "We share God's word with others! Pack just enough books — and nothing else."
+- completionLine: "There is more happiness in giving!"
+- scripture: "Acts 20:35"
+
+## Christian Activities (modern day)
+- title: "Christian Activities"
+- tagline: "Our happy way of life!"
+- welcomeLine: "Family worship, friends, and helping at home — our life is full of happy things!"
+- title: "Family Worship Night"
+- subtitle: "Put the evening in order."
+- introLine: "It's family worship night! What do we do together?"
+- completionLine: "What a happy family worship night!"
+- SequenceStep(art: .book, caption: "Read the Bible together")
+- SequenceStep(art: .heart, caption: "Talk about Jehovah")
+- SequenceStep(art: .songbook, caption: "Sing a song")
+- SequenceStep(art: .fruit, caption: "Enjoy a treat!")
+- scripture: "Deuteronomy 6:6, 7"
+- title: "Welcome Guests"
+- subtitle: "Share the meal with everyone."
+- introLine: "Friends are visiting! Hospitality means sharing. Give everyone some bread."
+- completionLine: "Everyone feels so welcome!"
+- deliverLine: "Welcome to our home!")
+- scripture: "Romans 12:13"
+- title: "Dinner for Guests"
+- subtitle: "Set out just enough."
+- introLine: "Our guests are hungry! Put just enough rolls in the basket."
+- completionLine: "The table is ready — be our guest!"
+- scripture: "1 Peter 4:9"
+- title: "Ready for Guests"
+- subtitle: "Tidy the house together!"
+- introLine: "Friends are coming over! Let's make the house clean and cozy."
+- completionLine: "The house is ready — welcome, friends!"
+- CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!")
+- CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the table!")
+- scripture: "Colossians 3:23"
+- title: "Match the Happy Things"
+- subtitle: "Find the matching pairs!"
+- introLine: "Our home is full of happy things! Can you find the pairs?"
+- completionLine: "You matched them all!"
+- scripture: "Proverbs 18:24"
+- title: "Friends Come Over"
+- subtitle: "Who's at the door?"
+- introLine: "Knock knock! Our friends are here! Can you find each one?"
+- completionLine: "A true friend loves at all times!"
+- scripture: "Proverbs 17:17"
+- title: "Visit Grandma"
+- subtitle: "Walk to grandma's house!"
+- introLine: "Let's visit grandma — she loves when you come! Walk to her, one step at a time."
+- completionLine: "Grandma is so happy to see you!"
+- scripture: "Leviticus 19:32"
+- title: "Share It or Put It Away"
+- subtitle: "Get ready for company!"
+- introLine: "Guests are coming! Some things we set out to share, and some things we put away. Can you sort them?"
+- completionLine: "Everything is in its place!"
+- SortCategory(id: "share", title: "Set Out", color: Theme.leaf)
+- SortCategory(id: "away", title: "Put Away", color: Theme.wood)
+- scripture: "Hebrews 13:16"

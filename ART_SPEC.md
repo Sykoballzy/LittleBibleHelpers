@@ -225,6 +225,8 @@ Keep the middle third calm; detail at the edges.
 | `bg_daniel.png` | warm palace interior at evening: columns, arched night window |
 | `bg_jesus.png` | Sea of Galilee shore: calm water, soft hills, morning light |
 | `bg_meetings.png` | bright friendly hall interior: rows of chairs, warm light, plants |
+| `bg_ministry.png` | friendly neighborhood street: cozy houses, path, morning light |
+| `bg_activities.png` | warm living room: sofa, lamp, bookshelf, soft evening light |
 | `bg_qualities.png` | orchard of fruit trees in soft sunshine |
 
 (Wired per-world after assets arrive — one small code change total.)
