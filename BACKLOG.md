@@ -55,14 +55,12 @@ scene props (dust piles, aisle rows, den walls). Details in ART_SPEC.md.
 
 - **Free tier:** the first two worlds (Creation + Noah — 16 full games).
   Generous by design: trust and word-of-mouth are the growth engine.
-- **Base unlock:** $4.99 one-time → the remaining six worlds.
+- **Base unlock: $9.99 one-time → the remaining EIGHT worlds** (~65
+  activities). (Updated 2026-07-08 after the app grew to 10 worlds — fixes
+  the old value-ladder asymmetry: base is the big box, packs are add-ons.)
 - **Expansion packs:** $4.99 each, one-time, non-consumable, offline forever.
-- **Fully loaded target:** ~$25 (base + ~4 packs). No ads, no subscriptions,
+- **Fully loaded target:** ~$30 (base + ~4 packs). No ads, no subscriptions,
   ever. Enable Family Sharing on all IAPs (big families!).
-- Open question for ship time: value-ladder asymmetry (base = 6 worlds for
-  $4.99 vs pack = 1 world's content for $4.99). Levers: raise base to
-  $6.99–9.99, or keep uniform-$4.99 simplicity. Decide at StoreKit build
-  (after the platform gate).
 - Purchases live behind the parent gate (Kids Category requirement — the
   gate already exists).
 
