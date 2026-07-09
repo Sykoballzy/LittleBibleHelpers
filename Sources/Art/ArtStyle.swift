@@ -61,6 +61,10 @@ struct ArtView: View {
         case .fish: FishArt()
         case .speaker: SpeakerArt()
         case .hallWindow: HallWindowArt()
+        // Modern congregation friends (PNGs expected; villager vectors as fallback).
+        case .friendA: VillagerArt(robe: Theme.sunny, hair: Theme.woodDeep)
+        case .friendB: VillagerArt(robe: Theme.sky, hair: Theme.outline)
+        case .friendC: VillagerArt(robe: Theme.berry, hair: Color(red: 0.75, green: 0.75, blue: 0.78))
         case .ark: ArkArt()
         case .noah: NoahArt()
         case .rainbow: RainbowArt()

@@ -20,23 +20,23 @@ transparency audit. Wired into the app and committed.
 - Child feature: Parent Area sets name + Boy/Girl; the `child` key renders
   `art_malechild.png` / `art_femalechild.png`; narration cheers by name.
 
-### ✏️ Stickers to make (playtest round, 2026-07-08)
-- [ ] `art_penFull.png` — edit `art_pen`, add two sheep peeking over the
-      rail. (Vector fallback covers it meanwhile.)
-- [ ] `art_bird.png` — NEW: a generic cheerful little songbird (bluebird or
-      sparrow style), NO olive branch. The dove art is now `art_dove.png`
-      and stays Noah/Peace-specific; this bird covers creation/sky contexts.
-- [ ] `art_speaker.png` — NEW: modern-day meeting speaker — friendly man in
-      a suit and tie, holding a Bible, warm smile. (Meetings world is
-      MODERN dress, unlike the Bible-account worlds.)
-- [ ] `art_hallWindow.png` — NEW: modern meeting-hall window — clean
-      rectangular white/cream frame, four bright panes, simple sill.
-      (Daniel keeps the arched stone night window; this one is for
-      Clean the Hall.)
-- [ ] (idea, optional) modern-dress congregation friends
-      (`art_friendA/B/C`) — would let all of Meetings world read modern-day
-      instead of reusing the robed Bible villagers. Wire-up needed after
-      generation, so tell Claude when these exist.
+### ✏️ Sticker queue
+- [x] `art_penFull.png` — received ✓
+- [x] `art_bird.png` — songbird received ✓ (dove restored as `art_dove.png`)
+- [x] `art_speaker.png` — received ✓ (Gemini; style slightly off — remake
+      candidate in ChatGPT)
+- [x] `art_hallWindow.png` — received ✓
+- [x] `art_friendA/B/C.png` — received ✓ and WIRED: sister (floral dress),
+      brother (mustache), grandma (glasses). Meetings world is now fully
+      modern-dress (Helping Hands, Count Your Friends, Meet the Speaker).
+      Gemini style notes for the remake pass: slight white outline, baked
+      cobblestone ground patch under feet, lower res (~300px vs ~1000px).
+- [ ] OPTIONAL remake pass (ChatGPT, matching the cast style): `art_speaker`,
+      `art_friendA/B/C` — same subjects, transparent, no ground patch,
+      ~1024px. Drop in with the same filenames; no wiring needed.
+- [ ] LATER: Qualities world could also go modern-dress (it's everyday life,
+      not a Bible account) — swap its villagers for friends after the
+      remake pass. Tell Claude to wire when ready.
 
 ### 🔎 Optional polish (only if it bugs you on device)
 - [ ] `art_bigFish.png` — chubby fish, not whale-shaped. Doctrinally fine.

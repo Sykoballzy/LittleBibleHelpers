@@ -822,8 +822,8 @@ enum ContentLibrary {
                 introLine: "Helpers make everyone feel welcome! Give a songbook to each friend.",
                 completionLine: "Everyone is ready to sing!",
                 icon: .songbook,
-                spec: .deliver(item: .songbook, source: .villagerB,
-                               targets: [.villagerA, .people, .villagerC],
+                spec: .deliver(item: .songbook, source: .friendB,
+                               targets: [.friendA, .friendC, .child],
                                deliverLine: "Here's a songbook for you!"),
                 reward: Collectible(id: "c-songbook", name: "Songbook", art: .songbook, kind: .badge),
                 scripture: "Psalm 133:1"
@@ -871,10 +871,10 @@ enum ContentLibrary {
                 subtitle: "Tap each friend to count!",
                 introLine: "Look how many friends came to the meeting! How many can you count?",
                 completionLine: "So many friends who love Jehovah!",
-                icon: .villagerA,
-                spec: .count(items: [.villagerA, .villagerB, .villagerC], center: nil, labels: nil,
+                icon: .friendA,
+                spec: .count(items: [.friendA, .friendB, .friendC], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
-                reward: Collectible(id: "c-friend", name: "Friend", art: .villagerB, kind: .character),
+                reward: Collectible(id: "c-friend", name: "Friend", art: .friendB, kind: .character),
                 scripture: "Psalm 133:1"
             ),
             Activity(
@@ -899,7 +899,7 @@ enum ContentLibrary {
                 introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting.",
                 completionLine: "You said such a nice hello — and you walked the whole way!",
                 icon: .child,
-                spec: .pathway(walker: .child, goal: .speaker, blocker: .villagerA, prize: .star),
+                spec: .pathway(walker: .child, goal: .speaker, blocker: .friendB, prize: .star),
                 reward: Collectible(id: "c-bible", name: "My Bible", art: .book, kind: .badge),
                 scripture: "Romans 12:10"
             )
