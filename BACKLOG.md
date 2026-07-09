@@ -51,6 +51,37 @@ scene props (dust piles, aisle rows, den walls). Details in ART_SPEC.md.
   Action Sequence(+reps), Find It, Shadow Match, Deliver, Gather,
   Give Number(+decoys), Tap-to-Color, Pathway, Clean Up — 14 templates.
 
+## 3.5 Monetization model (decided in principle, Travis 2026-07-08)
+
+- **Free tier:** the first two worlds (Creation + Noah — 16 full games).
+  Generous by design: trust and word-of-mouth are the growth engine.
+- **Base unlock:** $4.99 one-time → the remaining six worlds.
+- **Expansion packs:** $4.99 each, one-time, non-consumable, offline forever.
+- **Fully loaded target:** ~$25 (base + ~4 packs). No ads, no subscriptions,
+  ever. Enable Family Sharing on all IAPs (big families!).
+- Open question for ship time: value-ladder asymmetry (base = 6 worlds for
+  $4.99 vs pack = 1 world's content for $4.99). Levers: raise base to
+  $6.99–9.99, or keep uniform-$4.99 simplicity. Decide at StoreKit build
+  (after the platform gate).
+- Purchases live behind the parent gate (Kids Category requirement — the
+  gate already exists).
+
+## 3.6 Convention packs — "learn along with the talks" (Travis 2026-07-08)
+
+Yearly $4.99 pack timed to the regional convention season. A preschooler's
+companion to the convention weekend:
+
+- Pack-your-convention-bag (transform), find-your-seat (pathway),
+  quiet listen-along activities for sessions, walk-don't-run reminders.
+- A coloring page per convention day; session/day badges to collect.
+- Games built on the year's THEME SCRIPTURE (scripture text itself, not
+  program materials).
+- HARD GUARDRAILS: never reproduce program content, talk outlines, official
+  theme artwork, logos, or songs. All activities and art 100% original,
+  themed around convention-day life and the public scripture only.
+- Pipeline note: pack must ship BEFORE convention season each year —
+  recurring annual content without a subscription.
+
 ## 4. Content expansion (pack roadmap)
 
 - **Jesus packs** (Travis): Jesus' Miracles, Jesus' Ministry, the Ransom's
