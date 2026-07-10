@@ -29,7 +29,7 @@ private struct GameScreen: View {
 
     var body: some View {
         ZStack {
-            MeadowBackground()
+            WorldBackground(worldID: world.id)
             VStack(spacing: 6) {
                 GameTopBar(
                     title: activity.title,

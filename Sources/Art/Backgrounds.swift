@@ -1,4 +1,27 @@
 import SwiftUI
+import UIKit
+
+/// Per-world background: if a bundled `bg_<worldID>.png` exists (Phase 3 of
+/// the art pass), it fills the screen automatically; otherwise the shared
+/// meadow. Drop a background in Resources/ and the world dresses itself.
+struct WorldBackground: View {
+    let worldID: String
+
+    var body: some View {
+        if let image = UIImage(named: "bg_\(worldID)") {
+            GeometryReader { geo in
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+            }
+            .ignoresSafeArea()
+        } else {
+            MeadowBackground()
+        }
+    }
+}
 
 /// Soft storybook meadow used behind most screens: sky gradient, gentle sun,
 /// puffy clouds, rolling hills.

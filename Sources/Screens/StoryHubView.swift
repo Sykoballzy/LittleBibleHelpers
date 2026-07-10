@@ -10,7 +10,7 @@ struct StoryHubView: View {
     var body: some View {
         if let world = ContentLibrary.world(worldID) {
             ZStack {
-                MeadowBackground()
+                WorldBackground(worldID: world.id)
 
                 VStack(spacing: 14) {
                     HStack(alignment: .top) {
