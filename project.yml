@@ -32,3 +32,4 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.travisolson.littlebiblehelpers
         INFOPLIST_KEY_CFBundleDisplayName: Little Bible Helpers
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

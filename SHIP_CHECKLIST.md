@@ -18,7 +18,7 @@ purchases, so the beta comes well before the monetization build.
       the region→color map; Claude wires tap zones over the image.
 - [ ] Remaining stickers: `art_home`, `art_classmateA/B`; optional Gemini
       remakes (speaker, friends).
-- [ ] **App icon** — 1024×1024, OPAQUE, no transparency, no text. Reads at
+- [x] **App icon** (DONE 2026-07-08 — wired into Assets.xcassets) — 1024×1024, OPAQUE. Reads at
       60px. Child-forward direction (see ART_SPEC): toddler girl hugging the
       heart-cover Bible, sunburst corner (no halo effect), playful tilt.
 
@@ -37,7 +37,7 @@ purchases, so the beta comes well before the monetization build.
 - [x] **PNG optimization pass** (DONE - tools/Optimize-Art.ps1, rerun per drop) — 80+ stickers at ~1.2MB each ≈ 100MB+
       bundle. Downscale to ~512px + recompress → target under ~25MB.
       (Claude runs it; originals archived first.)
-- [ ] **App icon wiring** — asset catalog + project.yml when the icon PNG
+- [x] **App icon wiring** (DONE) — asset catalog + project.yml when the icon PNG
       exists (one regenerate).
 - [x] **Narration text audit** (DONE 2026-07-08: 49 corrections applied) — NARRATION_REVIEW.md (generated) — Travis
       reads every line once for NWT alignment / tone; Claude fixes flags.
