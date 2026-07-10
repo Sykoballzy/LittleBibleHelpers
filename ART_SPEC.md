@@ -57,7 +57,7 @@ transparency audit. Wired into the app and committed.
       (1 Cor 11:14). Everything else about the current one is right.
 
 ### ✏️ New sticker from the narration review
-- [ ] `art_light.png` — the light of the FIRST creative day (Gen 1:3):
+- [x] `art_light.png` — DONE: the light of the FIRST creative day (Gen 1:3):
       an abstract radiant golden-white glow with soft beams — deliberately
       NOT the sun, no face, no sun disc (the luminaries come later,
       Gen 1:14). Vector placeholder in place meanwhile.
