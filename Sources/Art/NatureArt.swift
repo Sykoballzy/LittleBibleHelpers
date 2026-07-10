@@ -3,6 +3,33 @@ import SwiftUI
 // Creation-world art: moon, tree, earth. Same friendly storybook style,
 // 120x120 canvas, thick soft outlines, big eyes where a face fits.
 
+/// The light of the first creative day (Genesis 1:3) — an abstract radiant
+/// glow, deliberately NOT the sun (the luminaries come later, Genesis 1:14).
+struct LightArt: View {
+    private let glow = Color(red: 1.0, green: 0.95, blue: 0.75)
+    private let core = Color(red: 1.0, green: 0.99, blue: 0.92)
+
+    var body: some View {
+        ArtCanvas {
+            // long soft rays
+            ForEach(0..<12, id: \.self) { i in
+                Capsule()
+                    .fill(glow.opacity(i.isMultiple(of: 2) ? 0.75 : 0.45))
+                    .frame(width: 7, height: i.isMultiple(of: 2) ? 34 : 22)
+                    .offset(y: -38)
+                    .rotationEffect(.degrees(Double(i) * 30))
+            }
+            // layered radiance
+            Circle().fill(glow.opacity(0.35)).frame(width: 86)
+            Circle().fill(glow.opacity(0.6)).frame(width: 62)
+            Circle()
+                .fill(core)
+                .overlay(Circle().stroke(Theme.sunny.opacity(0.6), lineWidth: 3))
+                .frame(width: 40)
+        }
+    }
+}
+
 struct MoonArt: View {
     private let moon = Color(red: 0.99, green: 0.93, blue: 0.66)
     private let crater = Color(red: 0.93, green: 0.84, blue: 0.52)

@@ -1,6 +1,6 @@
-# NARRATION REVIEW — every user-facing line
-Read once for NWT alignment, doctrine, and tone. Mark anything off and
-tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
+# NARRATION REVIEW — every user-facing line (regenerated after NWT pass)
+All 49 review corrections applied 2026-07-08. Trailing ')' on some lines is
+Swift call syntax from extraction, not a defect.
 
 
 ## Noah's Ark (first playable world)
@@ -13,13 +13,13 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - completionLine: "You built the ark!"
 - ActionStep(tool: .saw, prompt: "Saw the wood!", result: .arkFrame)
 - ActionStep(tool: .hammer, prompt: "Hammer the planks!", result: .arkHull)
-- ActionStep(tool: .brush, prompt: "Paint the ark!", result: .ark)
+- ActionStep(tool: .brush, prompt: "Coat the ark with tar!", result: .ark)
 - scripture: "Genesis 6:14-16"
 - title: "Noah Tells Everyone"
 - subtitle: "Share the message with each person."
-- introLine: "Noah told everyone that a flood was coming. Can you help him share the message?"
-- completionLine: "Noah told everyone! He was a faithful preacher."
-- deliverLine: "Noah shared the warning!")
+- introLine: "Noah was a preacher of righteousness before the Flood. Can you help him share the message?"
+- completionLine: "Noah preached righteousness! He was faithful to Jehovah."
+- deliverLine: "Noah preached righteousness!")
 - scripture: "2 Peter 2:5"
 - title: "Match the Animals"
 - subtitle: "Find the matching pairs!"
@@ -28,7 +28,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "All Aboard!"
 - subtitle: "Bring each animal onto the ark."
 - introLine: "The rain is coming! Can you help the animals onto the ark?"
-- completionLine: "All the animals are safe on the ark!"
+- completionLine: "All the animals on the ark are safe!"
 - scripture: "Genesis 7:8, 9"
 - title: "Count the Animals"
 - subtitle: "Tap each animal to count!"
@@ -42,7 +42,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - SequenceStep(art: .elephant, caption: "The animals come two by two")
 - SequenceStep(art: .stormCloud, caption: "The rain falls")
 - SequenceStep(art: .ark, caption: "The ark floats many days")
-- SequenceStep(art: .rainbow, caption: "God sends a rainbow")
+- SequenceStep(art: .rainbow, caption: "Jehovah puts his rainbow in the cloud")
 - scripture: "Genesis 6–9"
 - title: "Find the Tool"
 - subtitle: "Help Noah find it!"
@@ -50,7 +50,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - completionLine: "You found all the tools!"
 - title: "Color the Rainbow"
 - subtitle: "Tap a color, then tap the picture!"
-- introLine: "After the flood, Jehovah put a beautiful rainbow in the sky! Let's color it."
+- introLine: "After the Flood, Jehovah put his rainbow in the cloud as a sign of his covenant. Let's color it."
 - completionLine: "What a beautiful rainbow!"
 - scripture: "Genesis 9:13"
 
@@ -73,7 +73,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - subtitle: "Put creation in order."
 - introLine: "Let's remember the days of creation. What came first?"
 - completionLine: "You remembered it all!"
-- SequenceStep(art: .sun, caption: "Jehovah made the light")
+- SequenceStep(art: .light, caption: "Jehovah made the light")
 - SequenceStep(art: .tree, caption: "Jehovah made the plants")
 - SequenceStep(art: .lion, caption: "Jehovah made the animals")
 - SequenceStep(art: .people, caption: "Jehovah made people")
@@ -85,12 +85,12 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "Genesis 2:9"
 - title: "Name the Animals"
 - subtitle: "Help Adam find each animal."
-- introLine: "Adam gave every animal its name! Can you find each one?"
-- completionLine: "You found every animal, just like Adam!"
+- introLine: "Adam gave names to the animals! Can you find each one?"
+- completionLine: "You found all the animals Adam named!"
 - scripture: "Genesis 2:19"
 - title: "Grow the Garden"
 - subtitle: "Help the little tree grow!"
-- introLine: "Jehovah makes everything grow! Can you help this tree? Use each tool!"
+- introLine: "Jehovah makes plants grow! Can you help this tree? Use each tool!"
 - completionLine: "You grew a beautiful tree!"
 - ActionStep(tool: .seed, prompt: "Plant the seed!", result: .sprout)
 - ActionStep(tool: .wateringCan, prompt: "Water the sprout!", result: .sapling)
@@ -123,7 +123,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "Psalm 23:2"
 - title: "Build the Sheep Pen"
 - subtitle: "Use each tool to build!"
-- introLine: "The sheep need a safe home for the night. Let's build a pen!"
+- introLine: "Let's build a safe pen for the sheep!"
 - completionLine: "The sheep are safe in their pen!"
 - ActionStep(tool: .saw, prompt: "Saw the wood!", result: .penFrame)
 - ActionStep(tool: .hammer, prompt: "Hammer the fence!", result: .pen)
@@ -131,22 +131,22 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "1 Samuel 16:11"
 - title: "David Is Brave"
 - subtitle: "Put the story in order."
-- introLine: "One day a lion tried to take a lamb! Let's tell what happened."
+- introLine: "One day a lion carried off a sheep! Let's tell what happened."
 - completionLine: "Jehovah helped David be brave!"
 - SequenceStep(art: .sheep, caption: "David watched the sheep")
-- SequenceStep(art: .lion, caption: "A lion took a lamb")
-- SequenceStep(art: .david, caption: "Jehovah made David brave")
-- SequenceStep(art: .heart, caption: "The lamb was safe!")
+- SequenceStep(art: .lion, caption: "A lion carried off a sheep")
+- SequenceStep(art: .david, caption: "David rescued the sheep")
+- SequenceStep(art: .heart, caption: "The sheep was safe!")
 - scripture: "1 Samuel 17:34-36"
 - title: "Match David's Things"
 - subtitle: "Find the matching pairs!"
 - introLine: "David had a harp, a sling, and a staff! Can you find the pairs?"
 - completionLine: "You matched them all!"
-- scripture: "1 Samuel 16:23"
+- scripture: "1 Samuel 16:23; 17:40"
 - title: "Five Smooth Stones"
 - subtitle: "Put five stones in David's bag."
-- introLine: "David chose five smooth stones from the stream. Jehovah would help him be brave! Can you count out five?"
-- completionLine: "Five smooth stones — and Jehovah made David brave!"
+- introLine: "David chose five smooth stones from the stream. He trusted Jehovah to help him! Can you count out five?"
+- completionLine: "Five smooth stones — and David trusted Jehovah!"
 - scripture: "1 Samuel 17:40"
 - title: "Lead the Sheep Home"
 - subtitle: "Step by step to the pen!"
@@ -156,7 +156,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Gather the Flock"
 - subtitle: "Bring every sheep to the pen."
 - introLine: "Night is coming! Help David gather every sheep safely into the pen."
-- completionLine: "The whole flock is safe — not one is missing!"
+- completionLine: "The whole flock is safely in the pen!"
 - scripture: "Psalm 23:1"
 
 ## Daniel & the Lions
@@ -166,7 +166,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Three Times a Day"
 - subtitle: "Give the window three stars."
 - introLine: "Daniel prayed to Jehovah three times every day. Put a star in the window for each prayer!"
-- completionLine: "Morning, noon, and night — Daniel always prayed!"
+- completionLine: "Three times a day — Daniel always prayed!"
 - scripture: "Daniel 6:10"
 - title: "Daniel's Night"
 - subtitle: "Put the story in order."
@@ -190,24 +190,24 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "Daniel 6:16"
 - title: "Match the Palace"
 - subtitle: "Find the matching pairs!"
-- introLine: "Daniel lived near the king's palace. Can you find the pairs?"
+- introLine: "Daniel served the king faithfully. Can you find the pairs?"
 - completionLine: "You matched them all!"
-- scripture: "Daniel 6:25-27"
+- scripture: "Daniel 6:1-3"
 - title: "Faithful Steps"
 - subtitle: "Walk calmly to the window."
-- introLine: "Some men watched Daniel, hoping he would stop praying. But Daniel walked calmly home to his window — just like always! Walk with him, one step at a time."
-- completionLine: "Daniel was never afraid to pray!"
+- introLine: "When Daniel learned that the law had been signed, he went home and prayed — just as he had always done. Walk with him, one step at a time."
+- completionLine: "Daniel kept praying to Jehovah!"
 - scripture: "Daniel 6:10, 11"
 - title: "Morning and Night"
-- subtitle: "Daniel prayed at both!"
-- introLine: "Daniel prayed when the sun came up, at midday, and when the moon rose — every day! What belongs to the morning, and what belongs to the night?"
+- subtitle: "Sort morning and night!"
+- introLine: "Daniel prayed three times each day — every day! What belongs to the morning, and what belongs to the night?"
 - completionLine: "You sorted the morning and the night!"
 - SortCategory(id: "morning", title: "Morning", color: Theme.sunny)
 - SortCategory(id: "night", title: "Night", color: Theme.berry)
 - scripture: "Daniel 6:10"
 - title: "Color the Morning"
 - subtitle: "Tap a color, then tap the picture!"
-- introLine: "At the first light of dawn, the king ran to the den — and Daniel was safe! Let's color the happy morning."
+- introLine: "At the first light of dawn, the king hurried to the lions' pit — and Daniel was safe! Let's color the happy morning."
 - completionLine: "The night is over — what a beautiful morning!"
 - scripture: "Daniel 6:19"
 
@@ -228,7 +228,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Three Days, Three Nights"
 - subtitle: "Give the big fish three moons."
 - introLine: "Jonah was inside the big fish for three days and three nights. Put up a moon for each night!"
-- completionLine: "Three nights — and Jonah kept praying!"
+- completionLine: "Three nights — and Jonah prayed to Jehovah!"
 - scripture: "Jonah 1:17"
 - title: "Jonah Tells Nineveh"
 - subtitle: "Share the message with each person."
@@ -240,12 +240,12 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - subtitle: "Tap each fish to count!"
 - introLine: "The sea is full of fish that Jehovah made! How many can you count?"
 - completionLine: "You counted every fish!"
-- scripture: "Jonah 1:17"
+- scripture: "Genesis 1:20, 21"
 - title: "The Shade Plant"
 - subtitle: "Help the plant grow tall!"
 - introLine: "Jehovah made a leafy plant grow up over Jonah to give him shade. Help it grow!"
 - completionLine: "What wonderful shade — Jehovah is kind!"
-- ActionStep(tool: .seed, prompt: "Jehovah planted it!", result: .sprout)
+- ActionStep(tool: .seed, prompt: "Jehovah made it grow!", result: .sprout)
 - ActionStep(tool: .moon, prompt: "It grew overnight!", result: .sapling)
 - ActionStep(tool: .sun, prompt: "Shade for Jonah!", result: .tree)
 - scripture: "Jonah 4:6"
@@ -260,12 +260,11 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - completionLine: "You sorted the sea and the sky!"
 - SortCategory(id: "sea", title: "Sea", color: Theme.sky)
 - SortCategory(id: "sky", title: "Sky", color: Theme.berry)
-- scripture: "Jonah 1:9"
+- scripture: "Genesis 1:20, 21"
 - title: "Sea Shadows"
 - subtitle: "Match each one to its shadow."
 - introLine: "The sea makes shadowy shapes! Can you match them?"
 - completionLine: "You matched every shadow!"
-- scripture: "Jonah 2:10"
 
 ## Jesus & His Friends
 - title: "Jesus"
@@ -273,7 +272,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - welcomeLine: "Jesus loved people and taught them all about Jehovah!"
 - title: "Hush! Be Quiet!"
 - subtitle: "Put the story in order."
-- introLine: "One night a big storm rocked the boat — but Jesus was not afraid! Let's tell the story."
+- introLine: "One evening a great storm rocked the boat — but Jesus calmed it! Let's tell the story."
 - completionLine: "Even the wind and the sea obey Jesus!"
 - SequenceStep(art: .boat, caption: "Jesus and his friends sailed")
 - SequenceStep(art: .stormCloud, caption: "A big storm came")
@@ -289,14 +288,14 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Water into Wine"
 - subtitle: "Help with the very first miracle!"
 - introLine: "At a wedding feast, the wine ran out. Jesus performed his very first miracle! Fill the big jars with water and watch what happens."
-- completionLine: "The water became the finest wine — Jesus' first miracle!"
+- completionLine: "The water became fine wine — Jesus' first miracle!"
 - ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jars3
 - ActionStep(tool: .star, prompt: "Jesus performs the miracle!", result: .jarsWine)
 - scripture: "John 2:1-11"
 - title: "Gather the Leftovers"
 - subtitle: "Fill the basket with bread."
 - introLine: "After everyone ate, there was still bread left over — twelve baskets full! Help gather it up."
-- completionLine: "Nothing was wasted!"
+- completionLine: "They gathered twelve baskets of leftovers!"
 - scripture: "Matthew 14:20"
 - title: "The Lost Sheep"
 - subtitle: "Find the one that matches!"
@@ -306,12 +305,12 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Name the Apostles"
 - subtitle: "Tap each friend to meet him!"
 - introLine: "Jesus chose twelve apostles to be his special helpers. Tap each friend to hear his name!"
-- completionLine: "Jesus' friends helped him preach everywhere!"
-- scripture: "Luke 6:13-16"
+- completionLine: "The apostles went out to preach the good news!"
+- scripture: "Luke 6:13-16; 9:1, 2, 6"
 - title: "Come to Jesus"
 - subtitle: "Walk all the way to Jesus!"
-- introLine: "Some friends said the children should stay away. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time."
-- completionLine: "Jesus was so happy to see you!"
+- introLine: "The disciples tried to stop the children from coming. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time."
+- completionLine: "Jesus warmly welcomed the children!"
 - scripture: "Mark 10:13-16"
 - title: "Galilee Shadows"
 - subtitle: "Match each one to its shadow."
@@ -360,7 +359,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Count Your Friends"
 - subtitle: "Tap each friend to count!"
 - introLine: "Look how many friends came to the meeting! How many can you count?"
-- completionLine: "So many friends who love Jehovah!"
+- completionLine: "So many friends learning about Jehovah!"
 - scripture: "Psalm 133:1"
 - title: "Clean the Hall"
 - subtitle: "Wipe every spot until it shines!"
@@ -372,17 +371,17 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "1 Corinthians 14:40"
 - title: "Meet the Speaker"
 - subtitle: "Walk nicely down the aisle."
-- introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting."
+- introLine: "Let's go say hello to the speaker! Walk carefully past our friends."
 - completionLine: "You said such a nice hello — and you walked the whole way!"
 - scripture: "Romans 12:10"
 
 ## Christian Qualities
 - title: "Christian Qualities"
 - tagline: "Grow the fruitage of the spirit!"
-- welcomeLine: "Jehovah's spirit helps us grow nine good fruits — love, joy, peace, and more!"
+- welcomeLine: "Jehovah's spirit helps us develop nine beautiful qualities — love, joy, peace, and more!"
 - title: "Love"
 - subtitle: "Give a heart to each friend."
-- introLine: "The first fruit is love! Jesus said to love one another. Share a heart with everyone."
+- introLine: "The first quality is love! Jesus said to love one another. Share a heart with everyone."
 - completionLine: "Love makes every day brighter!"
 - deliverLine: "That was so loving!")
 - scripture: "John 13:34"
@@ -426,7 +425,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "Hebrews 11:6"
 - title: "Mildness"
 - subtitle: "Find each gentle friend."
-- introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend."
+- introLine: "Mildness means being gentle, like Jesus! Find each gentle friend."
 - completionLine: "Gentle and mild, just like Jesus!"
 - scripture: "Matthew 11:29"
 - title: "Self-Control"
@@ -483,7 +482,7 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - scripture: "Matthew 24:14"
 - title: "Books to Share"
 - subtitle: "Pack just enough books."
-- introLine: "We share God's word with others! Pack just enough books — and nothing else."
+- introLine: "We share Bible truths with others! Pack just enough books — and nothing else."
 - completionLine: "There is more happiness in giving!"
 - scripture: "Acts 20:35"
 
@@ -526,12 +525,12 @@ tell Claude — fixes are one edit each. (Generated from ContentLibrary.)
 - title: "Friends Come Over"
 - subtitle: "Who's at the door?"
 - introLine: "Knock knock! Our friends are here! Can you find each one?"
-- completionLine: "A true friend loves at all times!"
+- completionLine: "A true friend shows love at all times!"
 - scripture: "Proverbs 17:17"
 - title: "Visit Grandma"
 - subtitle: "Walk to grandma's house!"
-- introLine: "Let's visit grandma — she loves when you come! Walk to her, one step at a time."
-- completionLine: "Grandma is so happy to see you!"
+- introLine: "Let's visit Grandma and show her love and respect! Walk to her, one step at a time."
+- completionLine: "You showed Grandma love and respect!"
 - scripture: "Leviticus 19:32"
 - title: "Share It or Put It Away"
 - subtitle: "Get ready for company!"

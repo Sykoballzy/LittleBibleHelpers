@@ -41,7 +41,7 @@ enum ContentLibrary {
         id: "noah",
         title: "Noah",
         tagline: "He built, he preached, he trusted Jehovah!",
-        icon: .ark,
+        icon: .noah,
         accent: Theme.sky,
         welcomeLine: "Welcome to Noah's Ark! Which game would you like to play?",
         activities: [
@@ -55,7 +55,7 @@ enum ContentLibrary {
                 spec: .actionSequence(start: .arkPlanks, steps: [
                     ActionStep(tool: .saw, prompt: "Saw the wood!", result: .arkFrame),
                     ActionStep(tool: .hammer, prompt: "Hammer the planks!", result: .arkHull),
-                    ActionStep(tool: .brush, prompt: "Paint the ark!", result: .ark)
+                    ActionStep(tool: .brush, prompt: "Coat the ark with tar!", result: .ark)
                 ]),
                 reward: Collectible(id: "c-ark", name: "Ark", art: .ark, kind: .badge),
                 scripture: "Genesis 6:14-16"
@@ -64,12 +64,12 @@ enum ContentLibrary {
                 id: "noah-preach",
                 title: "Noah Tells Everyone",
                 subtitle: "Share the message with each person.",
-                introLine: "Noah told everyone that a flood was coming. Can you help him share the message?",
-                completionLine: "Noah told everyone! He was a faithful preacher.",
+                introLine: "Noah was a preacher of righteousness before the Flood. Can you help him share the message?",
+                completionLine: "Noah preached righteousness! He was faithful to Jehovah.",
                 icon: .scroll,
                 spec: .deliver(item: .scroll, source: .noah,
                                targets: [.villagerA, .villagerB, .villagerC],
-                               deliverLine: "Noah shared the warning!"),
+                               deliverLine: "Noah preached righteousness!"),
                 reward: Collectible(id: "c-scroll", name: "Message", art: .scroll, kind: .badge),
                 scripture: "2 Peter 2:5"
             ),
@@ -88,7 +88,7 @@ enum ContentLibrary {
                 title: "All Aboard!",
                 subtitle: "Bring each animal onto the ark.",
                 introLine: "The rain is coming! Can you help the animals onto the ark?",
-                completionLine: "All the animals are safe on the ark!",
+                completionLine: "All the animals on the ark are safe!",
                 icon: .elephant,
                 spec: .boardTheArk(animals: [.elephant, .giraffe, .lion, .sheep]),
                 reward: Collectible(id: "c-elephant", name: "Elephant", art: .elephant, kind: .animal),
@@ -117,7 +117,7 @@ enum ContentLibrary {
                     SequenceStep(art: .elephant, caption: "The animals come two by two"),
                     SequenceStep(art: .stormCloud, caption: "The rain falls"),
                     SequenceStep(art: .ark, caption: "The ark floats many days"),
-                    SequenceStep(art: .rainbow, caption: "God sends a rainbow")
+                    SequenceStep(art: .rainbow, caption: "Jehovah puts his rainbow in the cloud")
                 ]),
                 reward: Collectible(id: "c-rainbow", name: "Rainbow", art: .rainbow, kind: .badge),
                 scripture: "Genesis 6–9"
@@ -136,7 +136,7 @@ enum ContentLibrary {
                 id: "noah-color",
                 title: "Color the Rainbow",
                 subtitle: "Tap a color, then tap the picture!",
-                introLine: "After the flood, Jehovah put a beautiful rainbow in the sky! Let's color it.",
+                introLine: "After the Flood, Jehovah put his rainbow in the cloud as a sign of his covenant. Let's color it.",
                 completionLine: "What a beautiful rainbow!",
                 icon: .rainbow,
                 spec: .tapColor(regions: [
@@ -207,7 +207,7 @@ enum ContentLibrary {
                 completionLine: "You remembered it all!",
                 icon: .sun,
                 spec: .sequence(steps: [
-                    SequenceStep(art: .sun, caption: "Jehovah made the light"),
+                    SequenceStep(art: .light, caption: "Jehovah made the light"),
                     SequenceStep(art: .tree, caption: "Jehovah made the plants"),
                     SequenceStep(art: .lion, caption: "Jehovah made the animals"),
                     SequenceStep(art: .people, caption: "Jehovah made people")
@@ -238,8 +238,8 @@ enum ContentLibrary {
                 id: "creation-name",
                 title: "Name the Animals",
                 subtitle: "Help Adam find each animal.",
-                introLine: "Adam gave every animal its name! Can you find each one?",
-                completionLine: "You found every animal, just like Adam!",
+                introLine: "Adam gave names to the animals! Can you find each one?",
+                completionLine: "You found all the animals Adam named!",
                 icon: .adam,
                 spec: .findIt(items: [.lion, .elephant, .sheep, .bird]),
                 reward: Collectible(id: "c-adam", name: "Adam", art: .adam, kind: .character),
@@ -249,7 +249,7 @@ enum ContentLibrary {
                 id: "creation-grow",
                 title: "Grow the Garden",
                 subtitle: "Help the little tree grow!",
-                introLine: "Jehovah makes everything grow! Can you help this tree? Use each tool!",
+                introLine: "Jehovah makes plants grow! Can you help this tree? Use each tool!",
                 completionLine: "You grew a beautiful tree!",
                 icon: .sprout,
                 spec: .actionSequence(start: .soil, steps: [
@@ -324,7 +324,7 @@ enum ContentLibrary {
                 id: "david-pen",
                 title: "Build the Sheep Pen",
                 subtitle: "Use each tool to build!",
-                introLine: "The sheep need a safe home for the night. Let's build a pen!",
+                introLine: "Let's build a safe pen for the sheep!",
                 completionLine: "The sheep are safe in their pen!",
                 icon: .pen,
                 spec: .actionSequence(start: .arkPlanks, steps: [
@@ -339,14 +339,14 @@ enum ContentLibrary {
                 id: "david-order",
                 title: "David Is Brave",
                 subtitle: "Put the story in order.",
-                introLine: "One day a lion tried to take a lamb! Let's tell what happened.",
+                introLine: "One day a lion carried off a sheep! Let's tell what happened.",
                 completionLine: "Jehovah helped David be brave!",
                 icon: .david,
                 spec: .sequence(steps: [
                     SequenceStep(art: .sheep, caption: "David watched the sheep"),
-                    SequenceStep(art: .lion, caption: "A lion took a lamb"),
-                    SequenceStep(art: .david, caption: "Jehovah made David brave"),
-                    SequenceStep(art: .heart, caption: "The lamb was safe!")
+                    SequenceStep(art: .lion, caption: "A lion carried off a sheep"),
+                    SequenceStep(art: .david, caption: "David rescued the sheep"),
+                    SequenceStep(art: .heart, caption: "The sheep was safe!")
                 ]),
                 reward: Collectible(id: "c-courage", name: "Courage", art: .heart, kind: .badge),
                 scripture: "1 Samuel 17:34-36"
@@ -360,14 +360,14 @@ enum ContentLibrary {
                 icon: .harp,
                 spec: .matchPairs(pool: [.sheep, .harp, .sling, .staff, .lion, .star]),
                 reward: Collectible(id: "c-harp", name: "Harp", art: .harp, kind: .badge),
-                scripture: "1 Samuel 16:23"
+                scripture: "1 Samuel 16:23; 17:40"
             ),
             Activity(
                 id: "david-stones",
                 title: "Five Smooth Stones",
                 subtitle: "Put five stones in David's bag.",
-                introLine: "David chose five smooth stones from the stream. Jehovah would help him be brave! Can you count out five?",
-                completionLine: "Five smooth stones — and Jehovah made David brave!",
+                introLine: "David chose five smooth stones from the stream. He trusted Jehovah to help him! Can you count out five?",
+                completionLine: "Five smooth stones — and David trusted Jehovah!",
                 icon: .stone,
                 spec: .giveNumber(item: .stone, container: .bag,
                                   distractors: [.fruit, .seed],
@@ -391,7 +391,7 @@ enum ContentLibrary {
                 title: "Gather the Flock",
                 subtitle: "Bring every sheep to the pen.",
                 introLine: "Night is coming! Help David gather every sheep safely into the pen.",
-                completionLine: "The whole flock is safe — not one is missing!",
+                completionLine: "The whole flock is safely in the pen!",
                 icon: .sheep,
                 spec: .gather(item: .sheep, count: 4, container: .pen,
                               scenery: nil, decoyGuard: nil, decoyLine: nil),
@@ -417,7 +417,7 @@ enum ContentLibrary {
                 title: "Three Times a Day",
                 subtitle: "Give the window three stars.",
                 introLine: "Daniel prayed to Jehovah three times every day. Put a star in the window for each prayer!",
-                completionLine: "Morning, noon, and night — Daniel always prayed!",
+                completionLine: "Three times a day — Daniel always prayed!",
                 icon: .window,
                 spec: .giveNumber(item: .star, container: .window,
                                   distractors: [.moon, .sun],
@@ -469,19 +469,19 @@ enum ContentLibrary {
                 id: "daniel-match",
                 title: "Match the Palace",
                 subtitle: "Find the matching pairs!",
-                introLine: "Daniel lived near the king's palace. Can you find the pairs?",
+                introLine: "Daniel served the king faithfully. Can you find the pairs?",
                 completionLine: "You matched them all!",
                 icon: .crown,
                 spec: .matchPairs(pool: [.lion, .crown, .star, .moon, .angel, .window]),
                 reward: Collectible(id: "c-crown", name: "Crown", art: .crown, kind: .badge),
-                scripture: "Daniel 6:25-27"
+                scripture: "Daniel 6:1-3"
             ),
             Activity(
                 id: "daniel-steps",
                 title: "Faithful Steps",
                 subtitle: "Walk calmly to the window.",
-                introLine: "Some men watched Daniel, hoping he would stop praying. But Daniel walked calmly home to his window — just like always! Walk with him, one step at a time.",
-                completionLine: "Daniel was never afraid to pray!",
+                introLine: "When Daniel learned that the law had been signed, he went home and prayed — just as he had always done. Walk with him, one step at a time.",
+                completionLine: "Daniel kept praying to Jehovah!",
                 icon: .window,
                 spec: .pathway(walker: .daniel, goal: .window, blocker: .villagerA, prize: .star),
                 reward: Collectible(id: "c-daniel-moon", name: "Night Moon", art: .moon, kind: .badge),
@@ -490,8 +490,8 @@ enum ContentLibrary {
             Activity(
                 id: "daniel-sort",
                 title: "Morning and Night",
-                subtitle: "Daniel prayed at both!",
-                introLine: "Daniel prayed when the sun came up, at midday, and when the moon rose — every day! What belongs to the morning, and what belongs to the night?",
+                subtitle: "Sort morning and night!",
+                introLine: "Daniel prayed three times each day — every day! What belongs to the morning, and what belongs to the night?",
                 completionLine: "You sorted the morning and the night!",
                 icon: .moon,
                 spec: .sortClassify(
@@ -515,7 +515,7 @@ enum ContentLibrary {
                 id: "daniel-color",
                 title: "Color the Morning",
                 subtitle: "Tap a color, then tap the picture!",
-                introLine: "At the first light of dawn, the king ran to the den — and Daniel was safe! Let's color the happy morning.",
+                introLine: "At the first light of dawn, the king hurried to the lions' pit — and Daniel was safe! Let's color the happy morning.",
                 completionLine: "The night is over — what a beautiful morning!",
                 icon: .sun,
                 spec: .tapColor(regions: [
@@ -537,7 +537,7 @@ enum ContentLibrary {
         id: "jonah",
         title: "Jonah",
         tagline: "A big fish and a big lesson!",
-        icon: .bigFish,
+        icon: .jonah,
         accent: Color(red: 0.30, green: 0.62, blue: 0.62),
         welcomeLine: "Jonah learned that it is always best to listen to Jehovah!",
         activities: [
@@ -563,7 +563,7 @@ enum ContentLibrary {
                 title: "Three Days, Three Nights",
                 subtitle: "Give the big fish three moons.",
                 introLine: "Jonah was inside the big fish for three days and three nights. Put up a moon for each night!",
-                completionLine: "Three nights — and Jonah kept praying!",
+                completionLine: "Three nights — and Jonah prayed to Jehovah!",
                 icon: .moon,
                 spec: .giveNumber(item: .moon, container: .bigFish,
                                   distractors: [.star, .fish],
@@ -593,7 +593,7 @@ enum ContentLibrary {
                 icon: .fish,
                 spec: .count(items: [.fish], center: nil, labels: nil, littleRange: 3...8, bigRange: 6...12),
                 reward: Collectible(id: "c-sea-fish", name: "Sea Fish", art: .fish, kind: .animal),
-                scripture: "Jonah 1:17"
+                scripture: "Genesis 1:20, 21"
             ),
             Activity(
                 id: "jonah-plant",
@@ -603,7 +603,7 @@ enum ContentLibrary {
                 completionLine: "What wonderful shade — Jehovah is kind!",
                 icon: .sprout,
                 spec: .actionSequence(start: .soil, steps: [
-                    ActionStep(tool: .seed, prompt: "Jehovah planted it!", result: .sprout),
+                    ActionStep(tool: .seed, prompt: "Jehovah made it grow!", result: .sprout),
                     ActionStep(tool: .moon, prompt: "It grew overnight!", result: .sapling),
                     ActionStep(tool: .sun, prompt: "Shade for Jonah!", result: .tree)
                 ]),
@@ -643,7 +643,7 @@ enum ContentLibrary {
                     ]
                 ),
                 reward: Collectible(id: "c-sky-dove", name: "Sky Bird", art: .bird, kind: .badge),
-                scripture: "Jonah 1:9"
+                scripture: "Genesis 1:20, 21"
             ),
             Activity(
                 id: "jonah-shadow",
@@ -653,8 +653,7 @@ enum ContentLibrary {
                 completionLine: "You matched every shadow!",
                 icon: .fish,
                 spec: .shadowMatch(items: [.bigFish, .boat, .fish]),
-                reward: Collectible(id: "c-night-sea", name: "Night Sea", art: .moon, kind: .badge),
-                scripture: "Jonah 2:10"
+                reward: Collectible(id: "c-night-sea", name: "Night Sea", art: .moon, kind: .badge)
             )
         ],
         bonusReward: Collectible(id: "c-jonah", name: "Jonah", art: .jonah, kind: .character)
@@ -674,7 +673,7 @@ enum ContentLibrary {
                 id: "jesus-order",
                 title: "Hush! Be Quiet!",
                 subtitle: "Put the story in order.",
-                introLine: "One night a big storm rocked the boat — but Jesus was not afraid! Let's tell the story.",
+                introLine: "One evening a great storm rocked the boat — but Jesus calmed it! Let's tell the story.",
                 completionLine: "Even the wind and the sea obey Jesus!",
                 icon: .boat,
                 spec: .sequence(steps: [
@@ -704,7 +703,7 @@ enum ContentLibrary {
                 title: "Water into Wine",
                 subtitle: "Help with the very first miracle!",
                 introLine: "At a wedding feast, the wine ran out. Jesus performed his very first miracle! Fill the big jars with water and watch what happens.",
-                completionLine: "The water became the finest wine — Jesus' first miracle!",
+                completionLine: "The water became fine wine — Jesus' first miracle!",
                 icon: .jar,
                 spec: .actionSequence(start: .jars0, steps: [
                     ActionStep(tool: .bucket, prompt: "Fill all the jars with water!", result: .jars3,
@@ -719,7 +718,7 @@ enum ContentLibrary {
                 title: "Gather the Leftovers",
                 subtitle: "Fill the basket with bread.",
                 introLine: "After everyone ate, there was still bread left over — twelve baskets full! Help gather it up.",
-                completionLine: "Nothing was wasted!",
+                completionLine: "They gathered twelve baskets of leftovers!",
                 icon: .basket,
                 spec: .gather(item: .bread, count: 4, container: .basket,
                               scenery: nil, decoyGuard: nil, decoyLine: nil),
@@ -742,7 +741,7 @@ enum ContentLibrary {
                 title: "Name the Apostles",
                 subtitle: "Tap each friend to meet him!",
                 introLine: "Jesus chose twelve apostles to be his special helpers. Tap each friend to hear his name!",
-                completionLine: "Jesus' friends helped him preach everywhere!",
+                completionLine: "The apostles went out to preach the good news!",
                 icon: .jesus,
                 spec: .count(items: [.villagerA, .villagerB, .villagerC], center: .jesus,
                              labels: ["Peter", "Andrew", "James", "John", "Philip",
@@ -750,14 +749,14 @@ enum ContentLibrary {
                                       "Simon", "Judas", "Judas Iscariot"],
                              littleRange: 5...8, bigRange: 12...12),
                 reward: Collectible(id: "c-twelve", name: "The Twelve", art: .star, kind: .badge),
-                scripture: "Luke 6:13-16"
+                scripture: "Luke 6:13-16; 9:1, 2, 6"
             ),
             Activity(
                 id: "jesus-come",
                 title: "Come to Jesus",
                 subtitle: "Walk all the way to Jesus!",
-                introLine: "Some friends said the children should stay away. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time.",
-                completionLine: "Jesus was so happy to see you!",
+                introLine: "The disciples tried to stop the children from coming. But Jesus said, Let the young children come to me! Walk to Jesus, one step at a time.",
+                completionLine: "Jesus warmly welcomed the children!",
                 icon: .child,
                 spec: .pathway(walker: .child, goal: .jesus, blocker: .villagerA, prize: .heart),
                 reward: Collectible(id: "c-jesus-heart", name: "Welcomed", art: .heart, kind: .badge),
@@ -873,7 +872,7 @@ enum ContentLibrary {
                 title: "Count Your Friends",
                 subtitle: "Tap each friend to count!",
                 introLine: "Look how many friends came to the meeting! How many can you count?",
-                completionLine: "So many friends who love Jehovah!",
+                completionLine: "So many friends learning about Jehovah!",
                 icon: .friendA,
                 spec: .count(items: [.friendA, .friendB, .friendC], center: nil, labels: nil,
                              littleRange: 3...8, bigRange: 6...12),
@@ -899,7 +898,7 @@ enum ContentLibrary {
                 id: "meet-speaker",
                 title: "Meet the Speaker",
                 subtitle: "Walk nicely down the aisle.",
-                introLine: "Let's go say hello to the speaker! Walk nicely past our friends — we never run at the meeting.",
+                introLine: "Let's go say hello to the speaker! Walk carefully past our friends.",
                 completionLine: "You said such a nice hello — and you walked the whole way!",
                 icon: .child,
                 spec: .pathway(walker: .child, goal: .speaker, blocker: .friendB, prize: .star),
@@ -918,13 +917,13 @@ enum ContentLibrary {
         tagline: "Grow the fruitage of the spirit!",
         icon: .fruit,
         accent: Theme.grassDeep,
-        welcomeLine: "Jehovah's spirit helps us grow nine good fruits — love, joy, peace, and more!",
+        welcomeLine: "Jehovah's spirit helps us develop nine beautiful qualities — love, joy, peace, and more!",
         activities: [
             Activity(
                 id: "qual-love",
                 title: "Love",
                 subtitle: "Give a heart to each friend.",
-                introLine: "The first fruit is love! Jesus said to love one another. Share a heart with everyone.",
+                introLine: "The first quality is love! Jesus said to love one another. Share a heart with everyone.",
                 completionLine: "Love makes every day brighter!",
                 icon: .heart,
                 spec: .deliver(item: .heart, source: .people,
@@ -1021,7 +1020,7 @@ enum ContentLibrary {
                 id: "qual-mildness",
                 title: "Mildness",
                 subtitle: "Find each gentle friend.",
-                introLine: "Mildness means being soft and gentle — like a little lamb! Find each gentle friend.",
+                introLine: "Mildness means being gentle, like Jesus! Find each gentle friend.",
                 completionLine: "Gentle and mild, just like Jesus!",
                 icon: .sheep,
                 spec: .findIt(items: [.dove, .sheep, .child, .heart]),
@@ -1147,7 +1146,7 @@ enum ContentLibrary {
                 id: "ministry-give",
                 title: "Books to Share",
                 subtitle: "Pack just enough books.",
-                introLine: "We share God's word with others! Pack just enough books — and nothing else.",
+                introLine: "We share Bible truths with others! Pack just enough books — and nothing else.",
                 completionLine: "There is more happiness in giving!",
                 icon: .book,
                 spec: .giveNumber(item: .book, container: .bag,
@@ -1242,7 +1241,7 @@ enum ContentLibrary {
                 title: "Friends Come Over",
                 subtitle: "Who's at the door?",
                 introLine: "Knock knock! Our friends are here! Can you find each one?",
-                completionLine: "A true friend loves at all times!",
+                completionLine: "A true friend shows love at all times!",
                 icon: .friendC,
                 spec: .findIt(items: [.friendA, .friendB, .friendC, .speaker]),
                 reward: Collectible(id: "c-grandma", name: "Grandma", art: .friendC, kind: .character),
@@ -1252,8 +1251,8 @@ enum ContentLibrary {
                 id: "act-visit",
                 title: "Visit Grandma",
                 subtitle: "Walk to grandma's house!",
-                introLine: "Let's visit grandma — she loves when you come! Walk to her, one step at a time.",
-                completionLine: "Grandma is so happy to see you!",
+                introLine: "Let's visit Grandma and show her love and respect! Walk to her, one step at a time.",
+                completionLine: "You showed Grandma love and respect!",
                 icon: .friendC,
                 spec: .pathway(walker: .child, goal: .friendC, blocker: .tree, prize: .heart),
                 reward: Collectible(id: "c-sister", name: "Sister", art: .friendA, kind: .character),

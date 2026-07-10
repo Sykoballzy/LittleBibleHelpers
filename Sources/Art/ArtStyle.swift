@@ -65,6 +65,7 @@ struct ArtView: View {
         case .friendA: VillagerArt(robe: Theme.sunny, hair: Theme.woodDeep)
         case .friendB: VillagerArt(robe: Theme.sky, hair: Theme.outline)
         case .friendC: VillagerArt(robe: Theme.berry, hair: Color(red: 0.75, green: 0.75, blue: 0.78))
+        case .light: LightArt()
         case .home: HomeArt()
         case .classmateA: ClassmateArt(shirt: Theme.coral, hair: Theme.outline)
         case .classmateB: ClassmateArt(shirt: Theme.leaf, hair: Color(red: 0.55, green: 0.35, blue: 0.16))
