@@ -31,7 +31,7 @@ transparency audit. Wired into the app and committed.
       modern-dress (Helping Hands, Count Your Friends, Meet the Speaker).
       Gemini style notes for the remake pass: slight white outline, baked
       cobblestone ground patch under feet, lower res (~300px vs ~1000px).
-- [ ] OPTIONAL remake pass (ChatGPT, matching the cast style): `art_speaker`,
+- [x] DONE — remake pass (ChatGPT, matching the cast style): `art_speaker`,
       `art_friendA/B/C` — same subjects, transparent, no ground patch,
       ~1024px. Drop in with the same filenames; no wiring needed.
 - [ ] `art_home.png` — NEW (Ministry + Christian Activities worlds): a cozy
@@ -46,14 +46,14 @@ transparency audit. Wired into the app and committed.
       remake pass. Tell Claude to wire when ready.
 
 ### 🛠️ REMAKES — doctrinal accuracy (Travis, 2026-07-08 evening)
-- [ ] `art_ark.png` — remake as the BOX ark (see doctrinal rules): long
+- [x] `art_ark.png` — DONE: remade as the BOX ark (see doctrinal rules): long
       rectangular wooden chest, flat sides, side door, roof window slot.
       Current one is a curved boat.
-- [ ] `art_arkHull.png` — remake to match: the box without its roof/door
+- [x] `art_arkHull.png` — DONE: remade to match: the box without its roof/door
       finished (the build stage before completion).
-- [ ] `art_arkFrame.png` — remake to match: rectangular skeleton frame of
+- [x] `art_arkFrame.png` — DONE: remade to match: rectangular skeleton frame of
       the box (posts + beams), not a curved hull frame.
-- [ ] `art_jesus.png` — remake with neat SHORT-to-medium hair
+- [x] `art_jesus.png` — DONE: remake with neat SHORT-to-medium hair
       (1 Cor 11:14). Everything else about the current one is right.
 
 ### 🔎 Optional polish (only if it bugs you on device)
