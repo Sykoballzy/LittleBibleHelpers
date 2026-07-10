@@ -46,7 +46,12 @@ scene props (dust piles, aisle rows, den walls). Details in ART_SPEC.md.
 ## 3. Game templates still to build
 
 - Dress Up (get David ready; prepare for the meeting).
-- Jigsaw Puzzle (6–12 big pieces).
+- Jigsaw Puzzle (6–12 big pieces) — **pieces AND target slots get visible
+  outlines** (Travis, 2026-07-08).
+- **Path Builder** (pipe-builder style, Travis re-up 2026-07-08): the child
+  LAYS the whole route first from direction tiles (straights/corners), then
+  the character walks it collecting stars. Distinct from the live Pathway
+  template (which now has a 7×4 board + arrow-pad controls).
 - Built already: Match, Board, Count(-by-type/labels), Sequence, Sort,
   Action Sequence(+reps), Find It, Shadow Match, Deliver, Gather,
   Give Number(+decoys), Tap-to-Color, Pathway, Clean Up — 14 templates.

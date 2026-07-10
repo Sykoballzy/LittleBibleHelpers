@@ -45,6 +45,17 @@ transparency audit. Wired into the app and committed.
       not a Bible account) — swap its villagers for friends after the
       remake pass. Tell Claude to wire when ready.
 
+### 🛠️ REMAKES — doctrinal accuracy (Travis, 2026-07-08 evening)
+- [ ] `art_ark.png` — remake as the BOX ark (see doctrinal rules): long
+      rectangular wooden chest, flat sides, side door, roof window slot.
+      Current one is a curved boat.
+- [ ] `art_arkHull.png` — remake to match: the box without its roof/door
+      finished (the build stage before completion).
+- [ ] `art_arkFrame.png` — remake to match: rectangular skeleton frame of
+      the box (posts + beams), not a curved hull frame.
+- [ ] `art_jesus.png` — remake with neat SHORT-to-medium hair
+      (1 Cor 11:14). Everything else about the current one is right.
+
 ### 🔎 Optional polish (only if it bugs you on device)
 - [ ] `art_bigFish.png` — chubby fish, not whale-shaped. Doctrinally fine.
 - [ ] `art_angel.png` — correct (no wings/halo) but a bit Jesus-adjacent.
@@ -108,7 +119,13 @@ transparency audit. Wired into the app and committed.
 
 - NO crosses, halos, or religious symbols of any kind.
 - Angel: glowing humanlike figure, warm light — **no halo, no wings**.
-- Jesus: kind bearded man in a simple robe — no halo, no glow, no symbols.
+- Jesus: kind bearded man in a simple robe — no halo, no glow, no symbols —
+  and **neat, SHORT-to-medium hair** (1 Corinthians 11:14; never long
+  flowing hair).
+- **The ark is a rectangular BOX** (Genesis 6:14-16): a long wooden chest
+  with flat sides, a door in the side, and a roof with a window slot along
+  the top — NOT a curved boat, NOT a hull, no bow or stern. (Jonah's and
+  Jesus' vessels ARE boats — only Noah's ark is the box.)
 - The fruit is a **generic golden fruit** — must NOT read as an apple.
 - Serpent: clearly a snake, sly but never scary or gory.
 - Modest robes on all characters; nothing frightening anywhere.
