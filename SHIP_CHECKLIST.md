@@ -39,7 +39,7 @@ purchases, so the beta comes well before the monetization build.
       (Claude runs it; originals archived first.)
 - [ ] **App icon wiring** — asset catalog + project.yml when the icon PNG
       exists (one regenerate).
-- [ ] **Narration text audit** — NARRATION_REVIEW.md (generated) — Travis
+- [x] **Narration text audit** (DONE 2026-07-08: 49 corrections applied) — NARRATION_REVIEW.md (generated) — Travis
       reads every line once for NWT alignment / tone; Claude fixes flags.
 - [ ] Coloring-page wiring as pages arrive (image + mapped tap regions).
 - [ ] Final content sweep: every activity playable, rewards unique, no
