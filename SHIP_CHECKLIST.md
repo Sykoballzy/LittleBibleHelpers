@@ -34,7 +34,7 @@ purchases, so the beta comes well before the monetization build.
 
 ## 3. Code work before TestFlight (Claude, from Windows)
 
-- [ ] **PNG optimization pass** — 80+ stickers at ~1.2MB each ≈ 100MB+
+- [x] **PNG optimization pass** (DONE - tools/Optimize-Art.ps1, rerun per drop) — 80+ stickers at ~1.2MB each ≈ 100MB+
       bundle. Downscale to ~512px + recompress → target under ~25MB.
       (Claude runs it; originals archived first.)
 - [ ] **App icon wiring** — asset catalog + project.yml when the icon PNG
@@ -65,7 +65,8 @@ purchases, so the beta comes well before the monetization build.
 
 ## 6. Store build (after platform decision)
 
-- [ ] StoreKit: free (Creation+Noah) + $4.99 base unlock + $4.99 packs,
+- [ ] StoreKit: free (Creation+Noah) + $9.99 base unlock (8 worlds) +
+      $4.99 packs,
       Family Sharing on, purchases behind the parent gate.
 - [ ] Restore-purchases button in Parent Area (App Store requirement).
 - [ ] Content gating UI: locked worlds visible on the Journey with a
