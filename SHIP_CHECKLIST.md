@@ -19,7 +19,8 @@ purchases, so the beta comes well before the monetization build.
 - [ ] Remaining stickers: `art_home`, `art_classmateA/B`; optional Gemini
       remakes (speaker, friends).
 - [ ] **App icon** — 1024×1024, OPAQUE, no transparency, no text. Reads at
-      60px. Generate several candidates (ark + rainbow is the natural pick).
+      60px. Child-forward direction (see ART_SPEC): toddler girl hugging the
+      heart-cover Bible, sunburst corner (no halo effect), playful tilt.
 
 ## 2. Hardware & accounts (Travis)
 

@@ -65,7 +65,13 @@ transparency audit. Wired into the app and committed.
       opaque, do NOT background-remove
 - [ ] 5 coloring pages `coloring_*` (Phase 4) — white line-art, no bg removal
 - [ ] 12 apostles `art_apostle_01..12` (Phase 5) — unlocks face-match game
-- [ ] App icon (1024×1024, opaque) — required for TestFlight
+- [ ] App icon (1024×1024, opaque) — required for TestFlight.
+      DIRECTION (Travis): child-forward, NOT story-themed — happy toddler
+      girl (pigtails), slight playful tilt, hugging the small brown
+      heart-cover Bible, big warm SUNBURST in the top corner (never a sun
+      disc directly behind the head — halo risk). Variants: girl solo /
+      girl+boy pair / face + book peeking from bottom edge. Must read as
+      "preschool Bible learning" at 60px.
 
 ---
 
