@@ -17,6 +17,7 @@ targets:
       - path: Resources
         optional: true
         buildPhase: resources
+        type: folder
     info:
       path: Sources/Info.plist
       properties:

@@ -8,7 +8,7 @@ struct WorldBackground: View {
     let worldID: String
 
     var body: some View {
-        if let image = UIImage(named: "bg_\(worldID)") {
+        if let image = bundledArtImage("bg_\(worldID)") {
             GeometryReader { geo in
                 Image(uiImage: image)
                     .resizable()

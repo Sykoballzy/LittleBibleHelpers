@@ -1,6 +1,13 @@
 import SwiftUI
 import UIKit
 
+/// Finds bundled art whether Resources ships as a folder reference (files
+/// live under "Resources/…" in the bundle — new files picked up at every
+/// build, no project regeneration) or as a flat group (legacy layout).
+func bundledArtImage(_ name: String) -> UIImage? {
+    UIImage(named: "Resources/\(name)") ?? UIImage(named: name)
+}
+
 /// All artwork is designed in a fixed 120x120 unit space and scaled to fit
 /// whatever frame the caller provides. Offsets are measured from center.
 struct ArtCanvas<Content: View>: View {
@@ -37,7 +44,7 @@ struct ArtView: View {
     }
 
     var body: some View {
-        if let image = UIImage(named: imageName) {
+        if let image = bundledArtImage(imageName) {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFit()
