@@ -220,18 +220,27 @@ enum ContentLibrary {
             Activity(
                 id: "creation-color",
                 title: "Color the Garden",
-                subtitle: "Tap a color, then tap the picture!",
-                introLine: "Jehovah made a beautiful garden! Let's color it together.",
+                subtitle: "Color it — or tap the magic wand!",
+                introLine: "Jehovah made a beautiful garden! Let's color it any way you like.",
                 completionLine: "The garden looks beautiful!",
                 icon: .tree,
-                spec: .tapColor(regions: [
-                    ColorRegion(shape: .circle(diameter: 56), x: 58, y: 52, target: .green),
-                    ColorRegion(shape: .ellipse(width: 20, height: 44), x: 58, y: 96, target: .brown),
-                    ColorRegion(shape: .circle(diameter: 16), x: 46, y: 44, target: .orange),
-                    ColorRegion(shape: .circle(diameter: 16), x: 72, y: 60, target: .orange),
-                    ColorRegion(shape: .circle(diameter: 32), x: 168, y: 28, target: .yellow),
-                    ColorRegion(shape: .circle(diameter: 16), x: 148, y: 104, target: .purple),
-                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
+                spec: .coloring(page: "coloring_garden", seeds: [
+                    ColorSeed(x: 0.45, y: 0.12, target: .green),    // canopy
+                    ColorSeed(x: 0.35, y: 0.217, target: .orange),  // fruits
+                    ColorSeed(x: 0.593, y: 0.21, target: .orange),
+                    ColorSeed(x: 0.477, y: 0.357, target: .orange),
+                    ColorSeed(x: 0.33, y: 0.471, target: .orange),
+                    ColorSeed(x: 0.627, y: 0.471, target: .orange),
+                    ColorSeed(x: 0.48, y: 0.829, target: .brown),   // trunk
+                    ColorSeed(x: 0.863, y: 0.16, target: .yellow),  // sun
+                    ColorSeed(x: 0.143, y: 0.645, target: .red),    // left flower petals
+                    ColorSeed(x: 0.148, y: 0.71, target: .yellow),  // left flower center
+                    ColorSeed(x: 0.808, y: 0.638, target: .purple), // right flower petals
+                    ColorSeed(x: 0.812, y: 0.703, target: .yellow), // right flower center
+                    ColorSeed(x: 0.103, y: 0.857, target: .green),  // left leaves
+                    ColorSeed(x: 0.787, y: 0.854, target: .green),  // right leaves
+                    ColorSeed(x: 0.50, y: 0.965, target: .green),   // grassy hill
+                    ColorSeed(x: 0.07, y: 0.08, target: .blue)      // sky
                 ]),
                 reward: Collectible(id: "c-garden-tree", name: "Garden Tree", art: .tree, kind: .badge),
                 scripture: "Genesis 2:9"
