@@ -86,8 +86,8 @@ enum ContentLibrary {
             Activity(
                 id: "noah-board",
                 title: "All Aboard!",
-                subtitle: "Bring each animal onto the ark.",
-                introLine: "The rain is coming! Can you help the animals onto the ark?",
+                subtitle: "Find the pairs — two by two!",
+                introLine: "The rain is coming! Tap two matching animals and they will walk onto the ark — two by two!",
                 completionLine: "All the animals on the ark are safe!",
                 icon: .elephant,
                 spec: .boardTheArk(animals: [.elephant, .giraffe, .lion, .sheep]),

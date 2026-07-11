@@ -1,11 +1,11 @@
 import SwiftUI
 
-/// Template 3 (v4): counting by type, one kind at a time.
-/// All the items appear together (optionally around a central figure — Daniel
-/// in the lions' pit, David with his flock). The child counts one TYPE at a
-/// time: "Count the sheep!" — tap them all, hear the total, watch them pop
-/// away — then the next type. Single-type games finish with the classic
-/// "How many did you find?" numeral pick.
+/// Template 3 (v5): counting by type, one kind at a time — and every tap
+/// MOVES the item, so the count builds a picture. With a central figure the
+/// counted items gather in a ring around it (the lions circle Daniel, the
+/// apostles circle Jesus); without one they hop into a tidy lineup at the
+/// top. Single-type games finish with the classic "How many did you find?"
+/// numeral pick.
 struct CountGame: View {
     let items: [ArtKey]
     let center: ArtKey?
@@ -25,6 +25,8 @@ struct CountGame: View {
     @State private var typeOrder: [ArtKey] = []
     @State private var roundIndex = 0
     @State private var tappedIDs: [UUID] = []
+    /// Tap order per item — counted items travel to their gathered spot.
+    @State private var gatherOrder: [UUID: Int] = [:]
     @State private var removedTypes: Set<ArtKey> = []
     @State private var wiggleID: UUID?
     @State private var saidWrongType = false
@@ -85,24 +87,27 @@ struct CountGame: View {
                         .position(x: w / 2, y: h * 0.06)
                     }
 
-                    // The countable items.
+                    // The countable items. Counted ones travel to their
+                    // gathered spot (ring around the center, or top lineup).
                     ForEach(countables) { countable in
                         if !removedTypes.contains(countable.art) {
                             let isTapped = tappedIDs.contains(countable.id)
                             let isActive = countable.art == currentType || !isMultiType
+                            let spot = displayPosition(for: countable)
                             ZStack(alignment: .topTrailing) {
                                 ArtView(key: countable.art)
                                     .frame(width: size, height: size)
-                                if let order = tappedIDs.firstIndex(of: countable.id) {
+                                if let order = gatherOrder[countable.id] {
                                     NumberBadge(number: order + 1)
                                         .offset(x: 4, y: -4)
                                 }
                             }
                             .opacity(isActive ? 1 : 0.5)
-                            .scaleEffect(isTapped ? 1.10 : 1.0)
+                            .scaleEffect(isTapped ? 0.85 : 1.0)
                             .rotationEffect(.degrees(wiggleID == countable.id ? 7 : 0))
-                            .animation(.spring(response: 0.35, dampingFraction: 0.55), value: isTapped)
-                            .position(x: w * countable.position.x, y: h * countable.position.y)
+                            .animation(.spring(response: 0.45, dampingFraction: 0.65), value: isTapped)
+                            .position(x: w * spot.x, y: h * spot.y)
+                            .zIndex(isTapped ? 4 : 1)
                             .onTapGesture { tap(countable) }
                             .transition(.scale.combined(with: .opacity))
                         }
@@ -154,8 +159,10 @@ struct CountGame: View {
     private func gridPositions(count: Int, avoidCenter: Bool) -> [CGPoint] {
         let cols = count <= 4 ? count : (count <= 9 ? 3 : 4)
         let rows = Int(ceil(Double(count) / Double(cols)))
-        let top: CGFloat = 0.14
-        let bottom: CGFloat = 0.62
+        // Without a center figure the counted lineup forms along the top,
+        // so the waiting grid starts lower to leave it room.
+        let top: CGFloat = avoidCenter ? 0.14 : 0.24
+        let bottom: CGFloat = avoidCenter ? 0.62 : 0.66
         let left: CGFloat = 0.12
         let right: CGFloat = 0.88
 
@@ -173,6 +180,29 @@ struct CountGame: View {
             }
             return CGPoint(x: x, y: y)
         }
+    }
+
+    /// Where an item stands right now: its grid spot until counted, then its
+    /// gathered spot (unit coordinates).
+    private func displayPosition(for countable: Countable) -> CGPoint {
+        guard let order = gatherOrder[countable.id] else { return countable.position }
+        let expected = expectedRoundCount()
+        if center != nil {
+            // Ring around the central figure, starting at the top.
+            let angle = -Double.pi / 2 + 2 * .pi * Double(order) / Double(max(expected, 1))
+            return CGPoint(x: 0.5 + 0.26 * CGFloat(cos(angle)),
+                           y: 0.38 + 0.21 * CGFloat(sin(angle)))
+        }
+        // No center: a tidy lineup along the top, in counting order.
+        let fraction = expected > 1 ? CGFloat(order) / CGFloat(expected - 1) : 0.5
+        return CGPoint(x: 0.10 + 0.80 * fraction, y: 0.13)
+    }
+
+    /// How many items this round will gather (sizes the ring / lineup).
+    private func expectedRoundCount() -> Int {
+        if hasLabels || !isMultiType { return countables.count }
+        guard let currentType else { return countables.count }
+        return countables.filter { $0.art == currentType }.count
     }
 
     private func itemSize(count: Int, in size: CGSize) -> CGFloat {
@@ -205,8 +235,9 @@ struct CountGame: View {
         }
 
         Haptics.soft()
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
             tappedIDs.append(countable.id)
+            gatherOrder[countable.id] = tappedIDs.count - 1
         }
 
         // Labels mode: speak the NAME (Peter! Andrew!) and count everyone
