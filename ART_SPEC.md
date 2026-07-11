@@ -262,6 +262,14 @@ Keep the middle third calm; detail at the edges.
 
 ## 5. Phase 4 — Coloring pages (2048×1434, WHITE background)
 
+**HOW IT WORKS IN-APP (decided 2026-07-08): FREE coloring — any color,
+anywhere, no wrong answers — with real flood fill inside your drawn lines,
+plus a ✨ magic wand that fills every region with its intended color.
+Workflow per page: drop the PNG + tell Claude one line of intended colors
+("bands ROYGBP, grass green, sun yellow") — that becomes the wand's answer
+key. CRITICAL: every region must be fully CLOSED by thick unbroken black
+lines, or the fill leaks into neighbors.**
+
 Pure black-and-white line art, coloring-book style: very thick smooth
 outlines, LARGE fully-closed regions (a toddler taps them), 5–8 regions per
 page, no shading, no gray, no tiny gaps.

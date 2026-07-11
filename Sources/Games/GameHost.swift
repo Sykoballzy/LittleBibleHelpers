@@ -84,6 +84,8 @@ private struct GameScreen: View {
                         onComplete: finish)
         case .cleanUp(let surface, let tasks):
             CleanUpGame(surface: surface, tasks: tasks, onComplete: finish)
+        case .coloring(let page, let seeds):
+            ColoringPageGame(page: page, seeds: seeds, onComplete: finish)
         }
     }
 

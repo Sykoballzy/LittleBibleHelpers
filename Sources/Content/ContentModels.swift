@@ -138,6 +138,20 @@ enum PaletteColor: String, CaseIterable, Hashable {
     }
 
     var spokenName: String { rawValue.capitalized }
+
+    /// Byte values for the flood-fill coloring engine (matches `color`).
+    var rgb: (r: UInt8, g: UInt8, b: UInt8) {
+        switch self {
+        case .red: return (222, 87, 77)
+        case .orange: return (237, 153, 51)
+        case .yellow: return (252, 194, 56)
+        case .green: return (112, 181, 87)
+        case .blue: return (84, 163, 230)
+        case .purple: return (158, 110, 199)
+        case .brown: return (184, 125, 74)
+        case .gray: return (158, 168, 184)
+        }
+    }
 }
 
 /// A single fillable region of a colorable picture, positioned in the
@@ -151,6 +165,14 @@ enum RegionShape: Hashable {
 
 struct ColorRegion: Hashable {
     let shape: RegionShape
+    let x: CGFloat
+    let y: CGFloat
+    let target: PaletteColor
+}
+
+/// One region of a PNG coloring page: a seed point (in 0–1 unit coordinates
+/// of the image) inside the region, plus the color the magic wand gives it.
+struct ColorSeed: Hashable {
     let x: CGFloat
     let y: CGFloat
     let target: PaletteColor
@@ -229,6 +251,12 @@ enum GameSpec: Hashable {
     /// Tap-to-Color: pick a color chip, tap the matching region. The palette
     /// holds only the colors that belong in the picture — no mess, no failure.
     case tapColor(regions: [ColorRegion])
+    /// PNG coloring page (Phase 4 art): FREE coloring — any color, anywhere,
+    /// no wrong answers — with flood fill inside the drawn line art. Seeds
+    /// carry each region's INTENDED color, used by the magic wand and to
+    /// track completion. `page` is the bundled image name (e.g.
+    /// "coloring_rainbow").
+    case coloring(page: String, seeds: [ColorSeed])
     /// Step-by-step grid walk: tap an open neighboring tile to move the walker
     /// past friendly blockers to the goal, collecting prizes. Teaches walking
     /// calmly (never running) — Meet the Speaker, Come to Jesus.
