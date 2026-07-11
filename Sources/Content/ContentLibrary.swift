@@ -957,16 +957,26 @@ enum ContentLibrary {
             Activity(
                 id: "qual-joy",
                 title: "Joy",
-                subtitle: "Tap a color, then tap the picture!",
-                introLine: "Joy makes us want to sing! Color the happy picture.",
+                subtitle: "Color it — or tap the magic wand!",
+                introLine: "Joy makes us want to sing! Color the happy picture any way you like.",
                 completionLine: "What a joyful picture!",
                 icon: .sun,
-                spec: .tapColor(regions: [
-                    ColorRegion(shape: .circle(diameter: 26), x: 42, y: 46, target: .red),
-                    ColorRegion(shape: .circle(diameter: 26), x: 158, y: 44, target: .blue),
-                    ColorRegion(shape: .circle(diameter: 22), x: 64, y: 26, target: .purple),
-                    ColorRegion(shape: .circle(diameter: 40), x: 104, y: 40, target: .yellow),
-                    ColorRegion(shape: .ellipse(width: 190, height: 26), x: 100, y: 128, target: .green)
+                spec: .coloring(page: "coloring_joy", seeds: [
+                    ColorSeed(x: 0.513, y: 0.227, target: .red),    // left balloon
+                    ColorSeed(x: 0.603, y: 0.148, target: .orange), // top balloon
+                    ColorSeed(x: 0.687, y: 0.227, target: .purple), // right balloon
+                    ColorSeed(x: 0.17, y: 0.20, target: .yellow),   // sun
+                    ColorSeed(x: 0.37, y: 0.375, target: .brown),   // hair
+                    ColorSeed(x: 0.387, y: 0.614, target: .green),  // shirt
+                    ColorSeed(x: 0.397, y: 0.80, target: .blue),    // pants
+                    ColorSeed(x: 0.29, y: 0.785, target: .brown),   // shoe
+                    ColorSeed(x: 0.46, y: 0.885, target: .brown),   // shoe
+                    ColorSeed(x: 0.83, y: 0.35, target: .green),    // tree canopy
+                    ColorSeed(x: 0.83, y: 0.60, target: .brown),    // trunk
+                    ColorSeed(x: 0.667, y: 0.655, target: .green),  // bushes
+                    ColorSeed(x: 0.923, y: 0.655, target: .green),
+                    ColorSeed(x: 0.15, y: 0.93, target: .green),    // meadow
+                    ColorSeed(x: 0.95, y: 0.06, target: .blue)      // sky
                 ]),
                 reward: Collectible(id: "c-joy", name: "Joy", art: .sun, kind: .badge),
                 scripture: "Psalm 100:2"

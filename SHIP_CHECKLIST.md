@@ -13,7 +13,7 @@ purchases, so the beta comes well before the monetization build.
       creation, noah, david, jonah, daniel, jesus, meetings, ministry,
       activities, qualities. Keep the middle third calm (game pieces sit
       on top); soft, low-contrast, cartoon (NOT realistic).
-- [ ] **Coloring pages ×4** (`coloring_*`, white bg, thick black closed
+- [x] **Coloring pages ×4** (DONE 2026-07-08 — all four wired w/ seed maps) (`coloring_*`, white bg, thick black closed
       line-art): rainbow, garden, morning, joy. After each: tell Claude
       the region→color map; Claude wires tap zones over the image.
 - [ ] Remaining stickers: `art_home`, `art_classmateA/B`; optional Gemini
