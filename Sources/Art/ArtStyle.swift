@@ -1,11 +1,13 @@
 import SwiftUI
 import UIKit
 
-/// Finds bundled art whether Resources ships as a folder reference (files
-/// live under "Resources/…" in the bundle — new files picked up at every
+/// Finds bundled art whether the Art folder ships as a folder reference
+/// (files live under "Art/…" in the bundle — new files picked up at every
 /// build, no project regeneration) or as a flat group (legacy layout).
+/// NOTE: the folder must NOT be named "Resources" — iOS codesign rejects
+/// app bundles containing a root directory with that reserved name.
 func bundledArtImage(_ name: String) -> UIImage? {
-    UIImage(named: "Resources/\(name)") ?? UIImage(named: name)
+    UIImage(named: "Art/\(name)") ?? UIImage(named: name)
 }
 
 /// All artwork is designed in a fixed 120x120 unit space and scaled to fit

@@ -1,4 +1,4 @@
-# Resources — the art drop zone
+# Art — the art drop zone
 
 Save generated PNGs into THIS folder with the exact filenames from
 `ART_SPEC.md` (e.g. `art_lion.png`). Then tell Claude — the files get

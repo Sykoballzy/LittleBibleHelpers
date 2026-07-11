@@ -1,7 +1,7 @@
 # ART_SPEC — Little Bible Helpers asset generation guide
 
 The complete manifest for the AI art pass. Work through it in phases; every
-finished PNG goes in `Resources/` with the EXACT filename listed (case
+finished PNG goes in `Art/` with the EXACT filename listed (case
 matters), then the app uses it automatically in place of the vector
 placeholder.
 
@@ -296,7 +296,7 @@ face-matching "Name the Apostles."
 1. Generate with the master style block + the subject line from the table.
 2. Check the doctrinal rules + QA: transparent bg, consistent outlines,
    reads at 80 px, no text.
-3. Save into `Resources/` with the exact filename.
+3. Save into `Art/` with the exact filename.
 4. Tell Claude → commit + push → next Mac session shows the new art.
    (First asset batch only: the Xcode project needs one `xcodegen generate`.)
 

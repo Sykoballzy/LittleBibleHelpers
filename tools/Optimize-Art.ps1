@@ -13,7 +13,7 @@
 Add-Type -AssemblyName System.Drawing
 
 $root      = Split-Path -Parent $PSScriptRoot
-$resources = Join-Path $root "Resources"
+$resources = Join-Path $root "Art"
 $archive   = Join-Path $root "art-originals"
 $maxDim    = 640
 

@@ -14,7 +14,7 @@ targets:
     platform: iOS
     sources:
       - Sources
-      - path: Resources
+      - path: Art
         optional: true
         buildPhase: resources
         type: folder
