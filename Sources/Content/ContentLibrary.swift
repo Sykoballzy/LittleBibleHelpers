@@ -135,18 +135,20 @@ enum ContentLibrary {
             Activity(
                 id: "noah-color",
                 title: "Color the Rainbow",
-                subtitle: "Tap a color, then tap the picture!",
-                introLine: "After the Flood, Jehovah put his rainbow in the cloud as a sign of his covenant. Let's color it.",
+                subtitle: "Color it — or tap the magic wand!",
+                introLine: "After the Flood, Jehovah put his rainbow in the cloud as a sign of his covenant. Let's color it any way you like!",
                 completionLine: "What a beautiful rainbow!",
                 icon: .rainbow,
-                spec: .tapColor(regions: [
-                    ColorRegion(shape: .arcBand(outer: 170, thickness: 13), x: 100, y: 118, target: .red),
-                    ColorRegion(shape: .arcBand(outer: 144, thickness: 13), x: 100, y: 118, target: .orange),
-                    ColorRegion(shape: .arcBand(outer: 118, thickness: 13), x: 100, y: 118, target: .yellow),
-                    ColorRegion(shape: .arcBand(outer: 92, thickness: 13), x: 100, y: 118, target: .green),
-                    ColorRegion(shape: .arcBand(outer: 66, thickness: 13), x: 100, y: 118, target: .blue),
-                    ColorRegion(shape: .arcBand(outer: 40, thickness: 13), x: 100, y: 118, target: .purple),
-                    ColorRegion(shape: .ellipse(width: 200, height: 24), x: 100, y: 134, target: .green)
+                spec: .coloring(page: "coloring_rainbow", seeds: [
+                    ColorSeed(x: 0.50, y: 0.168, target: .red),      // outer band
+                    ColorSeed(x: 0.50, y: 0.230, target: .orange),
+                    ColorSeed(x: 0.50, y: 0.292, target: .yellow),
+                    ColorSeed(x: 0.50, y: 0.355, target: .green),
+                    ColorSeed(x: 0.50, y: 0.418, target: .purple),   // inner band
+                    ColorSeed(x: 0.13, y: 0.167, target: .yellow),   // sun
+                    ColorSeed(x: 0.60, y: 0.060, target: .blue),     // sky above
+                    ColorSeed(x: 0.50, y: 0.640, target: .blue),     // sky under the arch
+                    ColorSeed(x: 0.50, y: 0.900, target: .green)     // grassy hill
                 ]),
                 reward: Collectible(id: "c-rainbow-colors", name: "Rainbow Colors", art: .rainbow, kind: .badge),
                 scripture: "Genesis 9:13"
