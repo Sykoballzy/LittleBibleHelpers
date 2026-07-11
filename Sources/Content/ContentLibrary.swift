@@ -516,15 +516,26 @@ enum ContentLibrary {
             Activity(
                 id: "daniel-color",
                 title: "Color the Morning",
-                subtitle: "Tap a color, then tap the picture!",
+                subtitle: "Color it — or tap the magic wand!",
                 introLine: "At the first light of dawn, the king hurried to the lions' pit — and Daniel was safe! Let's color the happy morning.",
                 completionLine: "The night is over — what a beautiful morning!",
                 icon: .sun,
-                spec: .tapColor(regions: [
-                    ColorRegion(shape: .arcBand(outer: 150, thickness: 18), x: 100, y: 120, target: .orange),
-                    ColorRegion(shape: .circle(diameter: 56), x: 100, y: 100, target: .yellow),
-                    ColorRegion(shape: .ellipse(width: 42, height: 22), x: 34, y: 30, target: .gray),
-                    ColorRegion(shape: .ellipse(width: 200, height: 26), x: 100, y: 134, target: .brown)
+                spec: .coloring(page: "coloring_morning", seeds: [
+                    ColorSeed(x: 0.22, y: 0.55, target: .purple),   // Daniel's robe
+                    ColorSeed(x: 0.31, y: 0.67, target: .yellow),   // sash drape
+                    ColorSeed(x: 0.20, y: 0.13, target: .brown),    // hair
+                    ColorSeed(x: 0.265, y: 0.345, target: .brown),  // beard
+                    ColorSeed(x: 0.68, y: 0.33, target: .yellow),   // rising sun
+                    ColorSeed(x: 0.585, y: 0.145, target: .orange), // sunrise sky
+                    ColorSeed(x: 0.55, y: 0.415, target: .green),   // hills
+                    ColorSeed(x: 0.47, y: 0.57, target: .gray),     // city buildings
+                    ColorSeed(x: 0.83, y: 0.52, target: .brown),    // watchtower
+                    ColorSeed(x: 0.945, y: 0.30, target: .brown),   // window frame
+                    ColorSeed(x: 0.60, y: 0.755, target: .brown),   // window sill
+                    ColorSeed(x: 0.07, y: 0.60, target: .green),    // left plant
+                    ColorSeed(x: 0.075, y: 0.80, target: .orange),  // left pot
+                    ColorSeed(x: 0.755, y: 0.79, target: .green),   // right plant
+                    ColorSeed(x: 0.75, y: 0.90, target: .orange)    // right pot
                 ]),
                 reward: Collectible(id: "c-daniel-star", name: "Bright Star", art: .star, kind: .badge),
                 scripture: "Daniel 6:19"
