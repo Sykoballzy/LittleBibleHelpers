@@ -99,6 +99,7 @@ struct ArtView: View {
         case .villagerB: VillagerArt(robe: Theme.coral, hair: Theme.woodDeep)
         case .villagerC: VillagerArt(robe: Theme.berry, hair: Color(red: 0.42, green: 0.30, blue: 0.18))
         case .scroll: ScrollArt()
+        case .magazine: MagazineArt()
         case .adam: AdamArt()
         case .people: PeopleArt()
         case .soil: SoilArt()

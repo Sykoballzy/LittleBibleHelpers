@@ -62,22 +62,41 @@ transparency audit. Wired into the app and committed.
       NOT the sun, no face, no sun disc (the luminaries come later,
       Gen 1:14). Vector placeholder in place meanwhile.
 
+### 🛠️ REMAKE QUEUE — playtest feedback (Travis, 2026-07-10)
+- [ ] `art_angel.png` — **give it WINGS** (doctrinal reversal, see rules
+      below): majestic, strong messenger with large feathered wings, warm
+      glow, kind face. Still NO halo. Prompt idea: *"majestic strong angel
+      messenger with large white feathered wings folded behind him, kind
+      confident face, simple bright robe, soft golden glow"* + master block.
+- [ ] `art_scroll.png` — remake as a PLAIN scroll: open parchment, rolled
+      ends, a few simple wavy line-marks suggesting writing. **NO pictogram**
+      (the current one shows rain over an ark — wrong for Jonah preaching to
+      Nineveh, where the scroll also appears). Vector fallback already fixed
+      to plain lines.
+- [ ] `art_magazine.png` — NEW: friendly generic magazine for the ministry
+      games (Share the Good News, Pack Your Bag, What Do We Bring). Bright
+      cover, simple sunrise-over-meadow cover picture, blank title bar.
+      **Completely generic — must NOT imitate any real publication.**
+      Vector placeholder is live meanwhile.
+- [ ] `art_window.png` — remake SIMPLER: Daniel's arched open window with a
+      crescent moon and 2–3 stars. Current one is too detailed/fussy —
+      bold flat shapes only, must read at 80 px.
+- [ ] `art_classmateA.png` / `art_classmateB.png` — remake in clearly MODERN
+      school clothes (t-shirt/backpack vibe); current pair reads too
+      ambiguous/period. Keep the cast style from the ChatGPT remake pass.
+- [ ] 12 apostles `art_apostle_01..12` — each visibly DISTINCT at a glance
+      (hair color/style, beard/no beard, skin tone, robe color) so the
+      matching game works for non-readers.
+
 ### 🔎 Optional polish (only if it bugs you on device)
 - [ ] `art_bigFish.png` — chubby fish, not whale-shaped. Doctrinally fine.
-- [ ] `art_angel.png` — correct (no wings/halo) but a bit Jesus-adjacent.
 
-### 🗺️ Not started — later phases (the next generation sessions)
-- [ ] 8 backgrounds `bg_*` (Phase 3) — biggest world-variety win; keep
-      opaque, do NOT background-remove
-- [ ] 5 coloring pages `coloring_*` (Phase 4) — white line-art, no bg removal
-- [ ] 12 apostles `art_apostle_01..12` (Phase 5) — unlocks face-match game
-- [ ] App icon (1024×1024, opaque) — required for TestFlight.
-      DIRECTION (Travis): child-forward, NOT story-themed — happy toddler
-      girl (pigtails), slight playful tilt, hugging the small brown
-      heart-cover Bible, big warm SUNBURST in the top corner (never a sun
-      disc directly behind the head — halo risk). Variants: girl solo /
-      girl+boy pair / face + book peeking from bottom edge. Must read as
-      "preschool Bible learning" at 60px.
+### 🗺️ Later phases
+- [x] 10 backgrounds `bg_*` (Phase 3) — DONE, all ten live in the app ✓
+- [x] Coloring pages (Phase 4) — DONE: rainbow, garden, morning, joy, ark —
+      all five wired with pixel-measured wand seeds ✓
+- [x] App icon (1024×1024, opaque) — DONE: girl + Bible + sunburst, wired
+      into Assets.xcassets ✓
 
 ---
 
@@ -130,7 +149,10 @@ transparency audit. Wired into the app and committed.
 ### Doctrinal art rules (hard constraints — check every image)
 
 - NO crosses, halos, or religious symbols of any kind.
-- Angel: glowing humanlike figure, warm light — **no halo, no wings**.
+- Angel: **HAS large feathered wings** — majestic, strong, kind (matches how
+  angels appear in the publications Travis's audience knows). Warm light,
+  bright robe, **still NO halo**. (Reversed 2026-07-10 — an earlier rule
+  said no wings; wings are correct.)
 - Jesus: kind bearded man in a simple robe — no halo, no glow, no symbols —
   and **neat, SHORT-to-medium hair** (1 Corinthians 11:14; never long
   flowing hair).
@@ -163,7 +185,7 @@ candidates per asset and keep the one that best matches the cast.
 | `art_daniel.png` | adult man, short black hair + short beard, purple robe with gold sash |
 | `art_jonah.png` | adult man, brown hair + short beard, teal robe |
 | `art_jesus.png` | kind man, shoulder-length brown hair + short beard, cream robe with coral sash (NO halo/symbols) |
-| `art_angel.png` | glowing humanlike messenger, golden-blond hair, white robe, soft warm radiance (NO wings, NO halo) |
+| `art_angel.png` | majestic strong angel messenger, large white feathered wings, kind confident face, bright robe, soft warm radiance (NO halo) |
 | `art_child.png` | happy toddler, brown hair with a tuft, sky-blue tunic |
 | `art_people.png` | Adam and Eve side by side: him green tunic short dark hair, her golden tunic long auburn hair |
 | `art_villagerA.png` | townsperson, black hair, sky-blue robe |
@@ -182,7 +204,7 @@ candidates per asset and keep the one that best matches the cast.
 
 | Filename | Subject |
 |---|---|
-| `art_ark.png` | big wooden ark: hull + little cabin with round window |
+| `art_ark.png` | the BOX ark (Gen 6:14-16): long rectangular wooden chest, flat sides, side door, roof window slot |
 | `art_arkPlanks.png` | neat stack of wooden planks |
 | `art_arkFrame.png` | wooden skeleton frame of the ark hull |
 | `art_arkHull.png` | finished plain wooden hull (no cabin, unpainted) |
@@ -199,7 +221,8 @@ candidates per asset and keep the one that best matches the cast.
 | `art_saw.png` | hand saw, wooden handle |
 | `art_hammer.png` | claw hammer, wooden handle |
 | `art_brush.png` | paintbrush with coral paint on the bristles |
-| `art_scroll.png` | open parchment scroll showing a tiny picture of rain over an ark (picture only, no writing) |
+| `art_scroll.png` | PLAIN open parchment scroll, rolled ends, simple wavy line-marks — NO pictogram (used for any message: Noah's warning AND Jonah's to Nineveh) |
+| `art_magazine.png` | friendly generic magazine, bright cover with a simple sunrise-over-meadow picture and blank title bar (must NOT imitate any real publication) |
 | `art_soil.png` | small mound of brown soil with pebbles |
 | `art_seed.png` | large teardrop seed with a tiny green leaf |
 | `art_sprout.png` | tiny green sprout with two leaves in a soil mound |
@@ -216,7 +239,7 @@ candidates per asset and keep the one that best matches the cast.
 | `art_pen.png` | finished small wooden sheep-pen fence |
 | `art_penFull.png` | same pen with two happy sheep peeking over the rail |
 | `art_crown.png` | golden three-point crown with colorful gems |
-| `art_window.png` | arched open window with night sky, crescent moon and stars inside |
+| `art_window.png` | SIMPLE arched open window: bold flat frame, crescent moon + 2–3 stars inside, nothing else (current is too detailed) |
 | `art_bread.png` | round golden loaf of bread, scored top |
 | `art_bag.png` | teal fabric shoulder bag with a button flap |
 | `art_bagWithBook.png` | same teal bag with a brown book peeking out |

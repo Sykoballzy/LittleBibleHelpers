@@ -12,7 +12,7 @@ enum ArtKey: String, CaseIterable, Hashable {
     case ark, noah, rainbow, stormCloud, sun, heart, hall, star
     case moon, tree, earth
     case saw, hammer, brush, arkPlanks, arkFrame, arkHull
-    case villagerA, villagerB, villagerC, scroll, adam, people
+    case villagerA, villagerB, villagerC, scroll, magazine, adam, people
     case soil, seed, sprout, sapling, wateringCan, fruit, basket, serpent
     case david, sling, harp, staff, bucket, penFrame, pen, penFull
     case daniel, angel, crown, window
@@ -61,6 +61,7 @@ enum ArtKey: String, CaseIterable, Hashable {
         case .villagerB: return "friend"
         case .villagerC: return "helper"
         case .scroll: return "message"
+        case .magazine: return "magazine"
         case .adam: return "Adam"
         case .people: return "Adam and Eve"
         case .soil: return "soil"
@@ -264,7 +265,7 @@ enum GameSpec: Hashable {
     /// Multi-step chores: each task brings its own tool (broom, cloth, spray)
     /// and its own spots to clean — sweep the floor, wipe the chairs, wash the
     /// windows — until everything sparkles.
-    case cleanUp(surface: ArtKey, tasks: [CleanTask])
+    case cleanUp(surface: ArtKey?, tasks: [CleanTask])
 }
 
 /// One chore in a Clean Up game. When `target` is set, real objects (chairs,

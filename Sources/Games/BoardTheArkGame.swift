@@ -61,7 +61,7 @@ struct BoardTheArkGame: View {
                     .rotationEffect(.degrees(26))
                     .position(x: arkRect.midX - arkRect.width * 0.05, y: arkRect.maxY + h * 0.05)
 
-                ArkArt()
+                ArtView(key: .ark)
                     .frame(width: arkRect.width, height: arkRect.height)
                     .scaleEffect(arkBounce ? 1.05 : 1.0)
                     .position(x: arkRect.midX, y: arkRect.midY)

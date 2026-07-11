@@ -139,19 +139,52 @@ enum ContentLibrary {
                 introLine: "After the Flood, Jehovah put his rainbow in the cloud as a sign of his covenant. Let's color it any way you like!",
                 completionLine: "What a beautiful rainbow!",
                 icon: .rainbow,
+                // Band centers measured from the page's pixels (dark-line
+                // scan at x = 50%), so each seed lands in its own band.
                 spec: .coloring(page: "coloring_rainbow", seeds: [
-                    ColorSeed(x: 0.50, y: 0.168, target: .red),      // outer band
-                    ColorSeed(x: 0.50, y: 0.230, target: .orange),
-                    ColorSeed(x: 0.50, y: 0.292, target: .yellow),
-                    ColorSeed(x: 0.50, y: 0.355, target: .green),
-                    ColorSeed(x: 0.50, y: 0.418, target: .purple),   // inner band
+                    ColorSeed(x: 0.50, y: 0.183, target: .red),      // outer band
+                    ColorSeed(x: 0.50, y: 0.264, target: .orange),
+                    ColorSeed(x: 0.50, y: 0.344, target: .yellow),
+                    ColorSeed(x: 0.50, y: 0.426, target: .green),
+                    ColorSeed(x: 0.50, y: 0.507, target: .blue),     // inner band
                     ColorSeed(x: 0.13, y: 0.167, target: .yellow),   // sun
                     ColorSeed(x: 0.60, y: 0.060, target: .blue),     // sky above
-                    ColorSeed(x: 0.50, y: 0.640, target: .blue),     // sky under the arch
-                    ColorSeed(x: 0.50, y: 0.900, target: .green)     // grassy hill
+                    ColorSeed(x: 0.50, y: 0.667, target: .blue),     // sky under the arch
+                    ColorSeed(x: 0.50, y: 0.830, target: .green)     // grassy hill
                 ]),
                 reward: Collectible(id: "c-rainbow-colors", name: "Rainbow Colors", art: .rainbow, kind: .badge),
                 scripture: "Genesis 9:13"
+            ),
+            Activity(
+                id: "noah-color-ark",
+                title: "Color the Ark",
+                subtitle: "Color it — or tap the magic wand!",
+                introLine: "The ark floated safely on the waters, and Noah and the animals were safe inside! Color the ark any way you like!",
+                completionLine: "The ark is safe on the water!",
+                icon: .ark,
+                // Seed spots measured from the page's pixels (dark-line scans).
+                // Noah and the dove are left unseeded — the child's free choice.
+                spec: .coloring(page: "coloring_ark", seeds: [
+                    ColorSeed(x: 0.50, y: 0.112, target: .orange),   // roof, upper band
+                    ColorSeed(x: 0.50, y: 0.147, target: .orange),   // roof, lower band
+                    ColorSeed(x: 0.12, y: 0.158, target: .orange),   // roof, left slope
+                    ColorSeed(x: 0.50, y: 0.228, target: .brown),    // wall top, mid
+                    ColorSeed(x: 0.12, y: 0.224, target: .brown),    // wall top, left
+                    ColorSeed(x: 0.50, y: 0.298, target: .brown),    // plank strips (mid)
+                    ColorSeed(x: 0.50, y: 0.398, target: .brown),
+                    ColorSeed(x: 0.50, y: 0.508, target: .brown),
+                    ColorSeed(x: 0.50, y: 0.598, target: .brown),
+                    ColorSeed(x: 0.12, y: 0.293, target: .brown),    // plank strips (left of door)
+                    ColorSeed(x: 0.12, y: 0.391, target: .brown),
+                    ColorSeed(x: 0.12, y: 0.496, target: .brown),
+                    ColorSeed(x: 0.12, y: 0.592, target: .brown),
+                    ColorSeed(x: 0.50, y: 0.735, target: .blue),     // wave bands
+                    ColorSeed(x: 0.50, y: 0.829, target: .blue),
+                    ColorSeed(x: 0.50, y: 0.945, target: .blue),
+                    ColorSeed(x: 0.05, y: 0.050, target: .blue)      // sky
+                ]),
+                reward: Collectible(id: "c-safe-ark", name: "Safe Ark", art: .ark, kind: .badge),
+                scripture: "Genesis 7:17, 18"
             )
         ],
         bonusReward: Collectible(id: "c-noah", name: "Noah", art: .noah, kind: .character)
@@ -369,7 +402,7 @@ enum ContentLibrary {
                 introLine: "David had a harp, a sling, and a staff! Can you find the pairs?",
                 completionLine: "You matched them all!",
                 icon: .harp,
-                spec: .matchPairs(pool: [.sheep, .harp, .sling, .staff, .lion, .star]),
+                spec: .matchPairs(pool: [.sheep, .harp, .sling, .staff, .lion, .bucket]),
                 reward: Collectible(id: "c-harp", name: "Harp", art: .harp, kind: .badge),
                 scripture: "1 Samuel 16:23; 17:40"
             ),
@@ -908,7 +941,9 @@ enum ContentLibrary {
                 introLine: "Our meeting place should be clean and beautiful! Sweep the floor, wipe the chairs, and wash the windows.",
                 completionLine: "The hall is shiny clean and ready!",
                 icon: .broom,
-                spec: .cleanUp(surface: .hall, tasks: [
+                // No floating surface art — the Kingdom Hall world background
+                // IS the place being cleaned.
+                spec: .cleanUp(surface: nil, tasks: [
                     CleanTask(tool: .broom, messCount: 3, prompt: "Sweep the floor!"),
                     CleanTask(tool: .cloth, messCount: 3, prompt: "Wipe the chairs!", target: .chair),
                     CleanTask(tool: .spray, messCount: 3, prompt: "Wash the windows!", target: .hallWindow)
@@ -937,7 +972,7 @@ enum ContentLibrary {
         id: "qualities",
         title: "Christian Qualities",
         tagline: "Grow the fruitage of the spirit!",
-        icon: .fruit,
+        icon: .tree,
         accent: Theme.grassDeep,
         welcomeLine: "Jehovah's spirit helps us develop nine beautiful qualities — love, joy, peace, and more!",
         activities: [
@@ -1082,7 +1117,7 @@ enum ContentLibrary {
         id: "ministry",
         title: "Ministry",
         tagline: "Share the good news!",
-        icon: .scroll,
+        icon: .book,
         accent: Color(red: 0.42, green: 0.56, blue: 0.80),
         welcomeLine: "We love telling people about Jehovah! What would you like to do in the ministry?",
         activities: [
@@ -1104,7 +1139,7 @@ enum ContentLibrary {
                 introLine: "You can tell your friends at school about Jehovah! Share the message with each schoolmate.",
                 completionLine: "You let your light shine at school!",
                 icon: .classmateA,
-                spec: .deliver(item: .scroll, source: .child,
+                spec: .deliver(item: .magazine, source: .child,
                                targets: [.classmateA, .classmateB, .classmateA],
                                deliverLine: "You shared the good news!"),
                 reward: Collectible(id: "c-schoolmate", name: "Schoolmate", art: .classmateA, kind: .character),
@@ -1120,7 +1155,7 @@ enum ContentLibrary {
                 spec: .sequence(steps: [
                     SequenceStep(art: .child, caption: "Say hello with a smile"),
                     SequenceStep(art: .book, caption: "Read a scripture"),
-                    SequenceStep(art: .scroll, caption: "Share the good news"),
+                    SequenceStep(art: .magazine, caption: "Share the good news"),
                     SequenceStep(art: .hall, caption: "Invite them to the meeting")
                 ]),
                 reward: Collectible(id: "c-ready-heart", name: "Ready Heart", art: .heart, kind: .badge),
@@ -1146,7 +1181,7 @@ enum ContentLibrary {
                 icon: .bag,
                 spec: .actionSequence(start: .bag, steps: [
                     ActionStep(tool: .book, prompt: "Pack your Bible!", result: .bagWithBook),
-                    ActionStep(tool: .scroll, prompt: "Pack something to share!", result: .bagPacked, reps: 2)
+                    ActionStep(tool: .magazine, prompt: "Pack something to share!", result: .bagPacked, reps: 2)
                 ]),
                 reward: Collectible(id: "c-ministry-bag", name: "Ministry Bag", art: .bagPacked, kind: .badge),
                 scripture: "Matthew 28:19, 20"
@@ -1158,8 +1193,8 @@ enum ContentLibrary {
                 introLine: "In the ministry we bring love, God's word, good news, and peace! Can you find each one?",
                 completionLine: "You bring the very best things!",
                 icon: .heart,
-                spec: .findIt(items: [.heart, .book, .scroll, .dove]),
-                reward: Collectible(id: "c-good-news", name: "Good News", art: .scroll, kind: .badge),
+                spec: .findIt(items: [.heart, .book, .magazine, .dove]),
+                reward: Collectible(id: "c-good-news", name: "Good News", art: .magazine, kind: .badge),
                 scripture: "Romans 10:15"
             ),
             Activity(

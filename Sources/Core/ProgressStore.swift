@@ -5,17 +5,55 @@ struct ProgressData: Codable {
     var collectibleIDs: Set<String> = []
 }
 
-/// Local-only progress persistence. No accounts, no network.
+/// Local-only progress persistence — one file PER CHILD PROFILE, so every
+/// child has their own sticker collection. No accounts, no network.
 final class ProgressStore: ObservableObject {
     @Published private(set) var data = ProgressData()
 
-    private static var fileURL: URL {
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return dir.appendingPathComponent("progress.json")
+    private var profileID: UUID?
+
+    private static var documents: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+
+    private var fileURL: URL {
+        if let profileID {
+            return Self.documents.appendingPathComponent("progress-\(profileID.uuidString).json")
+        }
+        return Self.documents.appendingPathComponent("progress.json")
     }
 
     init() {
         load()
+    }
+
+    /// Point the store at a child's file (called when the active profile
+    /// changes). The very first profile inherits any pre-profile progress.
+    func switchProfile(_ id: UUID?) {
+        guard id != profileID else { return }
+        profileID = id
+        data = ProgressData()
+
+        // One-time adoption: the first profile ever created takes over the
+        // legacy single-child progress file.
+        if let id {
+            let target = Self.documents.appendingPathComponent("progress-\(id.uuidString).json")
+            let legacy = Self.documents.appendingPathComponent("progress.json")
+            if !FileManager.default.fileExists(atPath: target.path),
+               FileManager.default.fileExists(atPath: legacy.path) {
+                try? FileManager.default.copyItem(at: legacy, to: target)
+                let backup = Self.documents.appendingPathComponent("progress-premigration.bak")
+                try? FileManager.default.removeItem(at: backup)
+                try? FileManager.default.moveItem(at: legacy, to: backup)
+            }
+        }
+        load()
+    }
+
+    /// Removes a deleted child's saved progress.
+    func deleteProfileData(_ id: UUID) {
+        let url = Self.documents.appendingPathComponent("progress-\(id.uuidString).json")
+        try? FileManager.default.removeItem(at: url)
     }
 
     func isCompleted(_ activityID: String) -> Bool {
@@ -47,13 +85,13 @@ final class ProgressStore: ObservableObject {
     }
 
     private func load() {
-        guard let raw = try? Data(contentsOf: Self.fileURL),
+        guard let raw = try? Data(contentsOf: fileURL),
               let decoded = try? JSONDecoder().decode(ProgressData.self, from: raw) else { return }
         data = decoded
     }
 
     private func save() {
         guard let raw = try? JSONEncoder().encode(data) else { return }
-        try? raw.write(to: Self.fileURL, options: .atomic)
+        try? raw.write(to: fileURL, options: .atomic)
     }
 }

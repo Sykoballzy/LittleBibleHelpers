@@ -3,6 +3,7 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var progress: ProgressStore
 
     var body: some View {
         ZStack {
@@ -24,6 +25,12 @@ struct RootView: View {
         }
         .onChange(of: settings.meetingModeOn) { isOn in
             UIApplication.shared.isIdleTimerDisabled = isOn
+        }
+        .onChange(of: settings.activeProfileID) { id in
+            progress.switchProfile(id)
+        }
+        .onAppear {
+            progress.switchProfile(settings.activeProfileID)
         }
     }
 

@@ -6,6 +6,9 @@ struct ParentAreaView: View {
     @EnvironmentObject private var progress: ProgressStore
 
     @State private var showResetConfirm = false
+    @State private var newChildName = ""
+    @State private var newChildGender: ChildGender = .girl
+    @State private var profilePendingDelete: ChildProfile?
 
     var body: some View {
         ZStack {
@@ -49,41 +52,119 @@ struct ParentAreaView: View {
 
     private var childCard: some View {
         VStack(alignment: .leading, spacing: 16) {
-            sectionTitle("Your child")
+            sectionTitle("Your children")
 
-            TextField("Child's name", text: $settings.childName)
-                .font(Theme.body(20))
-                .foregroundColor(Theme.textDark)
-                .padding(14)
+            if settings.profiles.isEmpty {
+                Text("Add a child to start their own sticker collection.")
+                    .font(Theme.body(17))
+                    .foregroundColor(Theme.textDark.opacity(0.6))
+            }
+
+            ForEach(settings.profiles) { profile in
+                HStack(spacing: 12) {
+                    Button {
+                        settings.activeProfileID = profile.id
+                    } label: {
+                        HStack(spacing: 10) {
+                            Image(systemName: settings.activeProfileID == profile.id
+                                  ? "checkmark.circle.fill" : "circle")
+                                .font(.system(size: 24))
+                                .foregroundColor(settings.activeProfileID == profile.id
+                                                 ? Theme.leaf : Theme.textDark.opacity(0.3))
+                            Text(profile.name)
+                                .font(Theme.body(20))
+                                .foregroundColor(Theme.textDark)
+                            Text(profile.gender.label)
+                                .font(Theme.body(15))
+                                .foregroundColor(Theme.textDark.opacity(0.5))
+                        }
+                    }
+                    .buttonStyle(SquishyButtonStyle())
+
+                    Spacer()
+
+                    Button {
+                        profilePendingDelete = profile
+                    } label: {
+                        Image(systemName: "trash")
+                            .font(.system(size: 18))
+                            .foregroundColor(Theme.coral.opacity(0.8))
+                    }
+                    .buttonStyle(SquishyButtonStyle())
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(Theme.cream)
+                        .fill(settings.activeProfileID == profile.id
+                              ? Theme.leaf.opacity(0.12) : Theme.cream)
                 )
-                .autocorrectionDisabled()
+            }
 
             HStack(spacing: 12) {
+                TextField("New child's name", text: $newChildName)
+                    .font(Theme.body(20))
+                    .foregroundColor(Theme.textDark)
+                    .padding(14)
+                    .background(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .fill(Theme.cream)
+                    )
+                    .autocorrectionDisabled()
+
                 ForEach(ChildGender.allCases) { gender in
                     Button {
-                        settings.childGender = gender
+                        newChildGender = gender
                     } label: {
                         Text(gender.label)
-                            .font(Theme.body(18))
-                            .foregroundColor(settings.childGender == gender ? .white : Theme.textDark)
-                            .padding(.horizontal, 20)
+                            .font(Theme.body(17))
+                            .foregroundColor(newChildGender == gender ? .white : Theme.textDark)
+                            .padding(.horizontal, 14)
                             .padding(.vertical, 10)
                             .background(
-                                Capsule().fill(settings.childGender == gender ? Theme.leaf : Theme.creamDeep)
+                                Capsule().fill(newChildGender == gender ? Theme.leaf : Theme.creamDeep)
                             )
                     }
                     .buttonStyle(SquishyButtonStyle())
                 }
+
+                Button {
+                    let name = newChildName.trimmingCharacters(in: .whitespacesAndNewlines)
+                    guard !name.isEmpty else { return }
+                    settings.addProfile(name: name, gender: newChildGender)
+                    newChildName = ""
+                } label: {
+                    Text("Add")
+                        .font(Theme.body(18))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(Capsule().fill(Theme.sky))
+                }
+                .buttonStyle(SquishyButtonStyle())
             }
 
-            Text("The name is used to cheer your child on by name, and Boy/Girl chooses their look in the walking games.")
+            Text("Each child keeps their own progress and sticker collection. Tap a name to switch who's playing — their name is used to cheer them on, and Boy/Girl chooses their look in the walking games.")
                 .font(.system(size: 15, design: .rounded))
                 .foregroundColor(Theme.textDark.opacity(0.6))
         }
         .softCard()
+        .alert("Remove \(profilePendingDelete?.name ?? "this child")?",
+               isPresented: Binding(
+                   get: { profilePendingDelete != nil },
+                   set: { if !$0 { profilePendingDelete = nil } }
+               )) {
+            Button("Remove", role: .destructive) {
+                if let profile = profilePendingDelete {
+                    progress.deleteProfileData(profile.id)
+                    settings.removeProfile(profile.id)
+                }
+                profilePendingDelete = nil
+            }
+            Button("Cancel", role: .cancel) { profilePendingDelete = nil }
+        } message: {
+            Text("Their progress and sticker collection will be deleted.")
+        }
     }
 
     private var settingsCard: some View {

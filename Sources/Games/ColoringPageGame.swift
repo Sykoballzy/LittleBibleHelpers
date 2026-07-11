@@ -4,7 +4,8 @@ import UIKit
 /// Template 15 (NEW): PNG coloring page — FREE coloring, no wrong answers.
 /// Real flood fill inside the drawn line art: pick any chip, tap any region,
 /// it fills perfectly up to the black lines. Recoloring is allowed and fun.
-/// The ✨ magic wand sweeps the page, giving every region its intended color.
+/// The ✨ magic wand is a tool like any chip: select it, tap a region, and
+/// that region fills with ITS OWN right color — the child still does the work.
 /// The page completes when every region has been colored (any colors).
 struct ColoringPageGame: View {
     let page: String
@@ -15,7 +16,7 @@ struct ColoringPageGame: View {
 
     @StateObject private var canvasHolder = CanvasHolder()
     @State private var selected: PaletteColor?
-    @State private var wandRunning = false
+    @State private var wandSelected = false
     @State private var finished = false
 
     /// Only the page's own colors, in stable order.
@@ -64,6 +65,7 @@ struct ColoringPageGame: View {
                         Button {
                             Haptics.soft()
                             selected = color
+                            wandSelected = false
                             audio.speak(color.spokenName)
                         } label: {
                             ZStack {
@@ -77,28 +79,33 @@ struct ColoringPageGame: View {
                             .scaleEffect(selected == color ? 1.15 : 1.0)
                         }
                         .buttonStyle(SquishyButtonStyle())
-                        .disabled(wandRunning)
                     }
 
-                    // ✨ The wand: makes the whole picture just right.
+                    // ✨ The wand tool: tap a spot, it fills with its right color.
                     Button {
-                        runWand()
+                        Haptics.soft()
+                        wandSelected = true
+                        selected = nil
+                        audio.speak("The magic wand! Tap the picture!")
                     } label: {
                         ZStack {
                             Circle().fill(Color.black.opacity(0.18)).offset(y: 3)
                             Circle().fill(Theme.berry)
-                            Circle().strokeBorder(Color.white.opacity(0.5), lineWidth: 3).padding(2)
+                            Circle()
+                                .strokeBorder(Color.white, lineWidth: wandSelected ? 5 : 2)
+                                .padding(2)
                             Image(systemName: "wand.and.stars")
                                 .font(.system(size: 26, weight: .bold))
                                 .foregroundColor(.white)
                         }
                         .frame(width: 64, height: 64)
+                        .scaleEffect(wandSelected ? 1.15 : 1.0)
                     }
                     .buttonStyle(SquishyButtonStyle())
-                    .disabled(wandRunning)
                     .padding(.leading, 8)
                 }
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: selected)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: wandSelected)
                 .position(x: w / 2, y: h * 0.90)
             }
         }
@@ -117,41 +124,36 @@ struct ColoringPageGame: View {
     // MARK: Interaction
 
     private func tap(at local: CGPoint, frame: CGSize, canvas: ColoringCanvas) {
-        guard !wandRunning, !finished else { return }
-        guard let selected else {
-            audio.speak("Pick a color first!")
-            return
-        }
+        guard !finished else { return }
         guard local.x >= 0, local.y >= 0, local.x <= frame.width, local.y <= frame.height else { return }
 
         let px = Int(local.x / frame.width * canvas.size.width)
         let py = Int(local.y / frame.height * canvas.size.height)
 
+        if wandSelected {
+            switch canvas.wandFill(x: px, y: py, seeds: seeds) {
+            case .filled(let color):
+                canvasHolder.objectWillChange.send()
+                Haptics.success()
+                audio.speak(color.spokenName + "!")
+                checkCompletion(canvas: canvas)
+            case .freeRegion:
+                audio.speak("You choose that one!")
+            case .line:
+                break
+            }
+            return
+        }
+
+        guard let selected else {
+            audio.speak("Pick a color first!")
+            return
+        }
+
         if canvas.fill(x: px, y: py, color: selected.rgb) {
             canvasHolder.objectWillChange.send()
             Haptics.soft()
             audio.speak(selected.spokenName)
-            checkCompletion(canvas: canvas)
-        }
-    }
-
-    private func runWand() {
-        guard !wandRunning, let canvas = canvasHolder.canvas else { return }
-        wandRunning = true
-        Haptics.success()
-        audio.speak("Watch the magic wand!")
-
-        Task { @MainActor in
-            for seed in seeds {
-                let px = Int(seed.x * canvas.size.width)
-                let py = Int(seed.y * canvas.size.height)
-                _ = canvas.fill(x: px, y: py, color: seed.target.rgb)
-                canvasHolder.objectWillChange.send()
-                Haptics.soft()
-                try? await Task.sleep(nanoseconds: 320_000_000)
-            }
-            wandRunning = false
-            audio.speak("Ta-da! Just right!")
             checkCompletion(canvas: canvas)
         }
     }
@@ -229,12 +231,43 @@ final class ColoringCanvas {
         return !(r > 225 && g > 225 && b > 225)
     }
 
+    enum WandResult {
+        case filled(PaletteColor)
+        case freeRegion
+        case line
+    }
+
     /// Scanline BFS flood fill from (x, y). Returns false when tapping a line
     /// or out of bounds. Recoloring an already-colored region works.
     func fill(x: Int, y: Int, color: (r: UInt8, g: UInt8, b: UInt8)) -> Bool {
-        guard x >= 0, x < width, y >= 0, y < height else { return false }
+        guard let region = collectRegion(x: x, y: y) else { return false }
+        paint(region.indices, color: color)
+        return true
+    }
+
+    /// Wand tool: fills the tapped region with its own intended color by
+    /// finding the seed that lives inside that region. Regions without a
+    /// seed are the child's free choice.
+    func wandFill(x: Int, y: Int, seeds: [ColorSeed]) -> WandResult {
+        guard let region = collectRegion(x: x, y: y) else { return .line }
+        for seed in seeds {
+            let sx = Int(seed.x * CGFloat(width))
+            let sy = Int(seed.y * CGFloat(height))
+            guard sx >= 0, sx < width, sy >= 0, sy < height else { continue }
+            if region.membership[sy * width + sx] {
+                paint(region.indices, color: seed.target.rgb)
+                return .filled(seed.target)
+            }
+        }
+        return .freeRegion
+    }
+
+    /// BFS from (x, y) out to the dark lines. Nil when tapping a line or
+    /// out of bounds.
+    private func collectRegion(x: Int, y: Int) -> (indices: [Int], membership: [Bool])? {
+        guard x >= 0, x < width, y >= 0, y < height else { return nil }
         let start = y * width + x
-        if isLine(start * 4) { return false }
+        if isLine(start * 4) { return nil }
 
         var visited = [Bool](repeating: false, count: width * height)
         var queue = [start]
@@ -243,9 +276,6 @@ final class ColoringCanvas {
 
         while head < queue.count {
             let idx = queue[head]; head += 1
-            let o = idx * 4
-            pixels[o] = color.r; pixels[o + 1] = color.g; pixels[o + 2] = color.b; pixels[o + 3] = 255
-
             let cx = idx % width; let cy = idx / width
             for (nx, ny) in [(cx - 1, cy), (cx + 1, cy), (cx, cy - 1), (cx, cy + 1)] {
                 guard nx >= 0, nx < width, ny >= 0, ny < height else { continue }
@@ -256,9 +286,15 @@ final class ColoringCanvas {
                 }
             }
         }
+        return (queue, visited)
+    }
 
+    private func paint(_ indices: [Int], color: (r: UInt8, g: UInt8, b: UInt8)) {
+        for idx in indices {
+            let o = idx * 4
+            pixels[o] = color.r; pixels[o + 1] = color.g; pixels[o + 2] = color.b; pixels[o + 3] = 255
+        }
         rebuildImage()
-        return true
     }
 
     private func rebuildImage() {

@@ -8,16 +8,14 @@ purchases, so the beta comes well before the monetization build.
 
 ## 1. Asset completion (Travis — generation sessions)
 
-- [ ] **Backgrounds ×10** (`bg_*`, 2048×1536, opaque, NO bg-removal) — the
-      single biggest remaining visual upgrade. Now 10 worlds:
+- [x] **Backgrounds ×10** (DONE 2026-07-10 — all ten live in the app) —
       creation, noah, david, jonah, daniel, jesus, meetings, ministry,
-      activities, qualities. Keep the middle third calm (game pieces sit
-      on top); soft, low-contrast, cartoon (NOT realistic).
-- [x] **Coloring pages ×4** (DONE 2026-07-08 — all four wired w/ seed maps) (`coloring_*`, white bg, thick black closed
-      line-art): rainbow, garden, morning, joy. After each: tell Claude
-      the region→color map; Claude wires tap zones over the image.
-- [ ] Remaining stickers: `art_home`, `art_classmateA/B`; optional Gemini
-      remakes (speaker, friends).
+      activities, qualities.
+- [x] **Coloring pages ×5** (DONE — rainbow, garden, morning, joy + ark,
+      all wired w/ pixel-measured seed maps).
+- [ ] Remake queue from 2026-07-10 playtest — see ART_SPEC.md: winged
+      angel, plain scroll, magazine (new), simpler window, modern
+      classmates, 12 distinct apostles.
 - [x] **App icon** (DONE 2026-07-08 — wired into Assets.xcassets) — 1024×1024, OPAQUE. Reads at
       60px. Child-forward direction (see ART_SPEC): toddler girl hugging the
       heart-cover Bible, sunburst corner (no halo effect), playful tilt.
@@ -41,7 +39,8 @@ purchases, so the beta comes well before the monetization build.
       exists (one regenerate).
 - [x] **Narration text audit** (DONE 2026-07-08: 49 corrections applied) — NARRATION_REVIEW.md (generated) — Travis
       reads every line once for NWT alignment / tone; Claude fixes flags.
-- [ ] Coloring-page wiring as pages arrive (image + mapped tap regions).
+- [x] Coloring-page wiring (DONE — all five pages live, wand is now a
+      tap-tool that fills the tapped region with its right color).
 - [ ] Final content sweep: every activity playable, rewards unique, no
       vector placeholders left where PNGs exist.
 

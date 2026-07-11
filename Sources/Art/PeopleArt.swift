@@ -226,18 +226,57 @@ struct ScrollArt: View {
                 .overlay(Capsule().stroke(Theme.outline.opacity(0.3), lineWidth: 2.5))
                 .frame(width: 78, height: 16)
                 .offset(y: 38)
-            // simple picture-writing: rain cloud over an ark (a warning anyone can read)
-            Group {
-                Circle().fill(Theme.sky.opacity(0.7)).frame(width: 16).offset(x: -8, y: -14)
-                Circle().fill(Theme.sky.opacity(0.7)).frame(width: 13).offset(x: 4, y: -12)
-                Capsule().fill(Theme.sky.opacity(0.7)).frame(width: 28, height: 10).offset(y: -8)
-                Capsule().fill(Theme.sky).frame(width: 3, height: 8).rotationEffect(.degrees(14)).offset(x: -8, y: 2)
-                Capsule().fill(Theme.sky).frame(width: 3, height: 8).rotationEffect(.degrees(14)).offset(x: 2, y: 2)
+            // plain written lines — a message, whatever the message is
+            VStack(spacing: 8) {
+                ForEach(0..<4, id: \.self) { i in
+                    Capsule()
+                        .fill(Theme.outline.opacity(0.35))
+                        .frame(width: i == 3 ? 26 : 44, height: 5)
+                        .frame(maxWidth: .infinity,
+                               alignment: i == 3 ? .leading : .center)
+                }
             }
-            ArkHullShape()
-                .fill(Theme.wood)
-                .frame(width: 36, height: 26)
-                .offset(y: 18)
+            .frame(width: 44)
+        }
+    }
+}
+
+/// A friendly, completely generic magazine for the ministry games — bright
+/// cover with a sun picture and title bars. No real publication is imitated.
+struct MagazineArt: View {
+    private let cover = Color(red: 0.55, green: 0.78, blue: 0.91)
+
+    var body: some View {
+        ArtCanvas {
+            // back page peeking out
+            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                .fill(Color.white)
+                .overlay(RoundedRectangle(cornerRadius: 7).stroke(Theme.outline.opacity(0.3), lineWidth: 3))
+                .frame(width: 62, height: 82)
+                .rotationEffect(.degrees(4))
+                .offset(x: 4, y: 2)
+            // cover
+            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                .fill(cover)
+                .overlay(RoundedRectangle(cornerRadius: 7).stroke(Theme.outline.opacity(0.35), lineWidth: 3))
+                .frame(width: 62, height: 82)
+                .rotationEffect(.degrees(-3))
+            Group {
+                // title bar
+                Capsule().fill(Color.white.opacity(0.95))
+                    .frame(width: 42, height: 9)
+                    .offset(y: -28)
+                // cover picture: a little sunrise
+                Circle().fill(Theme.sunny)
+                    .frame(width: 24)
+                    .offset(y: 2)
+                Capsule().fill(Theme.leaf.opacity(0.85))
+                    .frame(width: 44, height: 12)
+                    .offset(y: 16)
+                // caption lines
+                Capsule().fill(Color.white.opacity(0.9)).frame(width: 36, height: 5).offset(y: 30)
+            }
+            .rotationEffect(.degrees(-3))
         }
     }
 }

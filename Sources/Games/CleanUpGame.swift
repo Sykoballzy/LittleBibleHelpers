@@ -4,7 +4,7 @@ import SwiftUI
 /// tool and its own spots: sweep the floor with the broom, wipe the chairs
 /// with the cloth, wash the windows with the spray. Everything ends sparkling.
 struct CleanUpGame: View {
-    let surface: ArtKey
+    let surface: ArtKey?
     let tasks: [CleanTask]
     let onComplete: () -> Void
 
@@ -47,11 +47,14 @@ struct CleanUpGame: View {
             let toolHome = CGPoint(x: w * 0.50, y: h * 0.86)
 
             ZStack {
-                // The place being cared for.
-                ArtView(key: surface)
-                    .frame(width: min(w, h) * 0.50, height: min(w, h) * 0.50)
-                    .opacity(0.9)
-                    .position(x: w * 0.5, y: h * 0.40)
+                // The place being cared for (omitted when the world
+                // background IS the place, e.g. inside the Kingdom Hall).
+                if let surface {
+                    ArtView(key: surface)
+                        .frame(width: min(w, h) * 0.50, height: min(w, h) * 0.50)
+                        .opacity(0.9)
+                        .position(x: w * 0.5, y: h * 0.40)
+                }
 
                 // Current chore prompt.
                 if let task {
@@ -191,18 +194,28 @@ struct CleanUpGame: View {
     }
 }
 
-/// A soft, unscary smudge — overlapping dusty blobs.
+/// A soft, unscary smudge — dusty blobs on a pale backing glow with an
+/// outline, so the mess reads clearly against any painted background.
 struct SmudgeView: View {
-    private let dust = Color(red: 0.55, green: 0.50, blue: 0.44)
+    private let dust = Color(red: 0.42, green: 0.37, blue: 0.31)
 
     var body: some View {
         ZStack {
-            Ellipse().fill(dust.opacity(0.35)).frame(width: 54, height: 38)
+            // Pale halo lifts the smudge off busy backgrounds.
+            Ellipse()
+                .fill(Color.white.opacity(0.75))
+                .frame(width: 66, height: 50)
+                .blur(radius: 5)
+            Ellipse().fill(dust.opacity(0.75)).frame(width: 54, height: 38)
                 .rotationEffect(.degrees(-12))
-            Ellipse().fill(dust.opacity(0.3)).frame(width: 40, height: 30)
+            Ellipse().fill(dust.opacity(0.65)).frame(width: 40, height: 30)
                 .rotationEffect(.degrees(18)).offset(x: 14, y: 8)
-            Circle().fill(dust.opacity(0.4)).frame(width: 12).offset(x: -16, y: 10)
-            Circle().fill(dust.opacity(0.35)).frame(width: 8).offset(x: 8, y: -12)
+            Circle().fill(dust.opacity(0.8)).frame(width: 12).offset(x: -16, y: 10)
+            Circle().fill(dust.opacity(0.7)).frame(width: 8).offset(x: 8, y: -12)
+            Ellipse()
+                .strokeBorder(Theme.outline.opacity(0.55), lineWidth: 3)
+                .frame(width: 58, height: 42)
+                .rotationEffect(.degrees(-12))
         }
         .frame(width: 70, height: 55)
     }
