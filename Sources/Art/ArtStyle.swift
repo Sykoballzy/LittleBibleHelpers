@@ -10,6 +10,52 @@ func bundledArtImage(_ name: String) -> UIImage? {
     UIImage(named: "Art/\(name)") ?? UIImage(named: name)
 }
 
+/// Unit-space bounding box of a bundled image's non-transparent pixels.
+/// Generated stickers often sit off-center in a padded canvas; games that
+/// anchor other scenery to an image (the ark's ramp and deck) need to know
+/// where the artwork actually is. Sampled at low resolution, cached.
+enum ArtOpaqueBounds {
+    private static var cache: [String: CGRect] = [:]
+
+    static func unitBounds(named name: String) -> CGRect {
+        if let hit = cache[name] { return hit }
+        let full = CGRect(x: 0, y: 0, width: 1, height: 1)
+        guard let cg = bundledArtImage(name)?.cgImage else {
+            cache[name] = full
+            return full
+        }
+
+        let sample = 64
+        var pixels = [UInt8](repeating: 0, count: sample * sample * 4)
+        let bounds: CGRect = pixels.withUnsafeMutableBytes { buffer in
+            guard let ctx = CGContext(data: buffer.baseAddress,
+                                      width: sample, height: sample,
+                                      bitsPerComponent: 8, bytesPerRow: sample * 4,
+                                      space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+            else { return full }
+            ctx.draw(cg, in: CGRect(x: 0, y: 0, width: sample, height: sample))
+
+            var minX = sample, minY = sample, maxX = -1, maxY = -1
+            for y in 0..<sample {
+                for x in 0..<sample where buffer[(y * sample + x) * 4 + 3] > 20 {
+                    minX = min(minX, x); maxX = max(maxX, x)
+                    minY = min(minY, y); maxY = max(maxY, y)
+                }
+            }
+            guard maxX >= minX, maxY >= minY else { return full }
+            // Buffer rows read top-first here (same convention the coloring
+            // engine relies on), so the box is already in image space.
+            return CGRect(x: CGFloat(minX) / CGFloat(sample),
+                          y: CGFloat(minY) / CGFloat(sample),
+                          width: CGFloat(maxX - minX + 1) / CGFloat(sample),
+                          height: CGFloat(maxY - minY + 1) / CGFloat(sample))
+        }
+        cache[name] = bounds
+        return bounds
+    }
+}
+
 /// All artwork is designed in a fixed 120x120 unit space and scaled to fit
 /// whatever frame the caller provides. Offsets are measured from center.
 struct ArtCanvas<Content: View>: View {

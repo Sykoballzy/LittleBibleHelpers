@@ -42,46 +42,87 @@ struct BoardTheArkGame: View {
 
     private var total: Int { passengers.count }
 
+    /// The scene anchored to the ark art's VISIBLE pixels — the ark PNG is a
+    /// wide, short strip inside a taller canvas, so anchoring to its frame
+    /// puts ramps in mid-air and deck slots in the sky.
+    private struct SceneLayout {
+        let arkFrame: CGRect   // the frame the ark view is given
+        let ark: CGRect        // where the ark's opaque pixels actually land
+        let rampTop: CGPoint   // ramp meets the ark by the door
+        let rampBase: CGPoint  // ramp meets the ground
+    }
+
+    private func layout(in size: CGSize) -> SceneLayout {
+        let w = size.width
+        let h = size.height
+        let frame = CGRect(x: w * 0.24, y: h * 0.02, width: w * 0.52, height: h * 0.56)
+        let ark = visibleArkRect(in: frame)
+        let rampTop = CGPoint(x: ark.minX + ark.width * 0.42, y: ark.maxY - 2)
+        let rampBase = CGPoint(x: rampTop.x - ark.width * 0.22, y: rampTop.y + h * 0.11)
+        return SceneLayout(arkFrame: frame, ark: ark, rampTop: rampTop, rampBase: rampBase)
+    }
+
+    /// Aspect-fits the ark image into its frame (matching ArtView's
+    /// scaledToFit + 0.94 breathing room), then crops to the opaque bounds.
+    private func visibleArkRect(in frame: CGRect) -> CGRect {
+        guard let img = bundledArtImage("art_ark"), img.size.width > 0, img.size.height > 0 else {
+            return frame // vector fallback roughly fills its frame
+        }
+        let unit = ArtOpaqueBounds.unitBounds(named: "art_ark")
+        let scale = min(frame.width / img.size.width, frame.height / img.size.height) * 0.94
+        let fw = img.size.width * scale
+        let fh = img.size.height * scale
+        let fitted = CGRect(x: frame.midX - fw / 2, y: frame.midY - fh / 2, width: fw, height: fh)
+        return CGRect(x: fitted.minX + unit.minX * fw,
+                      y: fitted.minY + unit.minY * fh,
+                      width: unit.width * fw,
+                      height: unit.height * fh)
+    }
+
     var body: some View {
         GeometryReader { geo in
             let w = geo.size.width
             let h = geo.size.height
-            let arkRect = CGRect(x: w * 0.30, y: h * 0.04, width: w * 0.40, height: h * 0.52)
+            let scene = layout(in: geo.size)
+            let ark = scene.ark
             let animalSize = min(w, h) * 0.19
+            let rampDX = scene.rampBase.x - scene.rampTop.x
+            let rampDY = scene.rampBase.y - scene.rampTop.y
 
             ZStack {
                 // Water beneath the ark.
                 Ellipse()
                     .fill(Color(red: 0.55, green: 0.78, blue: 0.92).opacity(0.65))
-                    .frame(width: arkRect.width * 1.5, height: h * 0.14)
-                    .position(x: arkRect.midX, y: arkRect.maxY + h * 0.02)
+                    .frame(width: ark.width * 1.15, height: h * 0.10)
+                    .position(x: ark.midX, y: ark.maxY + h * 0.01)
 
                 // Rain during the payoff.
                 if phase == .payoff {
                     StormCloudArt()
                         .frame(width: w * 0.3, height: w * 0.3)
-                        .position(x: arkRect.midX, y: arkRect.minY - h * 0.02)
+                        .position(x: ark.midX, y: ark.minY - h * 0.12)
                         .transition(.opacity)
                 }
 
-                // Boarding ramp up to the ark.
+                // Boarding ramp: a plank actually connecting ground to door.
                 RoundedRectangle(cornerRadius: 6, style: .continuous)
                     .fill(LinearGradient(colors: [Theme.wood, Theme.woodDeep],
                                          startPoint: .top, endPoint: .bottom))
-                    .frame(width: arkRect.width * 0.55, height: 16)
-                    .rotationEffect(.degrees(26))
-                    .position(x: arkRect.midX - arkRect.width * 0.05, y: arkRect.maxY + h * 0.05)
+                    .frame(width: hypot(rampDX, rampDY) + 12, height: 14)
+                    .rotationEffect(.radians(atan2(rampDY, rampDX)))
+                    .position(x: (scene.rampTop.x + scene.rampBase.x) / 2,
+                              y: (scene.rampTop.y + scene.rampBase.y) / 2)
 
                 ArtView(key: .ark)
-                    .frame(width: arkRect.width, height: arkRect.height)
+                    .frame(width: scene.arkFrame.width, height: scene.arkFrame.height)
                     .scaleEffect(arkBounce ? 1.05 : 1.0)
-                    .position(x: arkRect.midX, y: arkRect.midY)
+                    .position(x: scene.arkFrame.midX, y: scene.arkFrame.midY)
 
                 // Rainbow payoff arcs over the ark.
                 if showRainbow {
                     RainbowArt()
-                        .frame(width: arkRect.width * 1.6, height: arkRect.width * 1.0)
-                        .position(x: arkRect.midX, y: arkRect.minY + h * 0.02)
+                        .frame(width: ark.width * 1.1, height: ark.width * 0.65)
+                        .position(x: ark.midX, y: ark.minY - h * 0.08)
                         .transition(.scale(scale: 0.4).combined(with: .opacity))
                 }
 
@@ -91,7 +132,7 @@ struct BoardTheArkGame: View {
                     let isWalking = walkingIDs.contains(passenger.id)
                     let isSelected = selectedID == passenger.id
                     let onDeck = isOnDeck(spot)
-                    let size = onDeck ? arkRect.width * 0.20 : animalSize
+                    let size = onDeck ? max(ark.width * 0.13, 34) : animalSize
 
                     ZStack {
                         if isSelected {
@@ -109,7 +150,7 @@ struct BoardTheArkGame: View {
                     ))
                     .offset(y: spot == .meadow && !isSelected ? (bob ? -5 : 0) : 0)
                     .position(position(for: spot, homeIndex: index,
-                                       arkRect: arkRect, size: geo.size))
+                                       scene: scene, size: geo.size))
                     .zIndex(isWalking ? 6 : (onDeck ? 2 : 3))
                     .onTapGesture { tap(passenger) }
                     .allowsHitTesting(spot == .meadow && !isWalking && phase == .boarding)
@@ -142,7 +183,7 @@ struct BoardTheArkGame: View {
     }
 
     private func position(for spot: Spot, homeIndex: Int,
-                          arkRect: CGRect, size: CGSize) -> CGPoint {
+                          scene: SceneLayout, size: CGSize) -> CGPoint {
         switch spot {
         case .meadow:
             let count = max(total, 1)
@@ -159,19 +200,17 @@ struct BoardTheArkGame: View {
             return CGPoint(x: size.width * (0.10 + 0.80 * fraction),
                            y: size.height * (row == 0 ? 0.72 : 0.88))
         case .rampBase:
-            return CGPoint(x: arkRect.midX - arkRect.width * 0.32,
-                           y: arkRect.maxY + size.height * 0.11)
+            return CGPoint(x: scene.rampBase.x, y: scene.rampBase.y - 8)
         case .door:
-            return CGPoint(x: arkRect.midX + arkRect.width * 0.12,
-                           y: arkRect.maxY - size.height * 0.02)
+            return CGPoint(x: scene.rampTop.x, y: scene.rampTop.y - 14)
         case .deck(let slot):
-            let perRow = 4
-            let col = slot % perRow
-            let row = slot / perRow
-            return CGPoint(
-                x: arkRect.minX + arkRect.width * (0.18 + 0.21 * CGFloat(col)),
-                y: arkRect.minY + arkRect.height * (0.34 + 0.20 * CGFloat(row))
-            )
+            // One row standing along the roof, boarding left to right.
+            let ark = scene.ark
+            let count = max(total, 1)
+            let fraction = count > 1 ? CGFloat(slot) / CGFloat(count - 1) : 0.5
+            let deckSize = max(ark.width * 0.13, 34)
+            return CGPoint(x: ark.minX + ark.width * (0.08 + 0.84 * fraction),
+                           y: ark.minY - deckSize * 0.30)
         }
     }
 
